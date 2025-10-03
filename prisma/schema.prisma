@@ -1,0 +1,432 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+////////////////////////////////////////////////////////
+// ENUMERATIONS
+////////////////////////////////////////////////////////
+
+enum OpportunityCategory {
+  BECA_NACIONAL
+  BECA_INTERNACIONAL
+  EMPLEO
+  PRACTICAS
+}
+
+enum EducationLevel {
+  PRIMARIA
+  SECUNDARIA
+  TECNICO
+  BACHILLER
+  LICENCIADO
+  MAESTRIA
+  DOCTORADO
+  OTRO
+}
+
+enum SkillCategory {
+  TECNICA
+  BLANDA
+  IDIOMA
+}
+
+enum CVAnalysisStatus {
+  ENQUEUED
+  PROCESSING
+  DONE
+  FAILED
+}
+
+enum CVStatus {
+  CREATED
+  ANALYZED
+  REVISED
+  PUBLISHED
+  ARCHIVED
+  COMPLETED
+}
+
+enum CVFileType {
+  ORIGINAL
+  PDF
+  WORD
+  HTML
+  JSON
+  MARKDOWN
+}
+
+////////////////////////////////////////////////////////
+// MODELS education
+////////////////////////////////////////////////////////
+
+model User {
+  id            String      @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  updatedPassword Boolean @default(false)
+
+  isBlocked                 Boolean     @default(false)
+  lastLoginAt               DateTime?
+
+  // Main fields for user agreements
+  acceptedTermsAndConditions Boolean    @default(false)
+  acceptedTermsAt           DateTime?
+  acceptedPrivacyPolicy     Boolean     @default(false)
+  acceptedPrivacyPolicyAt   DateTime?
+
+  // Optional fields for security policies
+  acceptedCookiePolicy      Boolean     @default(false)
+  acceptedSecurityPolicy    Boolean     @default(false)
+  acceptedSecurityPolicyAt  DateTime?
+
+
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  candidates    Candidate[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model PaymentToken {
+  id        String    @id @default(uuid())
+  token     String    @unique
+  isUsed    Boolean   @default(false)
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@map("payment_token")
+}
+
+model Candidate {
+  id                 String                 @id @default(uuid())
+  userId             String?                @unique
+  user               User?                  @relation(fields: [userId], references: [id])
+  usage              CVUsage?
+  opportunityChoices OpportunitySelection[]
+  cvs                CV[]
+  marketingClicks    MarketingClick[]
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+
+  @@map("candidate")
+}
+
+model OpportunitySelection {
+  id          String    @id @default(uuid())
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  candidateId String
+  type        String // e.g., "Full‑time", "Internship", etc.
+  createdAt   DateTime  @default(now())
+
+  @@map("opportunity_selection")
+}
+
+model CVFile {
+  id        String   @id @default(uuid())
+  cv        CV       @relation(fields: [cvId], references: [id])
+  cvId      String
+  type      CVFileType
+  url       String
+  size      Int?
+  format    String?
+  name      String?
+  createdAt DateTime @default(now())
+
+  @@index([cvId, type])
+  @@map("cv_file")
+}
+
+model CV {
+  id                  String            @id @default(uuid())
+  title               String?
+  type                String?
+  candidate           Candidate         @relation(fields: [candidateId], references: [id])
+  candidateId         String
+  createdWithBuilder  Boolean           @default(false)
+  language            String?
+  fullName            String?
+  email               String?
+  phone               String?
+  professionalSummary String?
+  originalFileUrl     String?
+  downloadedWord      Boolean           @default(false)
+  downloadedPdf       Boolean           @default(false)
+  status              CVStatus          @default(CREATED)
+  opportunityType     String?
+  education           Education[]
+  academicProjects    AcademicProject[]
+  achievements        Achievement[]
+  skills              Skill[]
+  analyses            CVAnalysis[]
+  revisions           CVRevision[]
+  experience          Experience[]
+  certifications      Certification[]
+  files               CVFile[]
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@index([candidateId])
+  @@map("cv")
+}
+
+model Experience {
+  id          String   @id @default(uuid())
+  cv          CV       @relation(fields: [cvId], references: [id])
+  cvId        String
+  title       String?
+  company     String?
+  duration    String?
+  startDate   DateTime?
+  endDate     DateTime?
+  description String?
+  responsibilities String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("experience")
+}
+
+model Certification {
+  id          String   @id @default(uuid())
+  cv          CV       @relation(fields: [cvId], references: [id])
+  cvId        String
+  name        String?
+  issuer      String?
+  issueDate   DateTime?
+  expirationDate DateTime?
+  credentialId String?
+  credentialUrl String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("certification")
+}
+
+model CVRevision {
+  id        String   @id @default(uuid())
+  cv        CV       @relation(fields: [cvId], references: [id])
+  cvId      String
+  version   Int
+  snapshot  Json
+  checksum  String
+  createdAt DateTime @default(now())
+
+  @@unique([cvId, version])
+  @@map("cv_revision")
+}
+
+model Education {
+  id             String         @id @default(uuid())
+  cv             CV             @relation(fields: [cvId], references: [id])
+  cvId           String
+  level          EducationLevel?
+  title          String?
+  institution    String?
+  graduationYear Int?
+  grade          Float?
+  status         String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@map("education")
+}
+
+model AcademicProject {
+  id           String   @id @default(uuid())
+  cv           CV       @relation(fields: [cvId], references: [id])
+  cvId         String
+  title        String?
+  description  String?
+  technologies String?
+  duration     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("academic_project")
+}
+
+model Achievement {
+  id          String    @id @default(uuid())
+  cv          CV        @relation(fields: [cvId], references: [id])
+  cvId        String
+  title       String?
+  description String?
+  date        DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("achievement")
+}
+
+model Skill {
+  id          String        @id @default(uuid())
+  cv          CV            @relation(fields: [cvId], references: [id])
+  cvId        String
+  category    SkillCategory?
+  name        String?
+  proficiency Int?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("skill")
+}
+
+model CVAnalysis {
+  id              String           @id @default(uuid())
+  cv              CV               @relation(fields: [cvId], references: [id])
+  cvId            String
+  status          CVAnalysisStatus @default(ENQUEUED)
+  overallScore    Float
+  sectionScores   SectionScore[]
+  recommendations Recommendation[]
+  opportunities   Opportunity[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([cvId])
+  @@map("cv_analysis")
+}
+
+model Recommendation {
+  id          String       @id @default(uuid())
+  analysis    CVAnalysis   @relation(fields: [analysisId], references: [id])
+  analysisId  String
+  title       String
+  description String
+  priority    String
+
+
+  @@map("recommendation")
+}
+
+model SectionScore {
+  id          String       @id @default(uuid())
+  analysis    CVAnalysis   @relation(fields: [analysisId], references: [id])
+  analysisId  String
+  sectionName String
+  score       Float
+  fieldScores FieldScore[]
+
+  @@map("section_score")
+}
+
+model FieldScore {
+  id             String       @id @default(uuid())
+  sectionScore   SectionScore @relation(fields: [sectionScoreId], references: [id])
+  sectionScoreId String
+  fieldName      String
+  score          Float
+
+  @@map("field_score")
+}
+
+model Opportunity {
+  id              String              @id @default(uuid())
+  analysis        CVAnalysis          @relation(fields: [analysisId], references: [id])
+  analysisId      String
+  title           String
+  category        OpportunityCategory
+  deadline        DateTime?
+  requirements    String
+  matchPercentage Float
+  url             String
+  createdAt       DateTime            @default(now())
+
+  @@index([analysisId])
+  @@map("opportunity")
+}
+
+model MarketingClick {
+  id          String     @id @default(uuid())
+  candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId String?
+  source      String
+  medium      String?
+  campaign    String?
+  landingPage String?
+  metadata    Json?
+  createdAt   DateTime   @default(now())
+
+  @@index([source, campaign, createdAt])
+  @@map("marketing_click")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     String?
+  entity    String
+  entityId  String
+  action    String
+  diff      Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, createdAt])
+  @@map("audit_log")
+}
+
+model CVUsage {
+  id               String     @id @default(uuid())
+  candidate        Candidate  @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  candidateId      String     @unique
+  createCVWithAI   Int        @default(0)
+  analyzeCV        Int        @default(0)
+  updatedAt        DateTime   @updatedAt
+  createdAt        DateTime   @default(now())
+
+  @@map("cv_usage")
+}

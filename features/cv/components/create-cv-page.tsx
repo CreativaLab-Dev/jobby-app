@@ -1,0 +1,160 @@
+"use client"
+
+import {useState, useCallback, useTransition} from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Eye } from "lucide-react"
+import { getSections } from "@/lib/cv-sections"
+import { ProgressBar } from "@/features/cv/components/progress-bar"
+import { PreviewToggle } from "@/features/cv/components/preview-toggle"
+import { NavigationButtons } from "@/features/cv/components/navigation-buttons"
+import { CVSectionForm } from "@/features/cv/components/cv-section-form"
+import { CVPreview } from "@/features/cv/components/cv-preview"
+import {CVData} from "@/types/cv";
+import {saveCV} from "@/features/cv/actions/save-cv";
+import {Separator} from "@/components/ui/separator";
+
+interface CreateCVPageProps {
+  cv: CVData
+  id: string
+  opportunity: string
+}
+
+export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps) {
+  const [opportunityType,] = useState<string>(opportunity)
+  const [cvData, setCvData] = useState<CVData>(cv)
+  const [activeSection, setActiveSection] = useState(0)
+  const [showPreview, setShowPreview] = useState(true)
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+  
+  const sections = getSections(opportunityType)
+  const submit = () => {
+    if (isPending) return
+    startTransition(() => {
+      saveCV(id,cvData).then((result) => {
+        if (result?.success) {
+          console.log("CV saved successfully")
+        } else {
+          console.error("Failed to save CV:", result?.message)
+        }
+      })
+    })
+  }
+  const handleNext = () => {
+    submit()
+    if (activeSection < sections.length - 1) {
+      setActiveSection(activeSection + 1)
+    } else {
+      router.push(`/cv/${id}/preview`)
+    }
+  }
+  
+  const handlePrevious = () => {
+    if (activeSection > 0) {
+      setActiveSection(activeSection - 1)
+    }
+  }
+  
+  const updateCVData = useCallback((sectionId: string, data: any) => {
+    setCvData((prev) => ({
+      ...prev,
+      [sectionId]: data,
+    }))
+  }, [])
+  
+  const currentSection = sections[activeSection]
+  
+  return (
+    
+    <div className="h-full bg-gradient-to-br from-green-50 via-white to-blue-50">
+      <div className="container mx-auto px-4 py-4">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-7xl mx-auto">
+          {/* Progress Bar */}
+          <div className="flex items-center justify-between mb-2">
+            <ProgressBar currentStep={activeSection} totalSteps={sections.length} />
+            <PreviewToggle showPreview={showPreview} onToggle={() => setShowPreview(!showPreview)} />
+          </div>
+          
+          <NavigationButtons
+            currentStep={activeSection}
+            totalSteps={sections.length}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
+          <Separator className="my-4" />
+          <div className={`grid gap-4 ${showPreview ? "lg:grid-cols-2" : "lg:grid-cols-1"}`}>
+            {/* Form Section */}
+            <div className="space-y-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSection}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+                    <CardHeader>
+                      {/* Render the icon as a JSX component instead of invoking it like a function */}
+                      <CardTitle className="flex items-center text-2xl text-gray-800">
+                        {/**
+                         * Guardamos el componente en una variable para usarlo en JSX.
+                         * Esto evita el error “icon is not a function”.
+                         */}
+                        {(() => {
+                          const Icon = currentSection.icon
+                          return <Icon className="w-8 h-8 mr-3 text-blue-500" />
+                        })()}
+                        {currentSection.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <CVSectionForm
+                        section={currentSection}
+                        data={cvData[currentSection.id] || {}}
+                        onChange={(data) => updateCVData(currentSection.id, data)}
+                      />
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </AnimatePresence>
+              
+            </div>
+              
+            {/* Preview Section */}
+            <AnimatePresence>
+              {showPreview && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="sticky top-8"
+                >
+                  <Card className="shadow-xl border-0 bg-white">
+                    <CardHeader>
+                      <CardTitle className="flex items-center text-xl text-gray-800">
+                        <Eye className="w-6 h-6 mr-2 text-green-500" />
+                        Vista Previa del CV
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      <div className="max-h-[600px] overflow-y-auto">
+                        <CVPreview data={cvData} type={opportunityType} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          
+        </motion.div>
+        
+      </div>
+      
+    </div>
+  )
+}
