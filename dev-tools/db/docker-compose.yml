@@ -2,12 +2,12 @@ version: "3.9"
 services:
   db:
     image: postgres:16
-    container_name: lms-app
+    container_name: jobby-db
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: lms_db
+      POSTGRES_DB: jobby-db
     ports:
       - "5555:5432"
     volumes:

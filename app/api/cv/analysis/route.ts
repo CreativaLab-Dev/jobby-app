@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import {createAnalysisOfCv} from "@/lib/create-analysis-of-cv";
-import {CVData} from "@/types/cv";
-import {convertFromJsonToText} from "@/utils/convert-from-json-to-text";
-import {getCandidate} from "@/features/share/actions/get-candidate";
+import { createAnalysisOfCv } from "@/lib/create-analysis-of-cv";
+import { CVData } from "@/types/cv";
+import { convertFromJsonToText } from "@/utils/convert-from-json-to-text";
+import { getCandidate } from "@/features/share/actions/get-candidate";
 
 interface CvBody {
   cvId: string;
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   try {
     const response = await request.json();
     const { cvId, cvData }: CvBody = response;
-    
+
     const candidate = await getCandidate()
     if (!candidate) {
       return NextResponse.json(
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         { status: 404 }
       );
     }
-    
+
     const text = convertFromJsonToText(cvData);
     if (!text) {
       return NextResponse.json(
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
-    
+
     return NextResponse.json(
       { success: true, message: "CV analysis started successfully.", data: analyseId },
       { status: 200 }

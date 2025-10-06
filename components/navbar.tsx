@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { FileText, BarChart3, Zap, Plus } from "lucide-react"
 import Link from "next/link"
-import {useRouter} from "next/navigation";
-import {ProfileButton} from "@/components/profile-button";
+import { useRouter } from "next/navigation";
+import { ProfileButton } from "@/components/profile-button";
 
 interface NavbarProps {
   user: {
@@ -33,7 +33,7 @@ export function Navbar({ userLimit, user }: NavbarProps) {
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
   const [isClosed, setIsClosed] = useState(false)
-  
+
   useEffect(() => {
     setMounted(true)
     // Get of the localStorage to check if the banner is closed
@@ -42,36 +42,36 @@ export function Navbar({ userLimit, user }: NavbarProps) {
       setIsClosed(true)
     }
   }, [])
-  
+
   useEffect(() => {
     // Save the state of the banner in localStorage
     localStorage.setItem("cv-score-banner-closed", String(isClosed))
   }, [isClosed])
-  
-  
+
+
   if (!mounted) return null
-  
+
   const cvRemaining = userLimit.cvCreations.total - userLimit.cvCreations.used
   const scoresRemaining = userLimit.scoreAnalysis.total - userLimit.scoreAnalysis.used
-  
+
   const getCreditColor = (remaining: number, total: number) => {
     const percentage = remaining / total
     if (percentage > 0.6) return "text-green-600 bg-green-50 border-green-200"
     if (percentage > 0.3) return "text-yellow-600 bg-yellow-50 border-yellow-200"
     return "text-red-600 bg-red-50 border-red-200"
   }
-  
+
   const getProgressColor = (remaining: number, total: number) => {
     const percentage = remaining / total
     if (percentage > 0.6) return "from-green-400 to-green-600"
     if (percentage > 0.3) return "from-yellow-400 to-yellow-600"
     return "from-red-400 to-red-600"
   }
-  
+
   const onRedirectCv = () => {
     router.push("/cv")
   }
-  
+
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
@@ -85,20 +85,20 @@ export function Navbar({ userLimit, user }: NavbarProps) {
           <div className="flex items-center">
             <Link href="/cv" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CV</span>
+                {/* <span className="text-white font-bold text-sm">CV</span> */}
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Score
+                Jobby
               </span>
             </Link>
           </div>
-          
+
           {/* Credits Section */}
           <div className="flex items-center space-x-4">
             {/* CV Creation Credits */}
             <motion.div whileHover={{ scale: 1.05 }} className="hidden sm:block">
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm cursor-pointer"
-                    onClick={onRedirectCv}
+                onClick={onRedirectCv}
               >
                 <CardContent className="p-3">
                   <div className="flex items-center space-x-3">
@@ -125,11 +125,11 @@ export function Navbar({ userLimit, user }: NavbarProps) {
                 </CardContent>
               </Card>
             </motion.div>
-            
+
             {/* Score Analysis Credits */}
             <motion.div whileHover={{ scale: 1.05 }} className="hidden sm:block">
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm cursor-pointer"
-                    onClick={onRedirectCv}
+                onClick={onRedirectCv}
               >
                 <CardContent className="p-3">
                   <div className="flex items-center space-x-3">
@@ -156,7 +156,7 @@ export function Navbar({ userLimit, user }: NavbarProps) {
                 </CardContent>
               </Card>
             </motion.div>
-            
+
             {/* Mobile Credits */}
             <div className="flex sm:hidden items-center space-x-2">
               <Badge className={`text-xs px-2 py-1 ${getCreditColor(cvRemaining, userLimit.cvCreations.total)}`}>
@@ -168,14 +168,14 @@ export function Navbar({ userLimit, user }: NavbarProps) {
                 {scoresRemaining}
               </Badge>
             </div>
-            
+
             {/*/!* Upgrade Button *!/*/}
             {/*{!userLimit.isPremium && (*/}
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <ProfileButton user={user} />
-              </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <ProfileButton user={user} />
+            </motion.div>
             {/*)}*/}
-            
+
             {/*/!* Premium Badge *!/*/}
             {/*{userLimits.isPremium && (*/}
             {/*  <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1">*/}
@@ -186,9 +186,9 @@ export function Navbar({ userLimit, user }: NavbarProps) {
           </div>
         </div>
       </div>
-      
+
       {/* Warning Banner for Low Credits */}
-      {!isClosed && ( cvRemaining <= 1 || scoresRemaining <= 1) && (
+      {!isClosed && (cvRemaining <= 1 || scoresRemaining <= 1) && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
@@ -216,7 +216,7 @@ export function Navbar({ userLimit, user }: NavbarProps) {
                   </Button>
                 </div>
               </div>
-             
+
               <Button
                 size="sm"
                 variant="ghost"
@@ -238,6 +238,26 @@ export function Navbar({ userLimit, user }: NavbarProps) {
           </div>
         </motion.div>
       )}
+
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        className="bg-gradient-to-r from-blue-50 to-red-50 border-t border-blue-200"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Zap className="w-4 h-4 text-blue-500" />
+              <span className="text-sm text-blue-700">
+                Jobby esta en una version alpha, si tienes alguna sugerencia o problema no dudes en contactarnos a{" "}
+                <a href="mailto:soporte@jobby.com" className="text-blue-500 underline">
+                  soporte@jobby.com
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </motion.nav>
   )
 }

@@ -114,10 +114,10 @@ export const getGeminiScore = async (
   if (!GEMINI_API_KEY) {
     return { success: false, message: "GEMINI_API_KEY is not set." };
   }
-  
+
   try {
     const fullPrompt = generatePrompt(prompt);
-    
+
     const response = await fetch(GEMINI_API_URL, {
       method: "POST",
       headers: {
@@ -140,23 +140,23 @@ export const getGeminiScore = async (
         },
       }),
     });
-    
+
     if (!response.ok) {
       return {
         success: false,
         message: `Failed to fetch response from Gemini: ${response.status}`,
       };
     }
-    
+
     const data = (await response.json()) as GeminiResponse;
-    
+
     const responseText =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
-    
+
     if (!responseText) {
       return { success: false, message: "No text found in the response." };
     }
-    
+
     const match = responseText.match(/{[\s\S]*}/);
     if (!match) {
       return {
@@ -164,9 +164,9 @@ export const getGeminiScore = async (
         message: "No valid JSON found in the response.",
       };
     }
-    
+
     const jsonResponse = JSON.parse(match[0]) as GeminiCVAnalysisResponse;
-    
+
     return {
       success: true,
       response: jsonResponse,

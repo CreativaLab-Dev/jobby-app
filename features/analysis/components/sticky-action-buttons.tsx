@@ -9,6 +9,11 @@ interface StickyActionButtonsProps {
 }
 
 export function StickyActionButtons({ show }: StickyActionButtonsProps) {
+
+  const handleGoCreativaAcademy = () => {
+    window.open("https://creative-lab-lms.vercel.app/auth/login", "_blank");
+  };
+
   return (
     <AnimatePresence>
       {show && (
@@ -25,6 +30,7 @@ export function StickyActionButtons({ show }: StickyActionButtonsProps) {
                 <Button
                   size="lg"
                   className="w-full px-6 py-4 text-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  onClick={handleGoCreativaAcademy}
                 >
                   <motion.div
                     animate={{
@@ -58,6 +64,7 @@ export function StickyActionButtons({ show }: StickyActionButtonsProps) {
                   size="lg"
                   variant="outline"
                   className="w-full px-6 py-4 text-lg border-2 bg-white/90 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:border-purple-300 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                 >
                   <motion.div
                     animate={{
