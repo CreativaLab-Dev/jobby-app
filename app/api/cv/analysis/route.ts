@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { createAnalysisOfCv } from "@/lib/create-analysis-of-cv";
-import { CVData } from "@/types/cv";
-import { convertFromJsonToText } from "@/utils/convert-from-json-to-text";
 import { getCandidate } from "@/features/share/actions/get-candidate";
+import { analyzeCv } from "@/triggers/analyzeCvProcess";
+import { CVData } from "@/types/cv";
 
 interface CvBody {
   cvId: string;
@@ -11,10 +10,10 @@ interface CvBody {
 
 export async function POST(request: Request) {
   try {
-    const response = await request.json();
-    const { cvId, cvData }: CvBody = response;
+    const body = await request.json();
+    const { cvId, cvData }: CvBody = body;
 
-    const candidate = await getCandidate()
+    const candidate = await getCandidate();
     if (!candidate) {
       return NextResponse.json(
         { success: false, message: "Candidate not found." },
@@ -22,29 +21,26 @@ export async function POST(request: Request) {
       );
     }
 
-    const text = convertFromJsonToText(cvData);
-    if (!text) {
-      return NextResponse.json(
-        { success: false, message: "No text extracted from CV data." },
-        { status: 400 }
-      );
-    }
-    const analyseId = await createAnalysisOfCv(cvId, text)
-    if (!analyseId) {
-      return NextResponse.json(
-        { success: false, message: "Failed to create CV analysis." },
-        { status: 500 }
-      );
-    }
+    // 🚀 Trigger background job instead of processing inline
+    await analyzeCv.trigger({
+      cvId,
+      cvData,
+      candidateId: candidate.id,
+    });
 
+    // Respond immediately — analysis will run asynchronously
     return NextResponse.json(
-      { success: true, message: "CV analysis started successfully.", data: analyseId },
-      { status: 200 }
+      {
+        success: true,
+        message: "CV analysis started in background.",
+        data: { cvId },
+      },
+      { status: 202 }
     );
   } catch (error) {
-    console.error("Error processing PDF upload:", error);
+    console.error("❌ Error starting CV analysis:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to process PDF upload." },
+      { success: false, message: "Failed to start CV analysis." },
       { status: 500 }
     );
   }

@@ -18,17 +18,17 @@ export default function SettingsPage() {
     notifications: true,
     darkMode: false,
   });
-  
+
   const [loading, setLoading] = useState(false);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  
+
   const handleSwitchChange = (name: string) => {
     setForm({ ...form, [name]: !form[name as keyof typeof form] });
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -40,7 +40,7 @@ export default function SettingsPage() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -55,7 +55,7 @@ export default function SettingsPage() {
                 Configuración de Cuenta
               </CardTitle>
             </CardHeader>
-            
+
             <CardContent className="space-y-10 p-8">
               <form onSubmit={handleSubmit} className="space-y-10">
                 {/* Perfil */}
@@ -67,7 +67,7 @@ export default function SettingsPage() {
                     </h2>
                   </div>
                   <Separator className="mb-4" />
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-gray-700">
@@ -96,7 +96,7 @@ export default function SettingsPage() {
                     </div>
                   </div>
                 </section>
-                
+
                 {/* Seguridad */}
                 <section>
                   <div className="flex items-center gap-2 mb-4">
@@ -121,7 +121,7 @@ export default function SettingsPage() {
                     />
                   </div>
                 </section>
-                
+
                 {/* Preferencias */}
                 <section>
                   <div className="flex items-center gap-2 mb-4">
@@ -135,6 +135,7 @@ export default function SettingsPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-gray-700">Notificaciones por correo</span>
                       <Switch
+                        disabled
                         checked={form.notifications}
                         onCheckedChange={() => handleSwitchChange("notifications")}
                       />
@@ -145,15 +146,16 @@ export default function SettingsPage() {
                         Modo oscuro
                       </span>
                       <Switch
+                        disabled
                         checked={form.darkMode}
                         onCheckedChange={() => handleSwitchChange("darkMode")}
                       />
                     </div>
                   </div>
                 </section>
-                
+
                 {/* Cuentas Vinculadas */}
-                <section>
+                {/* <section>
                   <div className="flex items-center gap-2 mb-4">
                     <LinkIcon className="w-5 h-5 text-purple-600" />
                     <h2 className="text-lg font-semibold text-gray-800">
@@ -175,8 +177,8 @@ export default function SettingsPage() {
                       Conectar con GitHub
                     </Button>
                   </div>
-                </section>
-                
+                </section> */}
+
                 {/* Botón Guardar */}
                 <div>
                   <Button

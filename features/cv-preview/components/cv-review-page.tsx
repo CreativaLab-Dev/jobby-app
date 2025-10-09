@@ -107,7 +107,7 @@ export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: Previe
                 isDisabled={isDisabled}
                 cvData={cvData}
                 opportunityType={opportunityType}
-                onEditCV={() => router.push("/create-cv")}
+                onEditCV={() => router.push(`/cv/${cvId}/edit`)}
               />
               <TipCard opportunityType={opportunityType} />
             </div>

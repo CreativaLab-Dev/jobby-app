@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import {savePdf} from "@/features/upload-cv/actions/save-pdf";
-import {getTextFromPdfApi} from "@/utils/get-text-from-pdf-api";
-import {createAnalysisOfCv} from "@/lib/create-analysis-of-cv";
-import {updateUsageWithAnalyze} from "@/lib/update-usage-with-analyze";
-import {getCandidate} from "@/features/share/actions/get-candidate";
+import { savePdf } from "@/features/upload-cv/actions/save-pdf";
+import { getCandidate } from "@/features/share/actions/get-candidate";
+import { processCv } from "@/triggers/uploadCvProcess";
 
 export const runtime = "nodejs";
 
@@ -11,8 +9,8 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const pdfFile = formData.get("pdf") as File;
-    
-    const candidate = await getCandidate()
+
+    const candidate = await getCandidate();
     if (!candidate) {
       return NextResponse.json(
         { success: false, message: "Candidate not found." },
@@ -34,38 +32,30 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
     if (!pdfSaved.data) {
       return NextResponse.json(
         { success: false, message: "Failed to save PDF." },
         { status: 500 }
       );
     }
-    
-    const pdfUrl = pdfSaved.data.url;
-    
-    const textPdf = await getTextFromPdfApi(pdfUrl);
-    if (!textPdf) {
-      return NextResponse.json(
-        { success: false, message: "Failed to extract text from PDF." },
-        { status: 500 }
-      );
-    }
-    
-    const cvId = pdfSaved.data.cvId;
-    const analyzeId = await createAnalysisOfCv(cvId, textPdf)
-    if (!analyzeId) {
-      return NextResponse.json(
-        { success: false, message: "Failed to start background analyzed." },
-        { status: 500 }
-      );
-    }
-    
-    await updateUsageWithAnalyze(candidate.id)
-    
-    
-    return NextResponse.json({ success: true, message: "PDF analyzed started.", data: analyzeId });
+
+    const { url: pdfUrl, cvId } = pdfSaved.data;
+
+    // 🚀 Trigger background job instead of running inline
+    await processCv.trigger({
+      pdfUrl,
+      cvId,
+      candidateId: candidate.id,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "CV analysis started in background.",
+      data: { cvId },
+    });
   } catch (error) {
-    console.error("Error processing PDF upload:", error);
+    console.error("❌ Error processing PDF upload:", error);
     return NextResponse.json(
       { success: false, message: "Failed to process PDF upload." },
       { status: 500 }

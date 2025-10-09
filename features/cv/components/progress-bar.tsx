@@ -13,9 +13,9 @@ export function ProgressBar({ currentStep, totalSteps }: ProgressBarProps) {
 
   return (
     <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-3xl font-bold text-gray-800">Crear CV Profesional </h1>
-        <Badge variant="outline" className="text-lg px-4 py-2 mx-2">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
+        <h1 className="text-3xl font-bold text-gray-800 md:px-2">Crear CV Profesional </h1>
+        <Badge variant="outline" className="text-lg px-4 py-2">
           {currentStep + 1} de {totalSteps}
         </Badge>
       </div>
