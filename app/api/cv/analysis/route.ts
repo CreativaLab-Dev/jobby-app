@@ -22,11 +22,10 @@ export async function POST(request: Request) {
     }
 
     await inngest.send({
-      name: "cv.analyze", // or "cv.process"
-      data: { cvId, cvData, candidateId: candidate.id } // same payload as before
+      name: "cv.analyze",
+      data: { cvId, cvData, candidateId: candidate.id }
     });
 
-    // Respond immediately — analysis will run asynchronously
     return NextResponse.json(
       {
         success: true,
