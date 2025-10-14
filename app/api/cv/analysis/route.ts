@@ -1,6 +1,6 @@
+import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 import { getCandidate } from "@/features/share/actions/get-candidate";
-import { analyzeCv } from "@/triggers/analyzeCvProcess";
 import { CVData } from "@/types/cv";
 
 interface CvBody {
@@ -21,11 +21,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // 🚀 Trigger background job instead of processing inline
-    await analyzeCv.trigger({
-      cvId,
-      cvData,
-      candidateId: candidate.id,
+    await inngest.send({
+      name: "cv.analyze", // or "cv.process"
+      data: { cvId, cvData, candidateId: candidate.id } // same payload as before
     });
 
     // Respond immediately — analysis will run asynchronously

@@ -1,7 +1,7 @@
+import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 import { savePdf } from "@/features/upload-cv/actions/save-pdf";
 import { getCandidate } from "@/features/share/actions/get-candidate";
-import { processCv } from "@/triggers/uploadCvProcess";
 
 export const runtime = "nodejs";
 
@@ -42,11 +42,9 @@ export async function POST(request: Request) {
 
     const { url: pdfUrl, cvId } = pdfSaved.data;
 
-    // 🚀 Trigger background job instead of running inline
-    await processCv.trigger({
-      pdfUrl,
-      cvId,
-      candidateId: candidate.id,
+    await inngest.send({
+      name: "cv.process",
+      data: { pdfUrl, cvId, candidateId: candidate.id }
     });
 
     return NextResponse.json({

@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress"
 import { BarChart3, TrendingUp, TrendingDown, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/utils/format-date"
 
 const categoryMap = {
   "personalInformation": "Información Personal",
@@ -107,7 +108,7 @@ export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPagePro
                               <TrendingDown className="w-5 h-5 text-red-500" />
                             )}
                           </CardTitle>
-                          <CardDescription>Analizado el {new Date(score.date).toLocaleDateString()}</CardDescription>
+                          <CardDescription>Analizado el {formatDate(score.date, "dd/MM/yyyy")}</CardDescription>
                         </div>
                         <div className="">
                           <Button variant="ghost" size="sm" className="ml-2 cursor-pointer text-purple-600 hover:text-purple-800 border-2 border-purple-300 hover:border-purple-500 transition-colors duration-200"
