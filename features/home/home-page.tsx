@@ -14,7 +14,7 @@ import {
   Award,
   ArrowRight,
   Users,
-  CheckCircle,
+  // CheckCircle,
 } from "lucide-react"
 import Link from "next/link"
 
