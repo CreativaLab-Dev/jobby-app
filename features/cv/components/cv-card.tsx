@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FileText, Eye, Edit } from "lucide-react"
 import type { CV } from "@prisma/client"
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import { formatDate } from "@/utils/format-date"
 
 interface CVCardProps {
   cv: CV
@@ -26,7 +27,7 @@ export function CVCard({ cv }: CVCardProps) {
   const handleEdit = () => {
     router.push(`/cv/${cv.id}/edit`)
   }
-  
+
   const handleSeeDetail = () => {
     router.push(`/cv/${cv.id}/preview`)
   }
@@ -50,21 +51,21 @@ export function CVCard({ cv }: CVCardProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-2 text-sm text-gray-600 mb-4">
-          <p>Creado: {new Date(cv.createdAt).toLocaleDateString()}</p>
-          <p>Modificado: {new Date(cv.updatedAt).toLocaleDateString()}</p>
+          <p>Creado: {formatDate(cv.createdAt, "dd/MM/yyyy")}</p>
+          <p>Modificado: {formatDate(cv.updatedAt, "dd/MM/yyyy")}</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline"
-                  size="sm"
-                  className="flex-1 bg-transparent cursor-pointer"
-                  onClick={handleSeeDetail}>
+            size="sm"
+            className="flex-1 bg-transparent cursor-pointer"
+            onClick={handleSeeDetail}>
             <Eye className="w-4 h-4 mr-1" />
             Ver
           </Button>
           <Button variant="outline"
-                  size="sm"
-                  className="flex-1 bg-transparent cursor-pointer"
-                  onClick={handleEdit}>
+            size="sm"
+            className="flex-1 bg-transparent cursor-pointer"
+            onClick={handleEdit}>
             <Edit className="w-4 h-4 mr-1" />
             Editar
           </Button>

@@ -30,7 +30,8 @@ export function CVListHeader({ disabledButton }: CVListHeaderProps) {
         <Button
           disabled={disabledButton}
           className="bg-gradient-to-r from-emerald-400 to-blue-500 hover:from-emerald-500 hover:to-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
-          <Plus className="w-4 h-4 mr-2" />✨ Crear Nuevo CV
+          <Plus className="w-4 h-4 md:mr-2" />
+          <span className="hidden md:inline">✨ Crear Nuevo CV</span>
         </Button>
       </CreateCVModal>
     </div>
