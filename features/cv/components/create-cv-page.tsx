@@ -57,7 +57,7 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
     }
   }
   
-  const updateCVData = useCallback((sectionId: string, data: any) => {
+  const updateCVData = useCallback((sectionId: string, data: Record<string, unknown>) => {
     setCvData((prev) => ({
       ...prev,
       [sectionId]: data,
