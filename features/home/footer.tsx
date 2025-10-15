@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
         </div>
         <nav className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-          <Link href="/" className="text-[#d5ed86] hover:underline">INICIO</Link>
+          <Link href="/home" className="text-[#d5ed86] hover:underline">INICIO</Link>
           <Link href="/que-es-becalab" className="text-[#d5ed86] hover:underline">QUÉ ES BECALAB</Link>
           <Link href="/becabot" className="text-[#d5ed86] hover:underline">BECABOT</Link>
           <Link href="/becalabplus" className="text-[#d5ed86] hover:underline">BECALAB+PLUS</Link>
