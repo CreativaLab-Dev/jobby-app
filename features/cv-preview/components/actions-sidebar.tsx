@@ -5,8 +5,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Download, FileText, ArrowLeft } from "lucide-react"
 import { useDownloadHandlers } from "@/hooks/use-download-handlers"
 
+interface CVData {
+  [key: string]: unknown
+}
+
 interface ActionsSidebarProps {
-  cvData: any
+  cvData: CVData
   opportunityType: string
   onEditCV: () => void
   isDisabled: boolean

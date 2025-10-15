@@ -75,7 +75,7 @@ export function CVPreview({ data, type }: CVPreviewProps) {
                     <span className="text-xs text-black whitespace-nowrap ml-2">{exp.duration}</span>
                   </div>
                   <p className="text-xs text-black italic mb-1">{exp.company}</p>
-                  <p className="text-xs text-black leading-relaxed text-justify">
+                  <ul className="text-xs text-black leading-relaxed text-justify">
                     {exp.responsibilities && exp.responsibilities
                       .split("\n")
                       .map((line, idx) => (
@@ -83,7 +83,7 @@ export function CVPreview({ data, type }: CVPreviewProps) {
                           {line.replace(/^[-–•]\s*/, "")}
                         </li>
                       ))}
-                  </p>
+                  </ul>
                 </div>
               ))}
             </div>
