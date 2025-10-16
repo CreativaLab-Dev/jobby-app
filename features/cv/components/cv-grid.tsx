@@ -1,11 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { CV } from "@prisma/client"
+import type { Cv } from "@prisma/client"
 import { CVCard } from "./cv-card"
+import { CvWithRelations } from "../actions/get-cv-for-current-user"
 
 interface CVGridProps {
-  cvs: CV[]
+  cvs: CvWithRelations[]
 }
 
 export function CVGrid({ cvs }: CVGridProps) {

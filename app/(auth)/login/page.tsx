@@ -1,8 +1,7 @@
 "use client";
 
-
-import {AnimatedBackground} from "@/components/animated-background";
-import {LoginForm} from "@/components/auth/login-form";
+import { AnimatedBackground } from "@/components/animated-background";
+import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   return (

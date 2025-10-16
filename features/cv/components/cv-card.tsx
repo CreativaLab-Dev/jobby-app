@@ -4,12 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FileText, Eye, Edit } from "lucide-react"
-import type { CV } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils/format-date"
+import { CvWithRelations } from "../actions/get-cv-for-current-user"
+import { JobStatus } from "@prisma/client"
 
 interface CVCardProps {
-  cv: CV
+  cv: CvWithRelations
 }
 
 const statusMapper = {
@@ -22,7 +23,7 @@ const statusMapper = {
 }
 
 export function CVCard({ cv }: CVCardProps) {
-  const isCompleted = cv.status === "ANALYZED"
+  const lastQueueJob = cv.queueJobs[cv.queueJobs.length - 1]
   const router = useRouter()
   const handleEdit = () => {
     router.push(`/cv/${cv.id}/edit`)
@@ -38,16 +39,18 @@ export function CVCard({ cv }: CVCardProps) {
         <div className="flex items-start justify-between">
           <FileText className="w-8 h-8 text-blue-500 group-hover:scale-110 transition-transform" />
           <Badge
-            variant={isCompleted ? "default" : "secondary"}
-            className={isCompleted ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}
+            variant={lastQueueJob.status !== JobStatus.SUCCEEDED ? "default" : "secondary"}
+            className={lastQueueJob.status === JobStatus.SUCCEEDED ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}
           >
-            {statusMapper[cv.status] || "Estado desconocido"}
+            {lastQueueJob.status}
           </Badge>
         </div>
         <CardTitle className="text-xl text-gray-800 group-hover:text-blue-600 transition-colors">
           {cv?.title || <span className="text-gray-400">Sin título</span>}
         </CardTitle>
-        <CardDescription>Tipo: {cv?.type || <span className="text-gray-400">No especificado</span>}</CardDescription>
+        <CardDescription>
+          Tipo: {cv?.cvType || <span className="text-gray-400">No especificado</span>}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-2 text-sm text-gray-600 mb-4">

@@ -1,16 +1,14 @@
 "use client";
 
-import {useState, useTransition} from "react";
+import { useState, useTransition } from "react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Loader2, UserPlus } from "lucide-react";
-import {authClient} from "@/lib/auth-client";
-import {useRouter} from "next/navigation";
-import {addOpportunitySelection} from "@/features/oportunities/actions/add-opportunity-selection";
-import {createCandidate} from "@/lib/create-candidate";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const errorMapper: Record<string, string> = {
   "Email already exists": "El correo electrónico ya está en uso",
@@ -32,16 +30,16 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-  const [isPending, startTransition] = useTransition()
-  
+  const [isPending, startTransition] = useTransition();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    
+
     try {
       setError(null);
       const response = await authClient.signUp.email({
@@ -54,26 +52,27 @@ export function RegisterForm() {
         setError(errorMessage);
         return;
       }
-      setSuccess(true);
-      const userId = response.data.user.id;
+
+      const userId = response.data.user?.id;
       if (!userId) {
-        setError("No se pudo obtener el ID del usuario. Inténtalo de nuevo más tarde.");
+        setError("Error al crear la cuenta");
         return;
       }
-      startTransition(() => {
-        createCandidate(userId).then((result) => {
-          if (result?.success) {
-            router.push('/cv');
-          } else {
-            setError(result.error || "Error al crear el candidato. Inténtalo de nuevo más tarde.");
-          }
-        })
-      })
+
+      // Create a basic subscription for the new user
+
+
+      setSuccess(true);
+      router.push("/cv");
+    } catch (error: any) {
+      const errorMessage = errorMapper[error.message] || error.message || "Error al crear la cuenta";
+      setError(errorMessage);
+      return;
     } finally {
       setSubmitting(false);
     }
   };
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -95,7 +94,7 @@ export function RegisterForm() {
             Únete ahora y comienza a mejorar tu CV con IA
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
@@ -114,7 +113,7 @@ export function RegisterForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-gray-700">
@@ -131,7 +130,7 @@ export function RegisterForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Password */}
             <div className="space-y-2">
               <Label htmlFor="password" className="text-gray-700">
@@ -148,7 +147,7 @@ export function RegisterForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Confirm Password */}
             <div className="space-y-2">
               <Label htmlFor="confirmPassword" className="text-gray-700">
@@ -165,7 +164,7 @@ export function RegisterForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-md p-3">
@@ -174,7 +173,7 @@ export function RegisterForm() {
                 </div>
               </div>
             )}
-            
+
             {/* Success Message */}
             {success && (
               <div className="bg-green-50 border border-green-200 rounded-md p-3">
@@ -183,14 +182,14 @@ export function RegisterForm() {
                 </div>
               </div>
             )}
-            
+
             {/* Actions */}
             <div className="flex items-center justify-between text-sm">
               <a href="/login" className="text-orange-600 hover:text-orange-700 font-medium">
                 ¿Ya tienes cuenta? Inicia sesión
               </a>
             </div>
-            
+
             {/* Submit Button */}
             <Button
               type="submit"

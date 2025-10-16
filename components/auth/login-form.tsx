@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-import {useRouter} from "next/navigation";
-import {authClient} from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const errorMapper = {
   "Invalid password": "Contraseña incorrecta",
@@ -25,7 +25,7 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter()
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -48,7 +48,7 @@ export function LoginForm() {
       setSubmitting(false);
     }
   };
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export function LoginForm() {
             Accede a tu panel de control y gestiona tus datos de forma segura
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
@@ -83,7 +83,7 @@ export function LoginForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Password */}
             <div className="space-y-2">
               <Label htmlFor="password" className="text-gray-700">
@@ -99,7 +99,7 @@ export function LoginForm() {
                 className="border-gray-300 focus-visible:ring-orange-500"
               />
             </div>
-            
+
             {/* Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-md p-3">
@@ -108,7 +108,7 @@ export function LoginForm() {
                 </div>
               </div>
             )}
-            
+
             {/* Success Message */}
             {success && (
               <div className="bg-green-50 border border-green-200 rounded-md p-3">
@@ -120,19 +120,19 @@ export function LoginForm() {
             {/* Actions */}
             <div className="flex items-center justify-between text-sm">
               <a
-                onClick={()=> router.push('/forgot-password')}
+                onClick={() => router.push('/forgot-password')}
                 className="text-orange-600 hover:text-orange-700 font-medium hover:underline cursor-pointer"
               >
                 ¿Olvidaste tu contraseña?
               </a>
               <a
-                onClick={()=> router.push('/register')}
+                onClick={() => router.push('/register')}
                 className="text-orange-600 hover:text-orange-700 font-medium hover:underline cursor-pointer"
               >
                 Crear cuenta
               </a>
             </div>
-            
+
             {/* Submit Button */}
             <Button
               type="submit"

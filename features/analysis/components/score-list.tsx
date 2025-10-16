@@ -9,6 +9,8 @@ import { BarChart3, TrendingUp, TrendingDown, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils/format-date"
+import { Cv } from "@prisma/client"
+import { CvWithRelations } from "@/features/cv/actions/get-cv-for-current-user"
 
 const categoryMap = {
   "personalInformation": "Información Personal",
@@ -34,20 +36,12 @@ const categoryMap = {
 }
 
 interface ScoresListPageProps {
-  cvAnalyzed: {
-    id: string;
-    cvTitle: string;
-    overallScore: number;
-    categories: Record<string, number>;
-    recommendations: string[];
-    date: string;
-    trend: "up" | "down";
-  }[]
+  cvs: CvWithRelations[]
   disabledButton?: boolean;
 }
 
-export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPageProps) {
-  const [scores] = useState(cvAnalyzed)
+export function ScoresListPage({ cvs, disabledButton }: ScoresListPageProps) {
+  const [scores] = useState(cvs)
   const router = useRouter()
   const getScoreColor = (score: number) => {
     if (score >= 80) return "text-green-600"
@@ -101,14 +95,16 @@ export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPagePro
                       <div className="flex items-center gap-4">
                         <div>
                           <CardTitle className="text-xl text-gray-800 flex items-center gap-3">
-                            {score.cvTitle}
-                            {score.trend === "up" ? (
+                            {score.title || "CV Analizado"}
+                            {score.title === "up" ? (
                               <TrendingUp className="w-5 h-5 text-green-500" />
                             ) : (
                               <TrendingDown className="w-5 h-5 text-red-500" />
                             )}
                           </CardTitle>
-                          <CardDescription>Analizado el {formatDate(score.date, "dd/MM/yyyy")}</CardDescription>
+                          <CardDescription>
+                            Analizado el {formatDate(score.evaluations[0]?.createdAt, "dd/MM/yyyy")}
+                          </CardDescription>
                         </div>
                         <div className="">
                           <Button variant="ghost" size="sm" className="ml-2 cursor-pointer text-purple-600 hover:text-purple-800 border-2 border-purple-300 hover:border-purple-500 transition-colors duration-200"
@@ -118,13 +114,13 @@ export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPagePro
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className={`text-3xl font-bold ${getScoreColor(score.overallScore)}`}>
-                          {score.overallScore}
+                        <div className={`text-3xl font-bold ${getScoreColor(score.evaluations[0]?.overallScore || 0)}`}>
+                          {score.evaluations[0]?.overallScore || 0}
                         </div>
-                        <Badge className={getScoreBadgeColor(score.overallScore)}>
-                          {score.overallScore >= 80
+                        <Badge className={getScoreBadgeColor(score.evaluations[0]?.overallScore || 0)}>
+                          {score.evaluations[0]?.overallScore >= 80
                             ? "Excelente"
-                            : score.overallScore >= 60
+                            : score.evaluations[0]?.overallScore >= 60
                               ? "Bueno"
                               : "Necesita Mejora"}
                         </Badge>
@@ -137,13 +133,13 @@ export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPagePro
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-4">Puntuación por Categorías</h4>
                         <div className="space-y-3">
-                          {Object.entries(score.categories).map(([category, categoryScore]) => (
-                            <div key={category}>
+                          {score.evaluations[0]?.scores.map((section) => (
+                            <div key={section.id}>
                               <div className="flex justify-between text-sm mb-1">
-                                <span className="text-gray-600">{categoryMap[category]}</span>
-                                <span className={`font-medium ${getScoreColor(categoryScore)}`}>{categoryScore}%</span>
+                                <span className="text-gray-600">{section.sectionType}</span>
+                                <span className={`font-medium ${getScoreColor(section.score)}`}>{section.score}%</span>
                               </div>
-                              <Progress value={categoryScore} className="h-2" />
+                              <Progress value={section.score} className="h-2" />
                             </div>
                           ))}
                         </div>
@@ -153,10 +149,10 @@ export function ScoresListPage({ cvAnalyzed, disabledButton }: ScoresListPagePro
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-4">Recomendaciones de Mejora</h4>
                         <ul className="space-y-2">
-                          {score.recommendations.map((rec, idx) => (
+                          {score.evaluations[0]?.recommendations.map((rec, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
                               <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0" />
-                              {rec}
+                              {rec.text}
                             </li>
                           ))}
                         </ul>
