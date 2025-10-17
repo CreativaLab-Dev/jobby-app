@@ -136,6 +136,8 @@ model SubscriptionPlan {
   uploadCvLimit Int      @default(2) // number of uploaded CVs allowed
 
   userSubscriptions UserSubscription[]
+
+  @@map("subscription_plan")
 }
 
 model UserSubscription {
@@ -156,6 +158,7 @@ model UserSubscription {
   @@index([userId])
   @@index([planId])
   @@index([active])
+  @@map("user_subscription")
 }
 
 model Cv {
@@ -185,6 +188,7 @@ model Cv {
   @@index([language])
   @@index([opportunityType])
   @@index([cvType])
+  @@map("cv")
 }
 
 model CvSection {
@@ -201,6 +205,7 @@ model CvSection {
   // Section-level latest score may be stored in EvaluationScore per evaluation run.
   @@index([cvId, sectionType])
   @@index([cvId, order])
+  @@map("cv_section")
 }
 
 model CvEvaluation {
@@ -223,6 +228,7 @@ model CvEvaluation {
   @@index([cvId])
   @@index([status])
   @@index([createdAt])
+  @@map("cv_evaluation")
 }
 
 model EvaluationScore {
@@ -236,6 +242,7 @@ model EvaluationScore {
   createdAt    DateTime      @default(now())
 
   @@index([evaluationId, sectionType])
+  @@map("evaluation_score")
 }
 
 model Recommendation {
@@ -249,6 +256,7 @@ model Recommendation {
   createdAt    DateTime       @default(now())
 
   @@index([evaluationId])
+  @@map("recommendation")
 }
 
 model CvPreview {
@@ -262,6 +270,7 @@ model CvPreview {
   note         String? // e.g. "after edit: changed skills"
 
   @@index([cvId, createdAt])
+  @@map("cv_preview")
 }
 
 model Attachment {
@@ -275,6 +284,7 @@ model Attachment {
   createdAt DateTime @default(now())
 
   @@index([cvId])
+  @@map("attachment")
 }
 
 model QueueJob {
@@ -296,4 +306,5 @@ model QueueJob {
   @@index([status])
   @@index([type])
   @@index([cvId])
+  @@map("queue_job")
 }

@@ -2,6 +2,7 @@ import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 import { savePdf } from "@/features/upload-cv/actions/save-pdf";
 import { getCandidate } from "@/features/share/actions/get-candidate";
+import { getCurrentUser } from "@/features/share/actions/get-current-user";
 
 export const runtime = "nodejs";
 
@@ -10,17 +11,17 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const pdfFile = formData.get("pdf") as File;
 
-    const candidate = await getCandidate();
-    if (!candidate) {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
       return NextResponse.json(
-        { success: false, message: "Candidate not found." },
+        { success: false, message: "Usuario no encontrado." },
         { status: 404 }
       );
     }
 
     if (!pdfFile || !pdfFile.name.endsWith(".pdf")) {
       return NextResponse.json(
-        { success: false, message: "Invalid file. Only PDF files are allowed." },
+        { success: false, message: "Archivo inválido. Solo se permiten archivos PDF." },
         { status: 400 }
       );
     }

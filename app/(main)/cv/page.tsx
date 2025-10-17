@@ -4,6 +4,7 @@ import { ScoresListPage } from "@/features/analysis/components/score-list";
 
 export default async function CVPage() {
   let cvForCurrentUser = await getCvForCurrentUser();
+  console.log(cvForCurrentUser);
 
   return (
     <>

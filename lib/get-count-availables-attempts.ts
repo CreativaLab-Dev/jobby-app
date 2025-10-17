@@ -1,8 +1,7 @@
 import { getSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 
-export const getCountAvailableAttempts = async () => {
-  const TOTAL_MAX = 2;
+export const getCurrentSubscription = async () => {
   try {
     const session = await getSession();
     if (!session?.user?.email) {
@@ -18,6 +17,11 @@ export const getCountAvailableAttempts = async () => {
         createdAt: 'desc',
       }
     });
+    if (!lastUserSubscription) {
+      return;
+    }
+    return lastUserSubscription;
+
   } catch (error) {
     console.error("[ERROR_GET_AVAILABLE_ATTEMPTS]", error);
     return;
