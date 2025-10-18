@@ -23,9 +23,10 @@ export const saveCV = async (id: string, cvData: CVData) => {
       level: e.level! as EducationLevel,
       title: e.title!,
       institution: e.institution!,
+      location: e.location,
       graduationYear: e.year ? parseInt(e.year, 10) : null,
-      grade: e.gpa ? parseFloat(e.gpa) : null,
-      status: e.status,
+      year: e.year,
+      honors: e.honors,
     }));
     
     const nestedProjects = projectItems.map((p) => ({
@@ -48,8 +49,9 @@ export const saveCV = async (id: string, cvData: CVData) => {
     })) || [];
     
     const nestedExperience = cvData.experience?.items?.map((e) => ({
-      title: e.position!,
+      position: e.position!,
       company: e.company!,
+      location: e.location,
       duration: e.duration,
       responsibilities: e.responsibilities,
       startDate: new Date(Date.now()),
@@ -67,6 +69,8 @@ export const saveCV = async (id: string, cvData: CVData) => {
       where: { id },
       update: {
         fullName: cvData.personal?.fullName,
+        address: cvData.personal?.address,
+        linkedin: cvData.personal?.linkedin,
         email: cvData.personal?.email,
         phone: cvData.personal?.phone,
         professionalSummary: cvData.personal?.summary,
@@ -102,6 +106,8 @@ export const saveCV = async (id: string, cvData: CVData) => {
         createdWithBuilder: true,
         candidateId: candidate.id,
         fullName: cvData.personal?.fullName,
+        address: cvData.personal?.address,
+        linkedin: cvData.personal?.linkedin,
         email: cvData.personal?.email,
         phone: cvData.personal?.phone,
         professionalSummary: cvData.personal?.summary,

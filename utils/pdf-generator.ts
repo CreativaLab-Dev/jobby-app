@@ -5,7 +5,24 @@ export function generatePDFContent(data: any, type: string) {
   if (data.personal?.fullName) {
     content += `
       <div class="header">
-        <h1>${data.personal.fullName.toUpperCase()}</h1>
+        <h1>${data.personal.fullName}</h1>
+      </div>
+    `
+  }
+
+  // Contact
+  if (data.personal && (data.personal.address || data.personal.linkedin || data.personal.phone || data.personal.email)) {
+    const contactParts = [
+      data.personal.address,
+      data.personal.linkedin ? `<a href="${data.personal.linkedin.startsWith('http') ? data.personal.linkedin : 'https://' + data.personal.linkedin}" target="_blank" style="color: #2563eb; text-decoration: none;">${data.personal.linkedin}</a>` : null,
+      data.personal.phone,
+      data.personal.email
+    ].filter(Boolean).join(' • ')
+    
+    content += `
+      <div class="contact-section">
+        <p class="contact-info">${contactParts}</p>
+        <hr class="divider" />
       </div>
     `
   }
@@ -13,21 +30,8 @@ export function generatePDFContent(data: any, type: string) {
   // Summary
   if (data.personal?.summary) {
     content += `
-      <div class="summary">
-        ${data.personal.summary}
-      </div>
-      <div class="section-divider"></div>
-    `
-  }
-
-  // Contact
-  if (data.personal) {
-    content += `
-      <div class="section">
-        <div class="section-title">CONTACTO</div>
-        <div class="contact-info">
-          ${data.personal.phone || ""} - ${data.personal.email || ""}
-        </div>
+      <div class="summary-section">
+        <p class="summary">${data.personal.summary}</p>
       </div>
     `
   }
@@ -69,13 +73,16 @@ export function generatePDFContent(data: any, type: string) {
               (exp: any) => `
               <div class="experience-item">
                 <div class="item-header">
-                  <div>
-                    <div class="item-title">${exp.position || ""}</div>
-                  </div>
-                  <div class="item-date">${exp.duration || ""}</div>
+                  <div class="item-title-bold">${exp.company || ""}</div>
+                  <div class="item-location-bold">${exp.location || ""}</div>
                 </div>
-                <div class="item-subtitle">${exp.company || ""}</div>
-                <div class="item-description">${exp.responsibilities || ""}</div>
+                <div class="item-subheader">
+                  <div class="item-position">${exp.position || ""}</div>
+                  <div class="item-date-italic">${exp.duration || ""}</div>
+                </div>
+                <ul class="responsibilities-list">
+                  ${exp.responsibilities ? exp.responsibilities.split('\n').map((line: string) => `<li>${line.replace(/^[-–•]\s*/, "")}</li>`).join('') : ''}
+                </ul>
               </div>
             `,
             )
@@ -95,18 +102,18 @@ export function generatePDFContent(data: any, type: string) {
             (edu: any) => `
             <div class="education-item">
               <div class="item-header">
-                <div>
-                  <div class="item-title">${edu.institution || ""}</div>
-                </div>
-                <div class="item-date">${edu.year || ""}</div>
+                <div class="item-title-bold">${edu.institution || ""}</div>
+                <div class="item-location">${edu.location || ""}</div>
               </div>
-              <div class="item-subtitle">${edu.degree || ""}</div>
+              <div class="item-subheader">
+                <div class="item-degree">${edu.title || ""}</div>
+                <div class="item-date-italic">${edu.year || ""}</div>
+              </div>
               ${
-                edu.gpa || edu.status
+                edu.honors
                   ? `
                 <ul class="item-details">
-                  ${edu.gpa ? `<li>Promedio: ${edu.gpa}</li>` : ""}
-                  ${edu.status && edu.status !== "Completado" ? `<li>${edu.status}</li>` : ""}
+                  <li>Honores: ${edu.honors}</li>
                 </ul>
               `
                   : ""
