@@ -199,6 +199,8 @@ model CV {
   createdWithBuilder  Boolean           @default(false)
   language            String?
   fullName            String?
+  address             String?
+  linkedin            String?
   email               String?
   phone               String?
   professionalSummary String?
@@ -227,8 +229,9 @@ model Experience {
   id               String    @id @default(uuid())
   cv               CV        @relation(fields: [cvId], references: [id])
   cvId             String
-  title            String?
+  position         String?
   company          String?
+  location         String?
   duration         String?
   startDate        DateTime?
   endDate          DateTime?
@@ -276,8 +279,11 @@ model Education {
   level          EducationLevel?
   title          String?
   institution    String?
+  location       String?
   graduationYear Int?
+  year           String?
   grade          Float?
+  honors         String?
   status         String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt

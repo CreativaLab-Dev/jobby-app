@@ -19,8 +19,10 @@ export interface CVSection {
 export interface CVData {
   personal?: {
     fullName?: string
-    email?: string
+    address?: string
+    linkedin?: string
     phone?: string
+    email?: string
     summary?: string
   }
   education?: {
@@ -29,9 +31,9 @@ export interface CVData {
       level?: string
       title?: string
       institution?: string
+      location?: string
       year?: string
-      gpa?: string
-      status?: string
+      honors?: string
     }>
   }
   experience?: {
@@ -39,6 +41,7 @@ export interface CVData {
       id: string
       position?: string
       company?: string
+      location?: string
       duration?: string
       responsibilities?: string
     }>

@@ -78,7 +78,7 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
         </Label>
         <Input
           id="title"
-          placeholder="Ej: CV Desarrollador Frontend"
+          placeholder="Ejemplo: CV Ingeniero de Software"
           value={formData.title}
           onChange={(e) => updateFormData({ title: e.target.value })}
           className="w-full"
