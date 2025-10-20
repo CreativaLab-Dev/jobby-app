@@ -21,7 +21,7 @@ export const saveCV = async (id: string, cvData: CVData) => {
 
     const nestedEducation = educationItems
     .filter((e) =>
-      e.level && ["PRIMARIA", "SECUNDARIA", "TECNICO", "BACHILLER", "LICENCIADO", "MAESTRIA", "DOCTORADO", "OTRO"].includes(e.level)
+      e.level && Object.values(EducationLevel).includes(e.level)
     )
     .map((e) => ({
       level: e.level as EducationLevel,
