@@ -114,7 +114,7 @@ const Expertos = () => {
               return (
                 <Card key={index} className="p-6 bg-card shadow-card hover:shadow-glow transition-all group">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="h-16 w-16 rounded-full bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <Icon className="h-8 w-8 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
