@@ -59,7 +59,7 @@ export const saveCV = async (id: string, cvData: CVData) => {
       location: e.location,
       duration: e.duration,
       responsibilities: e.responsibilities,
-      startDate: new Date(Date.now()), // Cambia si tienes un campo real
+      startDate: e.startDate ? new Date(e.startDate) : null,
     })) ?? [];
 
     const nestedSkills = [
