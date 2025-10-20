@@ -67,8 +67,7 @@ export default function UploadCVPage() {
         console.error("Unexpected error:", error);
         setError("Error inesperado al subir el archivo");
       }
-      setOpenModal(false);
-      setLoading(false);
+      // State cleanup handled in finally block
     } finally {
       setLoading(false);
       setOpenModal(true);
