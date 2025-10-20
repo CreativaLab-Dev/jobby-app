@@ -21,7 +21,7 @@ export function getSections(opportunityType: string): CVSection[] {
           label: "Dirección (opcional)",
           type: "text",
           required: false,
-          tip: "Incluye unicamente ciudad y país. Evita detalles específicos por privacidad",
+          tip: "Incluye únicamente ciudad y país. Evita detalles específicos por privacidad",
           example: "Cusco, Perú",
         },
         {
@@ -218,7 +218,7 @@ export function getSections(opportunityType: string): CVSection[] {
           label: "Honores (opcional)",
           type: "text",
           required: false,
-          tip: "Solo incluye si es 8.5+ o equivalente. Especifica la escala (ej: 9.2/10)",
+          tip: "Incluye menciones como 'Tercio Superior', 'Magna Cum Laude', concursos, becas, etc.",
           example: "Tercio Superior de la promoción",
         },
       ],
@@ -262,7 +262,7 @@ export function getSections(opportunityType: string): CVSection[] {
   } else {
     baseSections.push({
       id: "certifications",
-      title: "Certificacion",
+      title: "Certificación",
       icon: Award,
       multiple: true,
       fields: [

@@ -6,14 +6,14 @@ import { randomUUID } from "crypto";
 
 export const savePdf = async (file: File) => {
   try {
-    // 🧑‍💼 Get the authenticated candidate
+    // Get the authenticated candidate
     const candidate = await getCandidate();
     if (!candidate) {
       console.error("[ERROR_SAVE_PDF] No authenticated candidate found.");
       return { data: null, error: "No authenticated candidate found."}
     }
     
-    // 📦 Optional: limit file size (5MB max)
+    // Optional: limit file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       console.error("[ERROR_SAVE_PDF] File too large. Max allowed is 5MB.");
       return { data: null, error: "File too large. Max allowed is 5MB." }
@@ -25,9 +25,9 @@ export const savePdf = async (file: File) => {
       access: "public",
     });
     
-    // 🔄 Start DB transaction: create CV and associated CVFile record
+    // Start DB transaction: create CV and associated CVFile record
     const result = await prisma.$transaction(async (tx) => {
-      // 🧾 Create new CV record
+      // Create new CV record
       const newCV = await tx.cV.create({
         data: {
           candidateId: candidate.id,
@@ -35,13 +35,13 @@ export const savePdf = async (file: File) => {
         },
       });
       
-      // 🔠 Get file extension and validate it as a supported CVFileType
+      // Get file extension and validate it as a supported CVFileType
       const extension = file.name.split(".").pop()?.toUpperCase() || "PDF";
       const supportedType = Object.values(CVFileType).includes(extension as CVFileType)
         ? (extension as CVFileType)
         : CVFileType.PDF;
       
-      // 📁 Create new CVFile record with metadata
+      // Create new CVFile record with metadata
       const newCVFile = await tx.cVFile.create({
         data: {
           url,
@@ -60,11 +60,17 @@ export const savePdf = async (file: File) => {
       return { data: null, error: "Transaction failed, no records created." }
     }
     
-    // ✅ Successfully saved PDF and created CVFile
-    return { data: result.newCVFile, error: null };
+    // Successfully saved PDF and created CVFile
+    return { 
+      data: { 
+        url: result.newCVFile.url, 
+        cvId: result.newCV.id 
+      }, 
+      error: null 
+    };
     
   } catch (error) {
-    // ❌ Catch and log unexpected errors
+    // Catch and log unexpected errors
     console.error("[ERROR_SAVE_PDF]", error);
     return  { data: null, error: "An unexpected error occurred while saving the PDF." }
   }

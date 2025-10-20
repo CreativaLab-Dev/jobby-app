@@ -46,10 +46,10 @@ export default function UploadCVPage() {
       });
 
       const data = response.data;
-      const id = data.data;
+      const cvId = data.data?.cvId;
       console.log(data)
-      if (data.success) {
-        router.push(`/analysis/${id}`);
+      if (data.success && cvId) {
+        router.push(`/analysis/${cvId}`);
         setUploadedFile(null);
         setError(null);
         localStorage.removeItem("uploaded-cv"); // Clear stored file info
@@ -60,10 +60,15 @@ export default function UploadCVPage() {
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("Axios error uploading file:", error.response?.data || error.message);
+        const errorMessage = error.response?.data?.message || error.message;
+        console.error("Axios error uploading file:", errorMessage);
+        setError(errorMessage);
       } else {
         console.error("Unexpected error:", error);
+        setError("Error inesperado al subir el archivo");
       }
+      setOpenModal(false);
+      setLoading(false);
     } finally {
       setLoading(false);
       setOpenModal(true);
