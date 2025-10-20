@@ -16,7 +16,7 @@ interface NavbarProps {
     name: string
     email: string
     image?: string
-  }
+  } | null
   userLimit?: {
     cvCreations: {
       used: number
