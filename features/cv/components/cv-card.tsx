@@ -57,14 +57,14 @@ export function CVCard({ cv }: CVCardProps) {
         <div className="flex gap-2">
           <Button variant="outline"
             size="sm"
-            className="flex-1 bg-transparent cursor-pointer"
+            className="border-gray-400 text-black flex-1 bg-transparent cursor-pointer"
             onClick={handleSeeDetail}>
             <Eye className="w-4 h-4 mr-1" />
             Ver
           </Button>
           <Button variant="outline"
             size="sm"
-            className="flex-1 bg-transparent cursor-pointer"
+            className="border-gray-400 text-black flex-1 bg-transparent cursor-pointer"
             onClick={handleEdit}>
             <Edit className="w-4 h-4 mr-1" />
             Editar
