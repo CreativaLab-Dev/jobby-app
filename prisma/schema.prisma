@@ -11,18 +11,17 @@ datasource db {
 enum Language {
   EN
   ES
-  PT
-  FR
-  DE
 }
 
 enum OpportunityType {
+  INTERNSHIP
+  SCHOLARSHIP
+  EXCHANGE_PROGRAM
+  RESEARCH_FELLOWSHIP
+  GRADUATE_PROGRAM
+  FREELANCE
   FULL_TIME
   PART_TIME
-  CONTRACT
-  INTERNSHIP
-  FREELANCE
-  // add more as needed
 }
 
 enum CvType {
@@ -32,7 +31,6 @@ enum CvType {
   SOCIAL_MEDIA
   DESIGN
   FINANCE
-  // add domain-specific types as needed
 }
 
 enum CvSectionType {
@@ -44,7 +42,6 @@ enum CvSectionType {
   CERTIFICATIONS
   LANGUAGES
   CONTACT
-  // add custom section types as needed
 }
 
 enum JobStatus {
@@ -166,7 +163,7 @@ model Cv {
   user            User?           @relation(fields: [userId], references: [id])
   userId          String?
   createdByJobId  String?
-  language        Language
+  language        Language        @default(EN)
   opportunityType OpportunityType
   cvType          CvType
   title           String?

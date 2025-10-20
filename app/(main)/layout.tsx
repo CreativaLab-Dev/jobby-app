@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Navbar } from "@/components/navbar";
-import { getCurrentSubscription } from "@/lib/get-count-availables-attempts";
+import { getCurrentSubscription } from "@/lib/shared/get-count-availables-attempts";
 import { redirect } from "next/navigation";
-import { getUser } from "@/lib/get-user";
+import { getUser } from "@/lib/shared/get-user";
 import { TermsModal } from "@/components/terms-modal";
 
 export const metadata: Metadata = {

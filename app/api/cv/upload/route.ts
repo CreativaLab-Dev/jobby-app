@@ -1,62 +1,68 @@
+
+
 import { inngest } from "@/inngest/client";
-import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { v4 as uuidv4 } from "uuid";
+import { CvType, OpportunityType } from "@prisma/client";
 import { savePdf } from "@/features/upload-cv/actions/save-pdf";
-import { getCandidate } from "@/features/share/actions/get-candidate";
-import { getCurrentUser } from "@/features/share/actions/get-current-user";
+import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const formData = await request.formData();
-    const pdfFile = formData.get("pdf") as File;
+    const formData = await req.formData();
+    const file = formData.get("file") as File;
+    const userId = formData.get("userId") as string;
 
-    const currentUser = await getCurrentUser();
-    if (!currentUser) {
-      return NextResponse.json(
-        { success: false, message: "Usuario no encontrado." },
-        { status: 404 }
-      );
+    if (!file) {
+      return NextResponse.json({ success: false, message: "File is required" }, { status: 400 });
     }
 
-    if (!pdfFile || !pdfFile.name.endsWith(".pdf")) {
+    // 1️⃣ Upload file to GCP (Cloud Storage)
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const fileName = `CV-${uuidv4()}-${file.name}`;
+    const { error, url } = await savePdf(file, { buffer, fileName });
+    if (error) {
       return NextResponse.json(
-        { success: false, message: "Archivo inválido. Solo se permiten archivos PDF." },
+        { success: false, message: error },
         { status: 400 }
       );
     }
 
-    const pdfSaved = await savePdf(pdfFile);
-    if (pdfSaved.error) {
-      return NextResponse.json(
-        { success: false, message: pdfSaved.error },
-        { status: 400 }
-      );
-    }
+    // 2️⃣ Create CV and Attachment records
+    const cv = await prisma.cv.create({
+      data: {
+        userId,
+        language: "EN",
+        opportunityType: OpportunityType.FULL_TIME,
+        cvType: CvType.TECHNOLOGY,
+        title: file.name,
+        attachments: {
+          create: {
+            filename: file.name,
+            mimeType: file.type,
+            url,
+            size: file.size,
+          },
+        },
+      },
+    });
 
-    if (!pdfSaved.data) {
-      return NextResponse.json(
-        { success: false, message: "Failed to save PDF." },
-        { status: 500 }
-      );
-    }
-
-    const { url: pdfUrl, cvId } = pdfSaved.data;
-
+    // 3️⃣ Trigger Inngest workflow
     await inngest.send({
-      name: "cv.process",
-      data: { pdfUrl, cvId, candidateId: candidate.id }
+      name: "cv/uploaded",
+      data: {
+        cvId: cv.id,
+        attachmentUrl: url,
+      },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "CV analysis started in background.",
-      data: { cvId },
-    });
+    return Response.json({ success: true, cvId: cv.id });
   } catch (error) {
-    console.error("❌ Error processing PDF upload:", error);
+    console.error("Error uploading CV:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to process PDF upload." },
+      { success: false, message: "Internal server error" },
       { status: 500 }
     );
   }

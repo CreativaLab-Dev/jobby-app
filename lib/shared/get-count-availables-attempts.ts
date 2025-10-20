@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/session";
+import { getSession } from "@/lib/shared/session";
 import { prisma } from "@/lib/prisma";
 
 export const getCurrentSubscription = async () => {

@@ -1,10 +1,10 @@
 "use server"
 
-import {getSession} from "@/lib/session";
-import {prisma} from "@/lib/prisma";
+import { getSession } from "@/lib/shared/session";
+import { prisma } from "@/lib/prisma";
 
 export const getUser = async () => {
-  try{
+  try {
     const session = await getSession()
     if (!session || !session.user) {
       return null;
@@ -23,12 +23,12 @@ export const getUser = async () => {
         acceptedTermsAndConditions: true,
       },
     })
-    
+
     if (!user) {
       console.error("User not found by email:", session.user.email);
       return null;
     }
-    
+
     return {
       id: session.user.id,
       email: session.user.email,
