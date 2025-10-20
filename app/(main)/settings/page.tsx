@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, Shield, Bell, User, Sun, Moon, LinkIcon } from "lucide-react";
+import { Loader2, Shield, Bell, User, Sun, Moon } from "lucide-react";
 
 export default function SettingsPage() {
   const [form, setForm] = useState({
@@ -42,7 +42,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12 px-4">
+  <div className="min-h-screen py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
