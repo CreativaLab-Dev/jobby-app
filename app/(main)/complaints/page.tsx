@@ -38,7 +38,7 @@ export default function ComplaintsPage() {
   };
   
   return (
-  <div className="min-h-screen py-12 px-4">
+  <div className="bg-white min-h-screen py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <Card className="shadow-xl border border-orange-100 bg-white/95 backdrop-blur-sm">
