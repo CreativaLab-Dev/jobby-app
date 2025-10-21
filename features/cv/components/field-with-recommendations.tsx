@@ -95,12 +95,12 @@ export function FieldWithRecommendations({
               <PopoverTrigger asChild>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center w-7 h-7 text-green-500 hover:text-green-700 hover:bg-green-50 rounded-full transition-colors border-2 border-green-200 hover:border-green-300"
+                  className=" inline-flex items-center justify-center w-7 h-7 text-green-500 hover:text-green-700 hover:bg-green-50 rounded-full transition-colors border-2 border-green-200 hover:border-green-300"
                 >
                   <Info className="w-4 h-4" />
                 </button>
               </PopoverTrigger>
-              <PopoverContent className="w-80" side="top">
+              <PopoverContent className="border-gray-200 bg-white w-80" side="top">
                 <div className="space-y-3">
                   <div className="flex items-start gap-2">
                     <Info className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -155,7 +155,7 @@ export function FieldWithRecommendations({
         <select
           value={fieldValue}
           onChange={(e) => onSelectChange?.(e.target.value)}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-black ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <option value="">Selecciona una opción</option>
           {field.options?.map((option: string) => (

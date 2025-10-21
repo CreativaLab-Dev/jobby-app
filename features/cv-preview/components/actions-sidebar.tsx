@@ -45,7 +45,7 @@ export function ActionsSidebar({ cvData, opportunityType, onEditCV, isDisabled }
         <Button
           disabled={isDisabled}
           variant="outline"
-          onClick={onEditCV} className="w-full bg-transparent cursor-pointer border-gray-300 hover:bg-gray-100">
+          onClick={onEditCV} className="text-black w-full bg-transparent cursor-pointer border-gray-300 hover:bg-gray-100">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Editar CV
         </Button>

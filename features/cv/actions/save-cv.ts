@@ -110,14 +110,17 @@ export const saveCV = async (id: string, cvData: CVData) => {
         fullName: cvData.personal?.fullName,
         address: cvData.personal?.address,
         linkedin: cvData.personal?.linkedin,
-        email: cvData.personal?.email,
         phone: cvData.personal?.phone,
+        email: cvData.personal?.email,
         professionalSummary: cvData.personal?.summary,
         education: {
           create: nestedEducation,
         },
         academicProjects: {
           create: nestedProjects,
+        },
+        experience: {
+          create: nestedExperience,
         },
         achievements: {
           create: nestedAchievements,
@@ -127,9 +130,6 @@ export const saveCV = async (id: string, cvData: CVData) => {
         },
         certifications: {
           create: nestedCertifications,
-        },
-        experience: {
-          create: nestedExperience,
         },
       },
     });
