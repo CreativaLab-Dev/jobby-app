@@ -13,7 +13,8 @@ export const convertFromJsonToText = (cv: CVData)=> {
   if (cv.education?.items) {
     text += "Education:\n";
     cv.education.items.forEach(item => {
-      text += `- Level: ${item.level || ""}, Title: ${item.title || ""}, Institution: ${item.institution || ""}, Year: ${item.year || ""}, GPA: ${item.gpa || ""}, Status: ${item.status || ""}\n`;
+      text += `- Level: ${item.level || ""}, Title: ${item.title || ""}, Institution: ${item.institution || ""}, Year: ${item.year || ""}, GPA: ${item.honors || ""}, Status: ${item.level || ""}\n`;
+      
     });
     text += "\n";
   }

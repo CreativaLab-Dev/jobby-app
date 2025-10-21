@@ -21,7 +21,7 @@ export const saveCV = async (id: string, cvData: CVData) => {
 
     const nestedEducation = educationItems
     .filter((e) =>
-      e.level && Object.values(EducationLevel).includes(e.level)
+      e.level && Object.values(EducationLevel).includes(e.level as EducationLevel)
     )
     .map((e) => ({
       level: e.level as EducationLevel,
@@ -59,7 +59,7 @@ export const saveCV = async (id: string, cvData: CVData) => {
       location: e.location,
       duration: e.duration,
       responsibilities: e.responsibilities,
-      startDate: e.startDate ? new Date(e.startDate) : null,
+      startDate: null,
     })) ?? [];
 
     const nestedSkills = [
@@ -139,7 +139,7 @@ export const saveCV = async (id: string, cvData: CVData) => {
       message: "CV data saved successfully.",
       data: response as CV,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("[SAVE_CV_ERROR]", error);
 
     return {
