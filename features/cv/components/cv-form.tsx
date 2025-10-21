@@ -81,7 +81,7 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
           placeholder="Ejemplo: CV Ingeniero de Software"
           value={formData.title}
           onChange={(e) => updateFormData({ title: e.target.value })}
-          className="w-full"
+          className= "w-full border border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
         />
       </div>
       
@@ -95,12 +95,12 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
             updateFormData({ opportunity: value })
           }
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="bg-white text-black w-full border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
             <SelectValue placeholder="Selecciona el tipo de oportunidad" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white text-black border-gray-200">
             {opportunityTypes.map((type) => (
-              <SelectItem key={type.label} value={type.label}>
+              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type.label} value={type.label}>
                 {type.label}
               </SelectItem>
             ))}
@@ -121,12 +121,12 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
             })
           }
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="bg-white text-black w-full border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
             <SelectValue placeholder="Selecciona el tipo de CV" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white text-black border-gray-200">
             {cvTypes.map((type) => (
-              <SelectItem key={type} value={type}>
+              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type} value={type}>
                 {type}
               </SelectItem>
             ))}
