@@ -1,20 +1,32 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
+import { Poppins } from 'next/font/google'
 import './globals.css'
+import AnimatedBackgroundWrapper from '@/components/animated-background-wrapper'
+
+// Configura la fuente Poppins
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
+})
 
 export const metadata: Metadata = {
-  title: 'CV Score',
-  description: 'Cv Score potenciado con inteligencia artificial'
+  title: 'Jobby - Tu talento merece ser visible',
+  description: 'Jobby potenciado con inteligencia artificial',
 }
 
 export default async function RootLayout({
-    children,
+  children,
 }: Readonly<{
   children: React.ReactNode,
 }>) {
-  
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="es" className={poppins.variable}>
+      <body className="font-poppins">
+        <AnimatedBackgroundWrapper />
+        <div className="relative z-10">{children}</div>
+      </body>
     </html>
   )
 }

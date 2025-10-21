@@ -34,14 +34,13 @@ export function Navbar({ userLimit, user }: NavbarProps) {
   const router = useRouter()
   const [isClosed, setIsClosed] = useState(false)
 
-  // Hooks always called first
   useEffect(() => {
     setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    const saved = localStorage.getItem("cv-score-banner-closed")
-    if (saved) setIsClosed(JSON.parse(saved))
+    // Get of the localStorage to check if the banner is closed
+    const closed = localStorage.getItem("cv-score-banner-closed")
+    if (closed) {
+      setIsClosed(true)
+    }
   }, [])
 
   useEffect(() => {
@@ -49,52 +48,11 @@ export function Navbar({ userLimit, user }: NavbarProps) {
     localStorage.setItem("cv-score-banner-closed", String(isClosed))
   }, [isClosed])
 
-  // Si no hay usuario, renderizar navbar simplificado
-  if (!user) {
-    return (
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo/Brand */}
-            <div className="flex items-center">
-              <Link href="/home" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  {/* <span className="text-white font-bold text-sm">CV</span> */}
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Jobby
-                </span>
-              </Link>
-            </div>
-
-            {/* Public Navigation */}
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" size="sm">
-                  Iniciar Sesión
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button size="sm">
-                  Registrarse
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
-    )
-  }
 
   if (!mounted) return null
 
-  const cvRemaining = userLimit ? userLimit.cvCreations.total - userLimit.cvCreations.used : 0
-  const scoresRemaining = userLimit ? userLimit.scoreAnalysis.total - userLimit.scoreAnalysis.used : 0
+  const cvRemaining = userLimit.cvCreations.total - userLimit.cvCreations.used
+  const scoresRemaining = userLimit.scoreAnalysis.total - userLimit.scoreAnalysis.used
 
   const getCreditColor = (remaining: number, total: number) => {
     const percentage = remaining / total
