@@ -51,7 +51,7 @@ export default function UploadCVPage() {
 
       const data = response.data as { cvId: string };
       const id = data.cvId;
-      router.push(`/analysis/${id}`);
+      router.push(`/process/${id}`);
       setUploadedFile(null);
       setError(null);
       localStorage.removeItem("uploaded-cv");

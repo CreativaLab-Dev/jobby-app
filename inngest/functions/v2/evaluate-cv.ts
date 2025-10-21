@@ -29,7 +29,7 @@ export const evaluateCv = inngest.createFunction(
     if (!cv?.extractedJson) throw new Error("CV data not extracted");
 
     const evaluation = await prisma.cvEvaluation.create({
-      data: { cvId, status: "IN_PROGRESS" },
+      data: { cvId, status: JobStatus.IN_PROGRESS },
     });
 
     try {
@@ -41,6 +41,7 @@ export const evaluateCv = inngest.createFunction(
       if (!result.success) {
         throw new Error(result?.message ?? "Evaluation failed");
       }
+      console.log("[✅ Evaluation result]:", result.data);
       await prisma.$transaction(async (tx) => {
         await tx.cvEvaluation.update({
           where: { id: evaluation.id },

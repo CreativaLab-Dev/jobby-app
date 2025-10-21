@@ -31,6 +31,7 @@ Output JSON format:
 }
 
 Rules:
+- The section type just have this values: SUMMARY, EXPERIENCE, EDUCATION, SKILLS, PROJECTS, CERTIFICATIONS, LANGUAGES, CONTACT     
 - Return ONLY valid JSON.
 - Do not include explanations, markdown, or commentary.
 `;

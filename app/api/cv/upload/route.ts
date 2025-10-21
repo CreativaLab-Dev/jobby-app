@@ -1,5 +1,3 @@
-
-
 import { inngest } from "@/inngest/client";
 import { prisma } from "@/lib/prisma";
 import { v4 as uuidv4 } from "uuid";
@@ -7,12 +5,10 @@ import { CvType, OpportunityType } from "@prisma/client";
 import { savePdf } from "@/features/upload-cv/actions/save-pdf";
 import { NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    const file = formData.get("file") as File;
+    const file = formData.get("pdf") as File;
     const userId = formData.get("userId") as string;
 
     if (!file) {

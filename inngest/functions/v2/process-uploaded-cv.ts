@@ -1,9 +1,9 @@
 import { inngest } from "../../client";
 import { prisma } from "@/lib/prisma";
 import { JobStatus } from "@prisma/client";
-import { getTextFromPdf } from "@/lib/pdf/get-text-from-pdf";
 import { getPromptToGetCv } from "@/lib/prompts/get-prompt-to-get-cv";
 import { queryGemini } from "@/lib/queries/query-gemini";
+import { getTextFromPdfApi } from "@/utils/get-text-from-pdf-api";
 
 export const processUploadedCv = inngest.createFunction(
   { id: "process-uploaded-cv" },
@@ -12,8 +12,13 @@ export const processUploadedCv = inngest.createFunction(
     const { cvId, attachmentUrl } = event.data;
 
     // 1️⃣ Create and mark job as IN_PROGRESS
-    const job = await prisma.queueJob.create({
-      data: {
+    const job = await prisma.queueJob.upsert({
+      where: { jobId: event.id },
+      update: {
+        status: JobStatus.IN_PROGRESS,
+        startedAt: new Date(),
+      },
+      create: {
         jobId: event.id,
         type: "CREATE_CV",
         payload: event.data,
@@ -24,20 +29,14 @@ export const processUploadedCv = inngest.createFunction(
     });
 
     try {
-      let textFromCv = "";
-      let extractedData = null;
-
       const result = await step.run("Extract data from CV", async () => {
-        textFromCv = await getTextFromPdf(new File([], attachmentUrl));
+        const textFromCv = await getTextFromPdfApi(attachmentUrl);
         const prompt = getPromptToGetCv(textFromCv);
-        extractedData = await queryGemini({
-          prompt,
-          type: "JSON",
-        });
-        return extractedData;
+        return await queryGemini({ prompt, type: "JSON" });
       });
+      console.log("✅ Extraction result:", result);
 
-      if (!result.success || extractedData === null) {
+      if (!result.success) {
         throw new Error(result.message ?? "Extraction failed");
       }
 
@@ -52,6 +51,24 @@ export const processUploadedCv = inngest.createFunction(
         }
       });
 
+      console.log("[✅ CV sections]:", jsonData.sections);
+
+      if (Array.isArray(jsonData.sections)) {
+        await prisma.cvSection.deleteMany({ where: { cvId } });
+
+        const sectionsData = jsonData.sections.map((section: any, index: number) => ({
+          cvId,
+          sectionType: section.sectionType,
+          title: section.title ?? null,
+          contentJson: section.contentJson ?? [],
+          order: index,
+        }));
+
+        await prisma.cvSection.createMany({ data: sectionsData });
+      }
+
+      console.log("[✅ CV sections COMPLETED]:");
+
       await prisma.queueJob.update({
         where: { id: job.id },
         data: {
@@ -60,9 +77,11 @@ export const processUploadedCv = inngest.createFunction(
         },
       });
 
-      await step.sendEvent("cv/ready-for-evaluation", {
-        name: "CV Ready for Evaluation",
-        data: { cvId },
+      await inngest.send({
+        name: "cv/ready-for-evaluation",
+        data: {
+          cvId,
+        },
       });
 
     } catch (err: any) {

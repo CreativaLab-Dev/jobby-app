@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Loader2, UserPlus } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { newUserConfiguration } from "@/lib/shared/new-user-configuration";
 
 const errorMapper: Record<string, string> = {
   "Email already exists": "El correo electrónico ya está en uso",
@@ -60,7 +61,16 @@ export function RegisterForm() {
       }
 
       // Create a basic subscription for the new user
+      if (isPending) {
+        return;
+      }
 
+      startTransition(async () => {
+        const response = await newUserConfiguration(userId);
+        if (!response) {
+          console.error("Error in new user configuration for userId:", userId);
+        }
+      });
 
       setSuccess(true);
       router.push("/cv");
