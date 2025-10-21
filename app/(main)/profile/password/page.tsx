@@ -1,6 +1,7 @@
 import {getUser} from "@/lib/get-user";
 import ChangePassword from "@/features/user/components/change-password";
 
+export const dynamic = "force-dynamic";
 export default async function ChangePasswordPage() {
   const user = await getUser();
   if (!user) {
