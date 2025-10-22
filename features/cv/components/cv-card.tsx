@@ -46,12 +46,12 @@ export function CVCard({ cv }: CVCardProps) {
                 <div className="flex items-start justify-between">
                     <FileText className="w-8 h-8 text-blue-500 group-hover:scale-110 transition-transform" />
                     <div className="flex items-center gap-2">
-                        <Badge
+                        {/* <Badge
                             variant={lastQueueJob.status !== JobStatus.SUCCEEDED ? "default" : "secondary"}
                             className={lastQueueJob.status === JobStatus.SUCCEEDED ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}
                         >
                             {lastQueueJob.status}
-                        </Badge>
+                        </Badge> */}
                         <Button
                             variant="ghost"
                             size="icon"

@@ -83,8 +83,10 @@ export const getCvForCurrentUser = async () => {
       })
     ]);
 
-    const manuals = cvs.filter(cv => cv.createdByJobId !== null);
-    const uploads = cvs.filter(cv => cv.createdByJobId === null);
+    const manuals = cvs.filter(cv => cv.createdByJobId === null);
+    const uploads = cvs.filter(cv => cv.createdByJobId !== null);
+    console.log('User manuals:', manuals);
+    console.log('User uploads:', uploads);
 
     const response: CvForCurrentUserResponse = {
       manuals: {
