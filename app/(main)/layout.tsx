@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Navbar } from "@/components/navbar";
-import { getUser } from "@/lib/get-user";
+import { getUser } from "@/lib/shared/get-user";
 import { getCurrentSubscription } from "@/lib/shared/get-count-availables-attempts";
 import { TermsModal } from "@/components/terms-modal";
 import '../globals.css';
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 export default async function RootLayout({
-                                             children,
-                                         }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode,
 }>) {
     const currentSubscription = await getCurrentSubscription();
@@ -64,7 +64,16 @@ export default async function RootLayout({
         <>
             <div className="flex min-h-screen relative w-full">
                 <div className="flex-1 flex flex-col">
-                    <Navbar userLimit={userLimits} user={user} />
+                    <Navbar userLimit={{
+                        cvCreations: {
+                            used: 0,
+                            total: 0
+                        },
+                        scoreAnalysis: {
+                            used: 0,
+                            total: 0
+                        }
+                    }} user={user} />
                     <main className="flex-1 transition-all duration-300">{children}</main>
                     <TermsModal isOpen={!isTermsAccepted} userId={user?.id} />
                 </div>
