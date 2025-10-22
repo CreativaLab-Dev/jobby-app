@@ -1,5 +1,6 @@
 "use client"
 
+import useSWR from "swr"
 import { useEffect } from "react"
 import { Loader2, CheckCircle, XCircle, Clock, FileCheck } from "lucide-react"
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
@@ -18,25 +19,29 @@ type CvStatus =
 
 interface ProgressStatusProps {
   cvId: string
-  status: CvStatus | null
 }
 
-export function ProgressStatus({ cvId, status }: ProgressStatusProps) {
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+export function ProgressStatus({ cvId }: ProgressStatusProps) {
   const router = useRouter()
 
-  useEffect(() => {
-    // Refresh every 3 seconds while tab is active
-    console.log("Checking status for CV ID:", cvId, status)
-    const interval = setInterval(() => {
-      if (document.visibilityState === "visible") {
-        if (status?.status !== "CV_EVALUATION_FINISHED") {
-          router.refresh()
-        }
-      }
-    }, 3000)
+  const { data: status } = useSWR(`/api/cv/${cvId}/status`, fetcher, {
+    refreshInterval: 3000,
+  })
 
-    return () => clearInterval(interval)
-  }, [cvId, router])
+  useEffect(() => {
+    console.log("Current status:", status)
+    if (status?.status === "CV_EVALUATION_FINISHED"
+      || status?.status === "CV_EVALUATION_SUCCEEDED"
+    ) {
+      const evaluateId = status.evaluateId
+      console.log("Redirecting to evaluations page...")
+      setTimeout(() => {
+        router.push(`/evaluations/${evaluateId}`)
+      }, 500)
+    }
+  }, [status, cvId, router])
 
   const renderContent = () => {
     if (!status) {

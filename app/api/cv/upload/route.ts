@@ -1,7 +1,7 @@
 import { inngest } from "@/inngest/client";
 import { prisma } from "@/lib/prisma";
 import { v4 as uuidv4 } from "uuid";
-import { CvType, OpportunityType } from "@prisma/client";
+import { CvType, Language, OpportunityType } from "@prisma/client";
 import { savePdf } from "@/features/upload-cv/actions/save-pdf";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/features/share/actions/get-current-user";
@@ -33,14 +33,15 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2️⃣ Create CV and Attachment records
+    const createdByJobId = uuidv4();
     const cv = await prisma.cv.create({
       data: {
         userId,
-        language: "EN",
+        language: Language.EN,
         opportunityType: OpportunityType.FULL_TIME,
         cvType: CvType.TECHNOLOGY,
         title: file.name,
+        createdByJobId,
         attachments: {
           create: {
             filename: file.name,

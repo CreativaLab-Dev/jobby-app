@@ -1,29 +1,24 @@
 import { prisma } from "@/lib/prisma";
-import { getCandidate } from "@/features/share/actions/get-candidate";
+import { getCurrentUser } from "@/features/share/actions/get-current-user";
 
-export const getScoreById = async (analyzeId: string) => {
+export const getEvaluationById = async (analyzeId: string) => {
   try {
-    const candidate = await getCandidate();
-    if (!candidate) return null;
-    
-    const cvAnalysis = await prisma.cVAnalysis.findFirst({
+    const currentUser = await getCurrentUser();
+    if (!currentUser) return null;
+
+    const cvEvaluation = await prisma.cvEvaluation.findFirst({
       where: { id: analyzeId },
       include: {
-        sectionScores: {
-          include: {
-            fieldScores: true,
-          },
-        },
+        scores: true,
         recommendations: true,
-        cv: true,
       },
       orderBy: {
         createdAt: "desc",
       },
     });
-    if (!cvAnalysis) return null;
-    
-    return cvAnalysis;
+    if (!cvEvaluation) return null;
+
+    return cvEvaluation;
   } catch (error) {
     console.error("[ERROR_GET_SCORE_ANALYSIS]", error);
     return null;
