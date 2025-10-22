@@ -9,8 +9,8 @@ export type CvStatus =
   | { status: "CV_EVALUATION_PENDING_EVALUATION" }
   | { status: "CV_EVALUATION_IN_PROGRESS" }
   | { status: "CV_EVALUATION_FAILED" }
-  | { status: "CV_EVALUATION_SUCCEEDED" }
-  | { status: "CV_EVALUATION_FINISHED" };
+  | { status: "CV_EVALUATION_SUCCEEDED", evaluateId: string }
+  | { status: "CV_EVALUATION_FINISHED", evaluateId: string };
 
 export const getStatusCvById = async (cvId: string): Promise<CvStatus | null> => {
   try {
@@ -64,11 +64,12 @@ export const getStatusCvById = async (cvId: string): Promise<CvStatus | null> =>
     }
 
     if (statusEvaluateJob === JobStatus.SUCCEEDED) {
-      return { status: "CV_EVALUATION_SUCCEEDED" };
+      return { status: "CV_EVALUATION_SUCCEEDED", evaluateId: evaluateJob.id };
     }
 
     return {
-      status: "CV_EVALUATION_FINISHED"
+      status: "CV_EVALUATION_FINISHED",
+      evaluateId: evaluateJob.id
     }
 
   } catch (error) {

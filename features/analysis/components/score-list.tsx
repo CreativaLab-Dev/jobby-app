@@ -108,7 +108,7 @@ export function ScoresListPage({ cvs, disabledButton }: ScoresListPageProps) {
                         </div>
                         <div className="">
                           <Button variant="ghost" size="sm" className="ml-2 cursor-pointer text-purple-600 hover:text-purple-800 border-2 border-purple-300 hover:border-purple-500 transition-colors duration-200"
-                            onClick={() => router.push(`/analysis/${score.id}`)}>
+                            onClick={() => router.push(`/evaluations/${score.evaluations[0]?.id}`)}>
                             Ver detalles
                           </Button>
                         </div>
