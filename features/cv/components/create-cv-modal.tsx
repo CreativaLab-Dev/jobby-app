@@ -15,8 +15,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { CVForm } from "./cv-form"
-import {createCVByTitleAndType} from "@/features/cv/actions/create-cv-by-title-and-type";
-import {useRouter} from "next/navigation";
+import { createCVByTitleAndType } from "@/features/cv/actions/create-cv-by-title-and-type";
+import { useRouter } from "next/navigation";
+import { CvType, OpportunityType } from "@prisma/client"
 
 interface CreateCVModalProps {
   children: React.ReactNode
@@ -25,32 +26,40 @@ interface CreateCVModalProps {
 }
 
 export function CreateCVModal({ children, isOpen, onOpenChange }: CreateCVModalProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string
+    cvType: CvType
+    opportunityType: OpportunityType
+  }>({
     title: "",
-    type: "",
-    customType: "",
-    opportunity: "",
+    cvType: "TECHNOLOGY",
+    opportunityType: "INTERNSHIP",
   })
   const [isCreating, setIsCreating] = useState(false)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
-  
+
   const handleCreateCV = async () => {
-    if (!formData.title.trim() || !formData.type) return
-    if (formData.type === "Otro" && !formData.customType.trim()) return
-    if (!formData.opportunity.trim()) return
+    const { title, cvType, opportunityType } = formData
+
+    const isValid = title.trim() && opportunityType.trim() && cvType.trim()
+    // Todo: mostrar el error al usuario
+    if (!isValid) return
+
+
     if (isCreating || isPending) return
-    
+
     setIsCreating(true)
     try {
-      const title = formData.title.trim();
-      const finalType = formData.type === "Otro" ? formData.customType : formData.type
-      const opportunityType = formData.opportunity.trim() || ""
       if (isPending) return
       startTransition(() => {
-        createCVByTitleAndType(title,finalType, opportunityType).then((result) => {
+        createCVByTitleAndType(
+          title,
+          cvType,
+          opportunityType
+        ).then((result) => {
           if (result?.success) {
-            setFormData({ title: "", opportunity: "", type: "", customType: "" })
+            setFormData({ title: "", opportunityType: "INTERNSHIP", cvType: "TECHNOLOGY" })
             onOpenChange(false)
             const cvId = result.data.id
             router.push(`/cv/${cvId}/edit`)
@@ -59,22 +68,25 @@ export function CreateCVModal({ children, isOpen, onOpenChange }: CreateCVModalP
           }
         })
       })
-      
-     
+
     } catch (error) {
       console.error("Error creando CV:", error)
     } finally {
       setIsCreating(false)
     }
   }
-  
+
   const handleCancel = () => {
-    setFormData({ title: "", opportunity: "", type: "", customType: "" })
+    setFormData({
+      title: "",
+      cvType: "TECHNOLOGY",
+      opportunityType: "INTERNSHIP"
+    })
     onOpenChange(false)
   }
-  
-  const isFormValid = formData.title.trim() && formData.type && (formData.type !== "Otro" || formData.customType.trim())
-  
+
+  const isFormValid = formData.title.trim().length > 0
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -85,9 +97,9 @@ export function CreateCVModal({ children, isOpen, onOpenChange }: CreateCVModalP
           </DialogTitle>
           <DialogDescription>Completa la información básica para comenzar a crear tu currículum</DialogDescription>
         </DialogHeader>
-        
+
         <CVForm formData={formData} onFormDataChange={setFormData} />
-        
+
         <DialogFooter className="flex gap-3">
           <Button variant="outline" className="text-black border-gray-200 hover:bg-gray-200 hover:border-gray-200" onClick={handleCancel}>
             Cancelar

@@ -1,39 +1,36 @@
 "use server";
-//Todo: refactor
 
-import { getCandidate } from "@/features/share/actions/get-candidate";
-// import {updateUsageWithBuild} from "@/lib/update-usage-with-builder";
+import { getCurrentUser } from "@/features/share/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
+import { CvType, Language, OpportunityType } from "@prisma/client";
 
 export const createCVByTitleAndType = async (
   title: string,
-  type: string,
-  opportunityType: string
+  cvType: CvType,
+  opportunityType: OpportunityType
 ) => {
   try {
-    const candidate = await getCandidate();
-    if (!candidate) {
-      return { success: false, message: "Candidate not found." };
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return { success: false, message: "User not found." };
     }
 
-    // const newCv = await prisma.cv.create({
-    //   data: {
-    //     title,
-    //     type,
-    //     candidateId: candidate.id,
-    //     status: "CREATED",
-    //   }
-    // })
-    // if (!newCv) {
-    //   return { success: false, message: "No se pudo crear el CV." };
-    // }
-
-    // await updateUsageWithBuild(candidate.id);
+    const newCv = await prisma.cv.create({
+      data: {
+        title,
+        cvType,
+        opportunityType,
+        language: Language.EN,
+        userId: currentUser.id,
+      }
+    });
+    if (!newCv) {
+      return { success: false, message: "Error creating CV." };
+    }
 
     return {
-      success: true, message: "CV creado exitosamente.", data: {
-        // cv: newCv
-      }
+      success: true,
+      data: newCv
     };
 
   } catch (error) {

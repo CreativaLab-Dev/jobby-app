@@ -11,3 +11,8 @@
 ```bash
 npx inngest-cli@latest dev
 ```
+
+- Add subscription by default
+```bash
+node prisma/seed/init.js
+```

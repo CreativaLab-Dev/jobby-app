@@ -10,13 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { opportunityTypes } from "@/features/oportunities/data/opportunityTypes"
+import { CvType, OpportunityType } from "@prisma/client"
 
 interface CVFormData {
   title: string
-  opportunity: string
-  type: string
-  customType: string
+  cvType: CvType
+  opportunityType: OpportunityType
 }
 
 interface CVFormProps {
@@ -25,51 +24,31 @@ interface CVFormProps {
 }
 
 const cvTypes = [
-  "Tecnología",
-  "Desarrollo de Software",
-  "Ciencia de Datos",
-  "Inteligencia Artificial",
-  "Ciberseguridad",
-  "Marketing Digital",
-  "Marketing Tradicional",
-  "Redes Sociales",
-  "Ventas",
-  "Atención al Cliente",
-  "Recursos Humanos",
-  "Finanzas",
-  "Contabilidad",
-  "Educación",
-  "Investigación",
-  "Salud",
-  "Medicina",
-  "Enfermería",
-  "Ingeniería Civil",
-  "Ingeniería Industrial",
-  "Ingeniería Mecánica",
-  "Arquitectura",
-  "Diseño Gráfico",
-  "Diseño UX/UI",
-  "Diseño Industrial",
-  "Consultoría",
-  "Gestión de Proyectos",
-  "Administración",
-  "Logística",
-  "Turismo",
-  "Gastronomía",
-  "Arte y Cultura",
-  "Comunicación",
-  "Periodismo",
-  "Derecho",
-  "Psicología",
-  "Trabajo Social",
-  "Otro",
+  CvType.TECHNOLOGY,
+  CvType.DESIGN,
+  CvType.MARKETING,
+  CvType.SALES,
+  CvType.SOCIAL_MEDIA,
+  CvType.FINANCE,
 ]
+
+export const opportunityTypes: OpportunityType[] = [
+  OpportunityType.INTERNSHIP,
+  OpportunityType.SCHOLARSHIP,
+  OpportunityType.EXCHANGE_PROGRAM,
+  OpportunityType.RESEARCH_FELLOWSHIP,
+  OpportunityType.GRADUATE_PROGRAM,
+  OpportunityType.FREELANCE,
+  OpportunityType.FULL_TIME,
+  OpportunityType.PART_TIME,
+]
+
 
 export function CVForm({ formData, onFormDataChange }: CVFormProps) {
   const updateFormData = (updates: Partial<CVFormData>) => {
     onFormDataChange({ ...formData, ...updates })
   }
-  
+
   return (
     <div className="space-y-6 py-4">
       <div className="space-y-2">
@@ -81,18 +60,18 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
           placeholder="Ejemplo: CV Ingeniero de Software"
           value={formData.title}
           onChange={(e) => updateFormData({ title: e.target.value })}
-          className= "w-full border border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+          className="w-full border border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
         />
       </div>
-      
+
       <div className="space-y-2">
         <Label htmlFor="opportunity" className="text-sm font-medium text-gray-700">
           Tipo de Oportunidad
         </Label>
         <Select
-          value={formData.opportunity}
+          value={formData.opportunityType}
           onValueChange={(value) =>
-            updateFormData({ opportunity: value })
+            updateFormData({ opportunityType: value as OpportunityType })
           }
         >
           <SelectTrigger className="bg-white text-black w-full border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
@@ -100,24 +79,23 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
           </SelectTrigger>
           <SelectContent className="bg-white text-black border-gray-200">
             {opportunityTypes.map((type) => (
-              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type.label} value={type.label}>
-                {type.label}
+              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type} value={type}>
+                {type}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
-      
+
       <div className="space-y-2">
         <Label htmlFor="type" className="text-sm font-medium text-gray-700">
           Tipo de CV
         </Label>
         <Select
-          value={formData.type}
+          value={formData.cvType}
           onValueChange={(value) =>
             updateFormData({
-              type: value,
-              customType: value === "Otro" ? formData.customType : "",
+              cvType: value as CvType
             })
           }
         >
@@ -133,27 +111,6 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
           </SelectContent>
         </Select>
       </div>
-      
-      {formData.type === "Otro" && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-2"
-        >
-          <Label htmlFor="customType" className="text-sm font-medium text-gray-700">
-            Especifica el tipo de CV
-          </Label>
-          <Input
-            id="customType"
-            placeholder="Ej: Especialista en Blockchain"
-            value={formData.customType}
-            onChange={(e) => updateFormData({ customType: e.target.value })}
-            className="w-full"
-          />
-        </motion.div>
-      )}
     </div>
   )
 }
