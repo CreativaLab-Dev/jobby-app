@@ -115,7 +115,7 @@ export default function Error({
                   <div className="space-y-2">
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0" />
-                      <p className="text-gray-600">Intenta recargar la página usando el botón "Intentar de nuevo"</p>
+                      <p className="text-gray-600">Intenta recargar la página usando el botón &quot;Intentar de nuevo&quot;</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0" />

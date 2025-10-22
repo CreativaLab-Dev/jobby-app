@@ -78,7 +78,7 @@ export function CreateCVModal({ children, isOpen, onOpenChange }: CreateCVModalP
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="bg-white sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
             ✨ Crear Nuevo CV
@@ -89,13 +89,13 @@ export function CreateCVModal({ children, isOpen, onOpenChange }: CreateCVModalP
         <CVForm formData={formData} onFormDataChange={setFormData} />
         
         <DialogFooter className="flex gap-3">
-          <Button variant="outline" onClick={handleCancel}>
+          <Button variant="outline" className="text-black border-gray-200 hover:bg-gray-200 hover:border-gray-200" onClick={handleCancel}>
             Cancelar
           </Button>
           <Button
             onClick={handleCreateCV}
             disabled={!isFormValid || isCreating || isPending}
-            className="bg-gradient-to-r from-emerald-400 to-blue-500 hover:from-emerald-500 hover:to-blue-600"
+            className="text-white bg-gradient-to-r from-emerald-400 to-blue-500 hover:from-emerald-500 hover:to-blue-600"
           >
             {isCreating ? (
               <>

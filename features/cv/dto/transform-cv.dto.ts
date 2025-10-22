@@ -6,6 +6,8 @@ export function transformCVToDTO(cv: CVType): CVData {
   return {
     personal: {
       fullName: cv.fullName || "",
+      address: cv.address || "",
+      linkedin: cv.linkedin || "",
       summary: cv.professionalSummary || "",
       phone: cv.phone || "",
       email: cv.email || "",
@@ -14,11 +16,11 @@ export function transformCVToDTO(cv: CVType): CVData {
       items: cv.education.map((educ) => ({
         id: educ.id,
         institution: educ.institution || "",
+        location: educ.location || "",
         title: educ.title || "",
         level: educ.level || "",
-        year: educ.graduationYear ? String(educ.graduationYear) : "",
-        gpa: educ.grade ? educ.grade.toFixed(2) : "",
-        status: educ.status || "",
+        year: educ.year || (educ.graduationYear ? String(educ.graduationYear) : ""),
+        honors: educ.honors || "",
       })),
     },
     skills: {
@@ -52,8 +54,9 @@ export function transformCVToDTO(cv: CVType): CVData {
     experience: {
       items: cv.experience?.map((exp) => ({
         id: exp.id,
-        position: exp.title || "",
+        position: exp.position || "",
         company: exp.company || "",
+        location: exp.location || "",
         duration: exp.duration || "",
         responsibilities: exp.responsibilities || "",
       })) || [],

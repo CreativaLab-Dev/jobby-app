@@ -70,7 +70,7 @@ function getPDFStyles() {
       }
       
       body {
-        font-size: 10pt !important;
+        font-size: 11pt !important;
       }
       
       .header h1 {
@@ -78,15 +78,15 @@ function getPDFStyles() {
       }
       
       .section-title {
-        font-size: 11pt !important;
+        font-size: 12pt !important;
       }
       
       .item-title {
-        font-size: 10pt !important;
+        font-size: 11pt !important;
       }
       
       .summary, .item-description, .contact-info, .skills-section {
-        font-size: 9pt !important;
+        font-size: 10.5pt !important;
       }
       
       .section {
@@ -103,119 +103,181 @@ function getPDFStyles() {
       margin: 0 auto;
       padding: 40px;
       background: white;
-      font-size: 11pt;
+      font-size: 12px;
+      text-align: center;
     }
     
     .header {
-      margin-bottom: 30px;
+      margin-bottom: 8px;
+      text-align: center;
     }
     
     .header h1 {
-      font-size: 32pt;
+      font-size: 24px;
       font-weight: bold;
       color: #000;
-      margin-bottom: 20px;
+      margin-bottom: 8px;
       letter-spacing: 1px;
-      text-transform: uppercase;
+    }
+    
+    .contact-section {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .contact-info {
+      font-size: 12px;
+      color: #000;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .contact-info a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    
+    .divider {
+      border: none;
+      border-top: 1px solid #000;
+      margin: 8px 0;
+    }
+    
+    .summary-section {
+      margin-bottom: 8px;
+      text-align: left;
     }
     
     .summary {
-      font-size: 11pt;
+      font-size: 12px;
+      font-style: italic;
       line-height: 1.5;
       color: #000;
-      margin-bottom: 30px;
       text-align: justify;
     }
     
     .section {
-      margin-bottom: 35px;
+      margin-bottom: 8px;
+      text-align: left;
     }
     
     .section-title {
-      font-size: 14pt;
+      font-size: 13px;
       font-weight: bold;
       color: #000;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
       text-transform: uppercase;
       border-bottom: 1px solid #000;
-      padding-bottom: 5px;
+      padding-bottom: 2px;
+      text-align: left;
     }
     
-    .contact-info {
-      font-size: 11pt;
-      color: #000;
-      margin-bottom: 30px;
-    }
-    
-    .experience-item, .education-item, .project-item, .achievement-item, .certification-item {
-      margin-bottom: 25px;
-      position: relative;
+    .experience-item, .education-item, .project-item {
+      margin-bottom: 10px;
     }
     
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
     
-    .item-title {
+    .item-subheader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2px;
+    }
+    
+    .item-title-bold {
       font-weight: bold;
-      font-size: 12pt;
+      font-size: 12px;
       color: #000;
     }
     
-    .item-subtitle {
-      font-size: 11pt;
+    .item-location-bold {
+      font-size: 12px;
+      font-weight: bold;
+      color: #000;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    
+    .item-location {
+      font-size: 12px;
+      color: #000;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    
+    .item-position {
+      font-size: 12px;
+      color: #000;
+    }
+    
+    .item-degree {
+      font-size: 12px;
+      color: #000;
+    }
+    
+    .item-date-italic {
+      font-size: 12px;
       color: #000;
       font-style: italic;
-      margin-bottom: 5px;
+      white-space: nowrap;
+      margin-left: 8px;
     }
     
-    .item-date {
-      font-size: 11pt;
+    .responsibilities-list {
+      margin-left: 24px;
+      list-style-type: disc;
+      text-align: justify;
+    }
+    
+    .responsibilities-list li {
+      font-size: 12px;
       color: #000;
-      font-weight: normal;
-      white-space: nowrap;
+      line-height: 1.5;
+      margin-bottom: 2px;
     }
     
     .item-description {
-      font-size: 11pt;
+      font-size: 12px;
       color: #000;
       line-height: 1.5;
       text-align: justify;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     
     .item-details {
-      margin-left: 20px;
-      margin-top: 8px;
+      text-align: left;
+      margin-top: 0;
     }
     
     .item-details li {
-      font-size: 11pt;
+      font-size: 12px;
       color: #000;
-      margin-bottom: 3px;
-      list-style-type: disc;
+      margin-bottom: 0;
+      list-style-type: none;
     }
     
     .skills-section {
-      font-size: 11pt;
+      font-size: 12px;
       color: #000;
       line-height: 1.6;
+      text-align: left;
     }
     
     .skills-category {
-      margin-bottom: 10px;
+      margin-bottom: 0;
+      text-align: left;
     }
     
     .skills-category strong {
       font-weight: bold;
-    }
-    
-    .section-divider {
-      border-bottom: 1px solid #000;
-      margin: 30px 0;
     }
   `
 }
