@@ -64,7 +64,7 @@ export default function ComplaintsPage() {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Juan Pérez"
+                    placeholder="John Doe"
                     required
                     className="border-gray-300 focus-visible:ring-orange-500"
                   />
@@ -81,7 +81,7 @@ export default function ComplaintsPage() {
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="juan@example.com"
+                    placeholder="johndoe@example.com"
                     required
                     className="border-gray-300 focus-visible:ring-orange-500"
                   />

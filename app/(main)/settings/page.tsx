@@ -12,8 +12,8 @@ import { Loader2, Shield, Bell, User, Sun, Moon } from "lucide-react";
 
 export default function SettingsPage() {
   const [form, setForm] = useState({
-    name: "Juan Pérez",
-    email: "juan@example.com",
+    name: "",
+    email: "",
     password: "",
     notifications: true,
     darkMode: false,
@@ -42,7 +42,7 @@ export default function SettingsPage() {
   };
 
   return (
-  <div className="min-h-screen py-12 px-4">
+  <div className="bg-white min-h-screen py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,6 +78,7 @@ export default function SettingsPage() {
                         name="name"
                         value={form.name}
                         onChange={handleChange}
+                        placeholder="John Doe"
                         className="border-gray-300 focus-visible:ring-orange-500"
                       />
                     </div>
@@ -91,6 +92,7 @@ export default function SettingsPage() {
                         type="email"
                         value={form.email}
                         onChange={handleChange}
+                        placeholder="johndoe@example.com"
                         className="border-gray-300 focus-visible:ring-orange-500"
                       />
                     </div>

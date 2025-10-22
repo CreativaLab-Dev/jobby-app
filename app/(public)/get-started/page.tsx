@@ -29,7 +29,7 @@ export default function UploadHomePage() {
   })
   
   return (
-  <div className="relative h-full overflow-hidden">
+  <div className="bg-white relative h-full overflow-hidden">
       {/* Blobs decorativos */}
       <svg className="absolute top-0 left-0 w-64 h-64 opacity-20" viewBox="0 0 200 200">
         <path fill="#FF9F43" d="M40,-60C50,-45,60,-30,65,-12C70,6,70,28,60,45C50,62,30,75,10,70C-10,65,-30,40,-45,20C-60,0,-70,-20,-65,-40C-60,-60,-50,-80,-30,-85C-10,-90,10,-80,30,-75C50,-70,40,-60Z" transform="translate(100 100)" />

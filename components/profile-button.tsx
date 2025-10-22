@@ -51,7 +51,7 @@ export function ProfileButton({ user }: ProfileButtonProps) {
           </Avatar>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-48 p-2 bg-white shadow-lg rounded-lg">
+      <PopoverContent align="end" className="border-gray-200 w-48 p-2 bg-white shadow-lg rounded-lg">
         <div className="flex flex-col gap-2">
           {/* Info about the user */}
           <div className="flex items-center gap-2 p-2 border-b border-gray-200">
@@ -93,7 +93,7 @@ export function ProfileButton({ user }: ProfileButtonProps) {
               </>
             )}
           </button>
-          <Separator className="my-2" />
+          <Separator className="bg-gray-200 my-2" />
           <button
             onClick={() => router.push("/complaints")}
             className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-gray-100 text-gray-700 transition cursor-pointer"
@@ -101,7 +101,7 @@ export function ProfileButton({ user }: ProfileButtonProps) {
             <BookA className="w-4 h-4 text-yellow-500" />
             <span className="text-sm">Reclamaciones</span>
           </button>
-          <Separator className="my-2" />
+          <Separator className="bg-gray-200 my-2" />
         {/*  Version App */}
           <div className="text-xs text-gray-500 text-center">
             Versión 1.0.0
