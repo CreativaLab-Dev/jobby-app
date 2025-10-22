@@ -121,7 +121,7 @@ export default function NotFound() {
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-gray-600">Usa el botón "Atrás" de tu navegador</p>
+                    <p className="text-gray-600">Usa el botón &quot;Atrás&quot; de tu navegador</p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0" />

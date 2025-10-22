@@ -38,7 +38,7 @@ export default function ComplaintsPage() {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12 px-4">
+  <div className="bg-white min-h-screen py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <Card className="shadow-xl border border-orange-100 bg-white/95 backdrop-blur-sm">
@@ -64,7 +64,7 @@ export default function ComplaintsPage() {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Juan Pérez"
+                    placeholder="John Doe"
                     required
                     className="border-gray-300 focus-visible:ring-orange-500"
                   />
@@ -81,7 +81,7 @@ export default function ComplaintsPage() {
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="juan@example.com"
+                    placeholder="johndoe@example.com"
                     required
                     className="border-gray-300 focus-visible:ring-orange-500"
                   />

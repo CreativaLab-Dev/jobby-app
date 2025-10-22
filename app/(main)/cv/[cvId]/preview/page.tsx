@@ -1,6 +1,5 @@
 import {CVData} from "@/types/cv";
 import {transformCVToDTO} from "@/features/cv/dto/transform-cv.dto";
-import CreateCVPage from "@/features/cv/components/create-cv-page";
 import {redirect} from "next/navigation";
 import {getCvById} from "@/features/cv/actions/get-cv-by-id";
 import {PreviewCVComponent} from "@/features/cv-preview/components/cv-review-page";

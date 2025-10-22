@@ -1,7 +1,9 @@
 interface ExperienceItem {
+  id: string
   position?: string
-  duration?: string
   company?: string
+  location?: string
+  duration?: string
   responsibilities?: string
 }
 
@@ -15,24 +17,29 @@ export function CVExperience({ experience }: CVExperienceProps) {
   if (!experience?.items || experience.items.length === 0) return null
 
   return (
-    <div className="mb-8">
-      <h2 className="text-base font-bold text-black mb-4 uppercase border-b border-black pb-1">EXPERIENCIA LABORAL</h2>
-      {experience.items.map((exp, index) => (
-        <div key={index} className="mb-6">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-sm font-bold text-black">{exp.position}</h3>
-            <span className="text-sm text-black whitespace-nowrap ml-4">{exp.duration}</span>
+    <div className="mb-4">
+      <h2 className="text-[16px] font-bold text-black mb-3 uppercase border-b border-black">
+        EXPERIENCIA LABORAL
+      </h2>
+      {experience.items.map((exp) => (
+        <div key={exp.id} className="mb-3">
+          <div className="flex justify-between items-start">
+            <h3 className="text-[15px] font-bold text-black">{exp.company}</h3>
+            <span className="text-[15px] text-black whitespace-nowrap ml-2 font-bold">{exp.location}</span>
           </div>
-          <p className="text-sm text-black italic mb-2">{exp.company}</p>
-          <p className="text-sm text-black leading-relaxed text-justify">
+          <div className="flex justify-between items-start mb-1">
+            <p className="text-[15px] text-black">{exp.position}</p>
+            <span className="text-[15px] text-black whitespace-nowrap ml-2 italic">{exp.duration}</span>
+          </div>
+          <ul className="text-[15px] text-black leading-relaxed text-justify">
             {exp.responsibilities && exp.responsibilities
               .split("\n")
               .map((line, idx) => (
-                <li key={idx} className="text-xs text-black leading-relaxed text-justify list-disc ml-4">
+                <li key={idx} className="text-[15px] text-black leading-relaxed text-justify list-disc ml-6">
                   {line.replace(/^[-–•]\s*/, "")}
                 </li>
               ))}
-          </p>
+          </ul>
         </div>
       ))}
     </div>

@@ -17,18 +17,18 @@ export function CVPreviewFull({ data, type }: CVPreviewProps) {
   const isAcademicType = type === "becas" || type === "practicas" || type === "intercambios"
 
   return (
-    <div className="bg-white p-12 min-h-[800px] font-sans" style={{ fontFamily: "Arial, sans-serif" }}>
+    <div className="bg-white p-12 min-h-[800px] font-sans text-xs" style={{ fontFamily: "Arial, sans-serif" }}>
       <CVHeader name={data.personal?.fullName} />
+
+      <CVContact personal={data.personal} />
 
       {data.personal?.summary && (
         <>
-          <div className="mb-4">
-            <p className="text-sm text-black leading-relaxed text-justify">{data.personal.summary}</p>
+          <div className="mb-2">
+            <p className="italic text-xs text-black leading-relaxed text-justify">{data.personal.summary}</p>
           </div>
         </>
       )}
-
-      <CVContact personal={data.personal} />
 
       {isAcademicType ? <CVProjects projects={data.projects} /> : <CVExperience experience={data.experience} />}
 

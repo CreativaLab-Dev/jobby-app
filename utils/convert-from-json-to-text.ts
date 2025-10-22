@@ -5,6 +5,8 @@ export const convertFromJsonToText = (cv: CVData)=> {
 
   if (cv.personal) {
     text += `Full Name: ${cv.personal.fullName || ""}\n`;
+    text += `Address: ${cv.personal.address || ""}\n`;
+    text += `LinkedIn: ${cv.personal.linkedin || ""}\n`;
     text += `Email: ${cv.personal.email || ""}\n`;
     text += `Phone: ${cv.personal.phone || ""}\n`;
     text += `Summary: ${cv.personal.summary || ""}\n\n`;
@@ -13,7 +15,7 @@ export const convertFromJsonToText = (cv: CVData)=> {
   if (cv.education?.items) {
     text += "Education:\n";
     cv.education.items.forEach(item => {
-      text += `- Level: ${item.level || ""}, Title: ${item.title || ""}, Institution: ${item.institution || ""}, Year: ${item.year || ""}, GPA: ${item.gpa || ""}, Status: ${item.status || ""}\n`;
+      text += `- Level: ${item.level || ""}, Title: ${item.title || ""}, Institution: ${item.institution || ""}, Location: ${item.location || ""}, Year: ${item.year || ""}, Honors: ${item.honors || ""}\n`;
     });
     text += "\n";
   }
@@ -21,7 +23,7 @@ export const convertFromJsonToText = (cv: CVData)=> {
   if (cv.experience?.items) {
     text += "Experience:\n";
     cv.experience.items.forEach(item => {
-      text += `- Position: ${item.position || ""}, Company: ${item.company || ""}, Duration: ${item.duration || ""}, Responsibilities: ${item.responsibilities || ""}\n`;
+      text += `- Position: ${item.position || ""}, Company: ${item.company || ""}, Location: ${item.location || ""}, Duration: ${item.duration || ""}, Responsibilities: ${item.responsibilities || ""}\n`;
     });
     text += "\n";
   }

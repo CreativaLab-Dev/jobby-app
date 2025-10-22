@@ -8,11 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CVPreviewFull } from "@/features/cv-preview/components/c-v-preview-full"
 import { ActionsSidebar } from "@/features/cv-preview/components/actions-sidebar"
 import { TipCard } from "@/features/cv-preview/components/tip-card"
-import { CVData } from "@/types/cv";
-import { LoadingModal } from "@/components/loading-modal";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { CVData } from "@/types/cv"
 
 interface PreviewCVComponentProps {
   cv: CVData
@@ -21,36 +17,11 @@ interface PreviewCVComponentProps {
 }
 
 export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: PreviewCVComponentProps) {
-  const [openModal, setOpenModal] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isDisabled] = useState(false)
   const router = useRouter()
-
-  const handleStartAnalysis = async () => {
-    console.log("Starting analysis for CV:", cvData);
-    try {
-      setOpenModal(true);
-      setIsDisabled(true);
-      // Simulate analysis process
-      const response = await axios.post(`/api/cv/analysis`, { cvData, cvId: cvId });
-      if (response.status === 200) {
-        console.log("Analysis started successfully");
-        // Redirect to analysis page or show success message
-        router.push("/analysis");
-      } else {
-        console.error("Failed to start analysis:", response.data);
-      }
-    } catch (error) {
-      console.error("Error starting analysis:", error)
-      setIsDisabled(false);
-    } finally {
-      setOpenModal(false);
-    }
-  }
-  // Todo onichan
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      {openModal && <LoadingModal show={openModal} error={null} />}
       <div className="container mx-auto px-4 py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-4 bg-white shadow-md rounded-2xl mb-8 border border-gray-100">
@@ -99,13 +70,13 @@ export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: Previe
                   <CVPreviewFull data={cvData} type={opportunityType} />
                 </CardContent>
               </Card>
-            </div>
+            </div>  
 
             {/* Actions Sidebar */}
             <div className="space-y-6">
               <ActionsSidebar
                 isDisabled={isDisabled}
-                cvData={cvData}
+                cvData={cvData as { [key: string]: unknown }}
                 opportunityType={opportunityType}
                 onEditCV={() => router.push(`/cv/${cvId}/edit`)}
               />
