@@ -1,13 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { CV } from "@prisma/client"
 import { CVListHeader } from "./cv-list-header"
 import { CVGrid } from "./cv-grid"
 import { CVEmptyState } from "./cv-empty-state"
+import { CvWithRelations } from "../actions/get-cv-for-current-user"
 
 interface CvListProps {
-  cvs: CV[]
+  cvs: CvWithRelations[]
   disabledButton?: boolean
 }
 

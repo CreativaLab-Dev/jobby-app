@@ -1,4 +1,4 @@
-import {getUser} from "@/lib/get-user";
+import { getUser } from "@/lib/shared/get-user";
 import ChangePassword from "@/features/user/components/change-password";
 
 export const dynamic = "force-dynamic";

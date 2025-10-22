@@ -68,10 +68,6 @@ export function Navbar({ userLimit, user }: NavbarProps) {
     return "from-red-400 to-red-600"
   }
 
-  const onRedirectCv = () => {
-    router.push("/cv")
-  }
-
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
@@ -97,8 +93,7 @@ export function Navbar({ userLimit, user }: NavbarProps) {
           <div className="flex items-center space-x-4">
             {/* CV Creation Credits */}
             <motion.div whileHover={{ scale: 1.05 }} className="hidden sm:block">
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm cursor-pointer"
-                onClick={onRedirectCv}
+              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm"
               >
                 <CardContent className="p-3">
                   <div className="flex items-center space-x-3">
@@ -128,8 +123,7 @@ export function Navbar({ userLimit, user }: NavbarProps) {
 
             {/* Score Analysis Credits */}
             <motion.div whileHover={{ scale: 1.05 }} className="hidden sm:block">
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm cursor-pointer"
-                onClick={onRedirectCv}
+              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm"
               >
                 <CardContent className="p-3">
                   <div className="flex items-center space-x-3">

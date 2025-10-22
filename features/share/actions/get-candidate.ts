@@ -1,20 +1,20 @@
-import {prisma} from "@/lib/prisma";
-import {getSession} from "@/lib/session";
+import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/shared/session";
 
 export const getCandidate = async () => {
-  try{
+  try {
     const session = await getSession();
     if (!session.success) {
       return null
     }
-    
+
     const email = session.user?.email;
     const id = session.user?.id;
-    
+
     if (!email || !id) {
       return null
     }
-    
+
     const existingUser = await prisma.candidate.findFirst({
       where: {
         user: {
@@ -29,7 +29,7 @@ export const getCandidate = async () => {
     if (!existingUser) {
       return null;
     }
-    
+
     return {
       id: existingUser.id,
       user: {
