@@ -18,8 +18,8 @@ export const createPreference = async () => {
       }
     }
 
-    // Verify if user have a active subscription
-    const userWorkshop = await prisma.userSubscription.findFirst({
+    // Verify if user have an active subscription
+    const userSuscription = await prisma.userSubscription.findFirst({
       where: {
         userId: currentUser.id,
         expiresAt: {
@@ -27,17 +27,10 @@ export const createPreference = async () => {
         },
       },
     })
-    if (userWorkshop) {
+    if (userSuscription) {
       return {
         success: false,
         error: 'Ya tienes una suscripción activa',
-      }
-    }
-
-    if (userWorkshop) {
-      return {
-        success: false,
-        error: 'Ya te encuentras inscrito en este taller',
       }
     }
 

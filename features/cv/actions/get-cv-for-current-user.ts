@@ -85,7 +85,6 @@ export const getCvForCurrentUser = async () => {
 
     const manuals = cvs.filter(cv => cv.createdByJobId === null);
     const uploads = cvs.filter(cv => cv.createdByJobId !== null);
-    console.log("User Subscription:", userSubscription);
 
     const activeManualSubscription = userSubscription
       ? userSubscription.manualCvsUsed < userSubscription.plan?.manualCvLimit
@@ -106,7 +105,6 @@ export const getCvForCurrentUser = async () => {
       },
     };
 
-    console.log("[CV_FOR_CURRENT_USER_RESPONSE]", response);
 
     return response;
 
