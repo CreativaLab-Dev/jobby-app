@@ -7,19 +7,19 @@ async function main() {
     update: {},
     create: {
       id: "d79cafea-beef-4037-a874-bf0e8e04d4e9",
-      slug: "free",
-      name: "Free Plan",
-      description: "Basic free plan with limited features",
-      priceCents: 0,
+      slug: "premium",
+      name: "Premium Plan",
+      description: "Access to all premium features",
+      priceCents: 4.90,
       currency: "SOLES",
       features: {
         caracteristics: [
-          "Limited to 2 manual CV analyses",
+          "Limited to 3 manual CV analyses",
           "Limited to 2 CV uploads",
           "Basic support",
         ],
       },
-      manualCvLimit: 2,
+      manualCvLimit: 3,
       uploadCvLimit: 2,
     },
   });
