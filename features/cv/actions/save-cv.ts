@@ -20,18 +20,18 @@ export const saveCV = async (id: string, cvData: CVData) => {
     const skillsLang = cvData.skills?.languages ?? [];
 
     const nestedEducation = educationItems
-    .filter((e) =>
-      e.level && Object.values(EducationLevel).includes(e.level as EducationLevel)
-    )
-    .map((e) => ({
-      level: e.level as EducationLevel,
-      title: e.title!,
-      institution: e.institution!,
-      location: e.location,
-      graduationYear: e.year ? parseInt(e.year, 10) : null,
-      year: e.year,
-      honors: e.honors,
-    }));
+      .filter((e) =>
+        e.level && Object.values(EducationLevel).includes(e.level as EducationLevel)
+      )
+      .map((e) => ({
+        level: e.level as EducationLevel,
+        title: e.title!,
+        institution: e.institution!,
+        location: e.location,
+        graduationYear: e.year ? parseInt(e.year, 10) : null,
+        year: e.year,
+        honors: e.honors,
+      }));
 
 
     const nestedProjects = projectItems.map((p) => ({

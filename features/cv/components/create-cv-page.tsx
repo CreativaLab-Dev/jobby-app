@@ -1,6 +1,6 @@
 "use client"
 
-import {useState, useCallback, useTransition} from "react"
+import { useState, useCallback, useTransition } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,9 +11,9 @@ import { PreviewToggle } from "@/features/cv/components/preview-toggle"
 import { NavigationButtons } from "@/features/cv/components/navigation-buttons"
 import { CVSectionForm } from "@/features/cv/components/cv-section-form"
 import { CVPreview } from "@/features/cv/components/cv-preview"
-import {CVData} from "@/types/cv";
-import {saveCV} from "@/features/cv/actions/save-cv";
-import {Separator} from "@/components/ui/separator";
+import { CVData } from "@/types/cv";
+import { saveCV } from "@/features/cv/actions/save-cv";
+import { Separator } from "@/components/ui/separator";
 
 interface CreateCVPageProps {
   cv: CVData
@@ -28,12 +28,12 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
   const [showPreview, setShowPreview] = useState(true)
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-  
+
   const sections = getSections(opportunityType)
   const submit = () => {
     if (isPending) return
     startTransition(() => {
-      saveCV(id,cvData).then((result) => {
+      saveCV(id, cvData).then((result) => {
         if (result?.success) {
           console.log("CV saved successfully")
         } else {
@@ -43,6 +43,7 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
     })
   }
   const handleNext = () => {
+    // TODO: refactor how to save the data
     submit()
     if (activeSection < sections.length - 1) {
       setActiveSection(activeSection + 1)
@@ -50,24 +51,24 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
       router.push(`/cv/${id}/preview`)
     }
   }
-  
+
   const handlePrevious = () => {
     if (activeSection > 0) {
       setActiveSection(activeSection - 1)
     }
   }
-  
+
   const updateCVData = useCallback((sectionId: string, data: Record<string, unknown>) => {
     setCvData((prev) => ({
       ...prev,
       [sectionId]: data,
     }))
   }, [])
-  
+
   const currentSection = sections[activeSection]
-  
+
   return (
-    
+
     <div className="h-full bg-gradient-to-br from-green-50 via-white to-blue-50">
       <div className="container mx-auto px-4 py-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-7xl mx-auto">
@@ -76,7 +77,7 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
             <ProgressBar currentStep={activeSection} totalSteps={sections.length} />
             <PreviewToggle showPreview={showPreview} onToggle={() => setShowPreview(!showPreview)} />
           </div>
-          
+
           <NavigationButtons
             currentStep={activeSection}
             totalSteps={sections.length}
@@ -120,9 +121,9 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
                   </Card>
                 </motion.div>
               </AnimatePresence>
-              
+
             </div>
-              
+
             {/* Preview Section */}
             <AnimatePresence>
               {showPreview && (
@@ -150,11 +151,11 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
               )}
             </AnimatePresence>
           </div>
-          
+
         </motion.div>
-        
+
       </div>
-      
+
     </div>
   )
 }
