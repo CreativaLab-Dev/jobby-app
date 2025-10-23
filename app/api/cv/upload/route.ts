@@ -20,9 +20,36 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
     }
 
+    const userSubscription = await prisma.userSubscription.findFirst({
+      where: {
+        userId: currentUser.id,
+        expiresAt: {
+          gt: new Date(),
+        },
+      },
+      include: {
+        plan: true,
+      },
+    });
+
+    if (!userSubscription) {
+      return NextResponse.json(
+        { success: false, message: "No active subscription found" },
+        { status: 403 }
+      );
+    }
+
+    const uploadCvsUsed = userSubscription.uploadCvsUsed;
+    const uploadCvLimit = userSubscription.plan?.uploadCvLimit || 0;
+    if (uploadCvsUsed >= uploadCvLimit) {
+      return NextResponse.json(
+        { success: false, message: "Upload CV limit reached" },
+        { status: 403 }
+      );
+    }
+
     const userId = currentUser.id;
 
-    // 1️⃣ Upload file to GCP (Cloud Storage)
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = `CV-${uuidv4()}-${file.name}`;
     const { error, url } = await savePdf(file, { buffer, fileName });

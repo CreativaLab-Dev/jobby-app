@@ -29,33 +29,28 @@ export default async function RootLayout({
     children: React.ReactNode,
 }>) {
     const currentSubscription = await getCurrentSubscription();
-    if (!currentSubscription) {
-        // redirect('404');
-        console.log('No subscription found');
-    }
     const user = await getUser()
     const isTermsAccepted = user?.acceptedTermsAndConditions && user?.acceptedPrivacyPolicy || false;
-
-    const userLimits: {
-        userLimit?: {
-            cvCreations: {
-                used: number
-                total: number
-            },
-            scoreAnalysis: {
-                used: number
-                total: number
-            }
+    let userLimits = {
+        cvCreations: {
+            used: 0,
+            total: 0
+        },
+        scoreAnalysis: {
+            used: 0,
+            total: 0
         }
-    } = {
-        userLimit: {
+    }
+
+    if (currentSubscription) {
+        userLimits = {
             cvCreations: {
-                used: 0,
-                total: 0
+                used: currentSubscription.manualCvsUsed,
+                total: currentSubscription.plan.manualCvLimit
             },
             scoreAnalysis: {
-                used: 0,
-                total: 0
+                used: currentSubscription.uploadCvsUsed,
+                total: currentSubscription.plan.uploadCvLimit
             }
         }
     }
@@ -64,16 +59,7 @@ export default async function RootLayout({
         <>
             <div className="flex min-h-screen relative w-full">
                 <div className="flex-1 flex flex-col">
-                    <Navbar userLimit={{
-                        cvCreations: {
-                            used: 0,
-                            total: 0
-                        },
-                        scoreAnalysis: {
-                            used: 0,
-                            total: 0
-                        }
-                    }} user={user} />
+                    <Navbar hasSubscription={!!currentSubscription} userLimit={userLimits} user={user} />
                     <main className="flex-1 transition-all duration-300">{children}</main>
                     <TermsModal isOpen={!isTermsAccepted} userId={user?.id} />
                 </div>

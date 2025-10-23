@@ -1,14 +1,14 @@
 "use client";
 
-import {useState, useTransition} from "react";
+import { useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {authClient} from "@/lib/auth-client";
-import {useRouter} from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import Header from "@/components/header";
-import { Lock, Mail, User, Loader2} from "lucide-react";
+import { Lock, Mail, User, Loader2 } from "lucide-react";
 import { newUserConfiguration } from "@/lib/shared/new-user-configuration";
 
 const errorMapper: Record<string, string> = {
@@ -62,16 +62,16 @@ export function RegisterForm() {
             }
 
             // Create a basic subscription for the new user
-            if (isPending) {
-                return;
-            }
+            // if (isPending) {
+            //     return;
+            // }
 
-            startTransition(async () => {
-                const response = await newUserConfiguration(userId);
-                if (!response) {
-                    console.error("Error in new user configuration for userId:", userId);
-                }
-            });
+            // startTransition(async () => {
+            //     const response = await newUserConfiguration(userId);
+            //     if (!response) {
+            //         console.error("Error in new user configuration for userId:", userId);
+            //     }
+            // });
 
             setSuccess(true);
             router.push("/cv");
@@ -238,9 +238,9 @@ export function RegisterForm() {
                                     <span className="w-full border-t border-border" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">
-                    O regístrate con
-                  </span>
+                                    <span className="bg-card px-2 text-muted-foreground">
+                                        O regístrate con
+                                    </span>
                                 </div>
                             </div>
 

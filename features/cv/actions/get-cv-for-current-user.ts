@@ -86,16 +86,25 @@ export const getCvForCurrentUser = async () => {
     const manuals = cvs.filter(cv => cv.createdByJobId === null);
     const uploads = cvs.filter(cv => cv.createdByJobId !== null);
 
+    const activeManualSubscription = userSubscription
+      ? userSubscription.manualCvsUsed < userSubscription.plan?.manualCvLimit
+      : false;
+
+    const activeUploadSubscription = userSubscription
+      ? userSubscription.uploadCvsUsed < userSubscription.plan?.uploadCvLimit
+      : false;
+
     const response: CvForCurrentUserResponse = {
       manuals: {
         cvs: manuals,
-        activeSubscription: userSubscription?.manualCvsUsed < userSubscription?.plan?.manualCvLimit,
+        activeSubscription: activeManualSubscription,
       },
       uploads: {
         cvs: uploads,
-        activeSubscription: userSubscription?.uploadCvsUsed < userSubscription?.plan?.uploadCvLimit,
+        activeSubscription: activeUploadSubscription,
       },
     };
+
 
     return response;
 

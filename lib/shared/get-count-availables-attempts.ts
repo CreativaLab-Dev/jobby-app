@@ -1,7 +1,12 @@
 import { getSession } from "@/lib/shared/session";
 import { prisma } from "@/lib/prisma";
+import { SubscriptionPlan, UserSubscription } from "@prisma/client";
 
-export const getCurrentSubscription = async () => {
+export type UserSubscriptionWithPlan = UserSubscription & {
+  plan: SubscriptionPlan
+}
+
+export const getCurrentSubscription = async (): Promise<UserSubscriptionWithPlan | undefined> => {
   try {
     const session = await getSession();
     if (!session?.user?.email) {
@@ -12,9 +17,15 @@ export const getCurrentSubscription = async () => {
     const lastUserSubscription = await prisma.userSubscription.findFirst({
       where: {
         userId,
+        expiresAt: {
+          gt: new Date(),
+        },
       },
       orderBy: {
         createdAt: 'desc',
+      },
+      include: {
+        plan: true,
       }
     });
     if (!lastUserSubscription) {
