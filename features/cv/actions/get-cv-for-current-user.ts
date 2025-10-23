@@ -86,13 +86,14 @@ export const getCvForCurrentUser = async () => {
     const manuals = cvs.filter(cv => cv.createdByJobId === null);
     const uploads = cvs.filter(cv => cv.createdByJobId !== null);
 
-    const activeManualSubscription = userSubscription
-      ? userSubscription.manualCvsUsed < userSubscription.plan?.manualCvLimit
-      : false;
+    // VALIDACIÓN DE CRÉDITOS TEMPORALMENTE DESHABILITADA - Siempre permitir
+    const activeManualSubscription = true; // userSubscription
+    //   ? userSubscription.manualCvsUsed < userSubscription.plan?.manualCvLimit
+    //   : false;
 
-    const activeUploadSubscription = userSubscription
-      ? userSubscription.uploadCvsUsed < userSubscription.plan?.uploadCvLimit
-      : false;
+    const activeUploadSubscription = true; // userSubscription
+    //   ? userSubscription.uploadCvsUsed < userSubscription.plan?.uploadCvLimit
+    //   : false;
 
     const response: CvForCurrentUserResponse = {
       manuals: {

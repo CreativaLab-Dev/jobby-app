@@ -12,6 +12,11 @@
 npx inngest-cli@latest dev
 ```
 
+- View DB:
+```bash
+bunx prisma studio
+```
+
 - Add subscription by default
 ```bash
 node prisma/seed/init.js
