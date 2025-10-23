@@ -1,55 +1,39 @@
-import {getCandidate} from "@/features/share/actions/get-candidate";
-import {
-  AcademicProject,
-  Achievement,
-  Certification,
-  CV,
-  CVRevision,
-  Education,
-  Experience,
-  Skill
-} from "@prisma/client";
-import {prisma} from "@/lib/prisma";
+import { getCandidate } from "@/features/share/actions/get-candidate";
+import { getCurrentUser } from "@/features/share/actions/get-current-user";
+import { prisma } from "@/lib/prisma";
+import { Cv, CvSection } from "@prisma/client";
 
-export type CVType = CV & {
-  education: Education[];
-  academicProjects: AcademicProject[];
-  achievements: Achievement[];
-  skills: Skill[];
-  revisions: CVRevision[];
-  experience: Experience[];
-  certifications: Certification[];
+export type CvWithSections = Cv & {
+  sections: CvSection[]
 }
 
-export const getCvById= async (cvId: string): Promise<CVType | null>  => {
+export const getCvById = async (cvId: string): Promise<CvWithSections | null> => {
   try {
-    const candidate = await getCandidate();
-    if (!candidate) {
-      return null
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      console.error("[ERROR_GET_CV] No current user");
+      return null;
     }
-    
-    const cv = await prisma.cV.findFirst({
+
+    const cv = await prisma.cv.findFirst({
       where: {
         id: cvId
       },
       include: {
-        education: true,
-        skills: true,
-        academicProjects: true,
-        achievements: true,
-        revisions: true,
-        experience: true,
-        certifications: true,
-        
+        sections: {
+          orderBy: {
+            order: 'asc',
+          }
+        }
       }
+
     })
-    
+
     if (!cv) {
-      console.warn("[NOT_FOUND_GET_CV]", `No CV found with id: ${cvId}`);
+      console.error("[ERROR_GET_CV] CV not found");
       return null
     }
-    
-    // Return the first CV found
+
     return cv
   } catch (error) {
     console.error("[ERROR_GET_CV]", error);

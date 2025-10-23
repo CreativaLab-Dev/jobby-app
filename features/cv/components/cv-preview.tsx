@@ -149,33 +149,33 @@ export function CVPreview({ data, type }: CVPreviewProps) {
 
       {/* Habilidades */}
       {data.skills && (
-        data.skills.technical.length > 0 ||
-        data.skills.soft.length > 0 ||
-        data.skills.languages.length > 0
+        data.skills?.technical?.length > 0 ||
+        data.skills?.soft?.length > 0 ||
+        data.skills?.languages?.length > 0
       ) && (
-        <div className="mb-2">
-          <h2 className="text-left text-[16px] font-bold text-black mb-2 uppercase border-b border-black">
-            HABILIDADES PROFESIONALES Y PERSONALES
-          </h2>
-          <div className="text-[15px] text-black leading-relaxed">
-            {data.skills.languages?.length > 0 && (
-              <p className="text-left">
-                <strong>Idiomas:</strong> {data.skills.languages.join(", ")}
-              </p>
-            )}
-            {data.skills.technical?.length > 0 && (
-              <p className="text-[15px] text-left">
-                <strong>Habilidades Técnicas:</strong> {data.skills.technical.join(", ")}
-              </p>
-            )}
-            {data.skills.soft?.length > 0 && (
-              <p className="text-[15px] text-left">
-                <strong>Habilidades Blandas:</strong> {data.skills.soft.join(", ")}
-              </p>
-            )}
+          <div className="mb-2">
+            <h2 className="text-left text-[16px] font-bold text-black mb-2 uppercase border-b border-black">
+              HABILIDADES PROFESIONALES Y PERSONALES
+            </h2>
+            <div className="text-[15px] text-black leading-relaxed">
+              {data.skills.languages?.length > 0 && (
+                <p className="text-left">
+                  <strong>Idiomas:</strong> {data.skills.languages.join(", ")}
+                </p>
+              )}
+              {data.skills.technical?.length > 0 && (
+                <p className="text-[15px] text-left">
+                  <strong>Habilidades Técnicas:</strong> {data.skills.technical.join(", ")}
+                </p>
+              )}
+              {data.skills.soft?.length > 0 && (
+                <p className="text-[15px] text-left">
+                  <strong>Habilidades Blandas:</strong> {data.skills.soft.join(", ")}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* Empty state */}
       {!data.personal?.fullName && (
