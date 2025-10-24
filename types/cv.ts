@@ -1,3 +1,5 @@
+import { ComponentType, SVGProps } from 'react';
+
 export interface CVField {
   name: string
   label: string
@@ -11,7 +13,7 @@ export interface CVField {
 export interface CVSection {
   id: string
   title: string
-  icon: any
+  icon: ComponentType<SVGProps<SVGSVGElement>>
   fields: CVField[]
   multiple?: boolean
 }

@@ -1,8 +1,8 @@
 // ---- features/cv/utils/transform-cv-to-dto.ts ----
 import { CVData } from "@/types/cv";
-import { mapEducationSection, mapExperienceSection, mapPersonalSection } from "@/utils/section-mappers";
+import { mapEducationSection, mapExperienceSection, mapPersonalSection, mapCertificationsSection, mapProjectsSection, mapAchievementsSection, mapSkillsSection} from "@/utils/section-mappers";
 import { mapSectionsByType } from "@/utils/section-utils";
-import { Cv, CvSectionType } from "@prisma/client";
+import { CvSectionType } from "@prisma/client";
 import { CvWithSections } from "../actions/get-cv-by-id";
 
 export function transformCVToDTO(cv: CvWithSections): CVData {
@@ -14,10 +14,10 @@ export function transformCVToDTO(cv: CvWithSections): CVData {
   const experience = mapExperienceSection(getSection(CvSectionType.EXPERIENCE), cv.sections);
 
   // Add other sections using similar mappers
-  const certifications = {}; // TODO: mapCertificationsSection(...)
-  const projects = {}; // TODO: mapProjectsSection(...)
-  const achievements = {}; // TODO: mapAchievementsSection(...)
-  const skills = {}; // TODO: mapSkillsSection(...)
+  const certifications = mapCertificationsSection(getSection(CvSectionType.CERTIFICATIONS), cv.sections);
+  const projects = {}; mapProjectsSection((CvSectionType.PROJECTS), cv.sections);
+  // const achievements = mapAchievementsSection((CvSectionType.), cv.sections);
+  const skills = mapSkillsSection((CvSectionType.SKILLS), cv.sections);
 
   return {
     personal,
@@ -25,7 +25,6 @@ export function transformCVToDTO(cv: CvWithSections): CVData {
     experience,
     certifications,
     projects,
-    achievements,
     skills,
   };
 }

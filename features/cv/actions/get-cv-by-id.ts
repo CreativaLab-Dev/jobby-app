@@ -1,4 +1,3 @@
-import { getCandidate } from "@/features/share/actions/get-candidate";
 import { getCurrentUser } from "@/features/share/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
 import { Cv, CvSection } from "@prisma/client";

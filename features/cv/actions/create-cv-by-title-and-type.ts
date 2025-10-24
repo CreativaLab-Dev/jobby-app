@@ -2,8 +2,8 @@
 
 import { getCurrentUser } from "@/features/share/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
-import { CvType, Language, OpportunityType, CvSectionType, CvSection } from "@prisma/client";
-import { JsonObject, JsonValue } from "@prisma/client/runtime/library";
+import { CvType, Language, OpportunityType, CvSectionType } from "@prisma/client";
+import { JsonObject } from "@prisma/client/runtime/library";
 
 /**
  * Create a CV and its default sections in one atomic operation.

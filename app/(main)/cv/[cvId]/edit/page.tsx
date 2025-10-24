@@ -23,9 +23,11 @@ export default async function EditCVPage({ params }: EditCVPageProps) {
   console.log("[CV_DATA]", cv);
 
   const cvData: CVData = transformCVToDTO(cv);
+  const cvSection = CVSection = transformCVToDTO(cv);
   return (
     <CreateCVPage
       cv={cvData}
+      section={cvSection}
       id={cv.id}
       opportunity={'beca'}
     />

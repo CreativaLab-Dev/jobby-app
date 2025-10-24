@@ -1,150 +1,134 @@
 "use server";
 
-import { CVData } from "@/types/cv";
-import { getCandidate } from "@/features/share/actions/get-candidate";
-import { CV, EducationLevel } from "@prisma/client";
+import { CVData, CVSection } from "@/types/cv";
+import { getCurrentUser } from "@/features/share/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
+import { CvSectionType } from "@prisma/client";
 
-export const saveCV = async (id: string, cvData: CVData) => {
+const sectionTypeMap: Record<string, { type: CvSectionType; title: string; order: number }> = {
+  "personal": { type: CvSectionType.CONTACT, title: "Información Personal", order: 0 },
+  "education": { type: CvSectionType.EDUCATION, title: "Educación", order: 1 },
+  "experience": { type: CvSectionType.EXPERIENCE, title: "Experiencia Profesional", order: 2 },
+  "projects": { type: CvSectionType.PROJECTS, title: "Proyectos Académicos", order: 3 },
+  "skills": { type: CvSectionType.SKILLS, title: "Habilidades", order: 4 },
+  "achievements": { type: CvSectionType.CERTIFICATIONS, title: "Logros y Reconocimientos", order: 5 },
+  "certifications": { type: CvSectionType.CERTIFICATIONS, title: "Certificaciones", order: 6 },
+};
+
+export const saveCV = async (id: string, cvSection: CVSection, cvData: CVData) => {
   try {
-    const candidate = await getCandidate();
+    const candidate = await getCurrentUser();
+    
     if (!candidate) {
       return { success: false, message: "Candidate not found." };
     }
 
-    const educationItems = cvData.education?.items ?? [];
-    const projectItems = cvData.projects?.items ?? [];
-    const achievementItems = cvData.achievements?.items ?? [];
-    const skillsSoft = cvData.skills?.soft ?? [];
-    const skillsTech = cvData.skills?.technical ?? [];
-    const skillsLang = cvData.skills?.languages ?? [];
+    const extractedJson = {
+      personal: cvData.personal,
+      education: cvData.education,
+      experience: cvData.experience,
+      projects: cvData.projects,
+      skills: cvData.skills,
+      achievements: cvData.achievements,
+      certifications: cvData.certifications,
+    };
 
-    const nestedEducation = educationItems
-      .filter((e) =>
-        e.level && Object.values(EducationLevel).includes(e.level as EducationLevel)
-      )
-      .map((e) => ({
-        level: e.level as EducationLevel,
-        title: e.title!,
-        institution: e.institution!,
-        location: e.location,
-        graduationYear: e.year ? parseInt(e.year, 10) : null,
-        year: e.year,
-        honors: e.honors,
-      }));
-
-
-    const nestedProjects = projectItems.map((p) => ({
-      title: p.title!,
-      description: p.description!,
-      technologies: p.technologies,
-      duration: p.duration,
-    }));
-
-    const nestedAchievements = achievementItems.map((a) => ({
-      title: a.title!,
-      description: a.description!,
-      date: a.date ? new Date(a.date) : null,
-    }));
-
-    const nestedCertifications = cvData.certifications?.items?.map((c) => ({
-      name: c.name!,
-      issuer: c.issuer!,
-      issueDate: c.date ? new Date(c.date) : null,
-    })) ?? [];
-
-    const nestedExperience = cvData.experience?.items?.map((e) => ({
-      position: e.position!,
-      company: e.company!,
-      location: e.location,
-      duration: e.duration,
-      responsibilities: e.responsibilities,
-      startDate: null,
-    })) ?? [];
-
-    const nestedSkills = [
-      ...skillsSoft.map((s) => ({ name: s, category: "BLANDA" as const })),
-      ...skillsTech.map((s) => ({ name: s, category: "TECNICA" as const })),
-      ...skillsLang.map((s) => ({ name: s, category: "IDIOMA" as const })),
-    ];
-
-    const response = await prisma.cV.upsert({
+    const cv = await prisma.cv.upsert({
       where: { id },
       update: {
-        fullName: cvData.personal?.fullName,
-        address: cvData.personal?.address,
-        linkedin: cvData.personal?.linkedin,
-        email: cvData.personal?.email,
-        phone: cvData.personal?.phone,
-        professionalSummary: cvData.personal?.summary,
-        candidateId: candidate.id,
-        education: {
-          deleteMany: {},
-          create: nestedEducation,
-        },
-        academicProjects: {
-          deleteMany: {},
-          create: nestedProjects,
-        },
-        achievements: {
-          deleteMany: {},
-          create: nestedAchievements,
-        },
-        skills: {
-          deleteMany: {},
-          create: nestedSkills,
-        },
-        certifications: {
-          deleteMany: {},
-          create: nestedCertifications,
-        },
-        experience: {
-          deleteMany: {},
-          create: nestedExperience,
-        },
+        extractedJson,
+        title: cvSection.title || "Untitled CV",
+        updatedAt: new Date(),
       },
       create: {
         id,
-        createdWithBuilder: true,
-        candidateId: candidate.id,
-        fullName: cvData.personal?.fullName,
-        address: cvData.personal?.address,
-        linkedin: cvData.personal?.linkedin,
-        phone: cvData.personal?.phone,
-        email: cvData.personal?.email,
-        professionalSummary: cvData.personal?.summary,
-        education: {
-          create: nestedEducation,
-        },
-        academicProjects: {
-          create: nestedProjects,
-        },
-        experience: {
-          create: nestedExperience,
-        },
-        achievements: {
-          create: nestedAchievements,
-        },
-        skills: {
-          create: nestedSkills,
-        },
-        certifications: {
-          create: nestedCertifications,
-        },
+        extractedJson,
+        userId: candidate.id,
+        title: cvSection.title || "Untitled CV",
+        opportunityType: "FULL_TIME",
+        cvType: "TECHNOLOGY", 
+        language: "ES",
       },
     });
+
+    const sectionsToSave = Object.entries(cvData)
+      .map(([sectionId, sectionData]) => {
+        const sectionConfig = sectionTypeMap[sectionId];
+        if (!sectionConfig) {
+          return null;
+        }
+
+        // Verificar si la sección tiene datos válidos
+        const hasData = sectionData && 
+          (Array.isArray(sectionData) ? sectionData.length > 0 :
+           typeof sectionData === 'object' ? Object.keys(sectionData).length > 0 : 
+           !!sectionData);
+
+        if (!hasData) {
+          return null;
+        }
+
+        return {
+          type: sectionConfig.type,
+          title: sectionConfig.title,
+          data: sectionData,
+          order: sectionConfig.order,
+        };
+      })
+      .filter(Boolean);
+
+    const existingSections = await prisma.cvSection.findMany({
+      where: { cvId: cv.id },
+    });
+
+    for (const section of sectionsToSave) {
+      const existingSection = existingSections.find(s => s.sectionType === section.type);
+
+      if (existingSection) {
+        await prisma.cvSection.update({
+          where: { id: existingSection.id },
+          data: {
+            contentJson: section.data,
+            title: section.title,
+            order: section.order,
+            updatedAt: new Date(),
+          },
+        });
+      } else {
+        await prisma.cvSection.create({
+          data: {
+            cvId: cv.id,
+            sectionType: section.type,
+            contentJson: section.data,
+            title: section.title,
+            order: section.order,
+          },
+        });
+      }
+    }
+
+    const sectionsToKeep = sectionsToSave.map(s => s.type);
+    const sectionsToDelete = existingSections.filter(s => !sectionsToKeep.includes(s.sectionType));
+    
+    if (sectionsToDelete.length > 0) {
+      await prisma.cvSection.deleteMany({
+        where: {
+          id: { in: sectionsToDelete.map(s => s.id) }
+        }
+      });
+    }
 
     return {
       success: true,
       message: "CV data saved successfully.",
-      data: response as CV,
+      data: cv,
     };
-  } catch (error) {
-    console.error("[SAVE_CV_ERROR]", error);
 
+  } catch (error) {
+    
     return {
       success: false,
-      message: error?.message || "Unexpected error while saving CV.",
+      message: error instanceof Error ? error.message : "Unexpected error while saving CV.",
     };
   }
 };

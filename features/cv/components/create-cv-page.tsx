@@ -11,7 +11,7 @@ import { PreviewToggle } from "@/features/cv/components/preview-toggle"
 import { NavigationButtons } from "@/features/cv/components/navigation-buttons"
 import { CVSectionForm } from "@/features/cv/components/cv-section-form"
 import { CVPreview } from "@/features/cv/components/cv-preview"
-import { CVData } from "@/types/cv";
+import { CVData, CVSection } from "@/types/cv";
 import { saveCV } from "@/features/cv/actions/save-cv";
 import { Separator } from "@/components/ui/separator";
 
@@ -21,8 +21,9 @@ interface CreateCVPageProps {
   opportunity: string
 }
 
-export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps) {
+export default function CreateCVPage({ cv, section, id, opportunity }: CreateCVPageProps) {
   const [opportunityType,] = useState<string>(opportunity)
+  const [cvSection, ] = useState<CVSection>(section)
   const [cvData, setCvData] = useState<CVData>(cv)
   const [activeSection, setActiveSection] = useState(0)
   const [showPreview, setShowPreview] = useState(true)
@@ -33,7 +34,7 @@ export default function CreateCVPage({ cv, id, opportunity }: CreateCVPageProps)
   const submit = () => {
     if (isPending) return
     startTransition(() => {
-      saveCV(id, cvData).then((result) => {
+      saveCV(id, cvSection ,cvData).then((result) => {
         if (result?.success) {
           console.log("CV saved successfully")
         } else {
