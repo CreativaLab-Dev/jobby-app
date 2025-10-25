@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import TestimoniosCarousel from "@/components/testimonios";
+import Image from "next/image";
 import {
   CheckCircle2,
   Sparkles,
@@ -123,17 +124,35 @@ const Index = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+            <p className="text-lg font-semibold text-muted-foreground uppercase tracking-wider mb-4">
               Respaldado por
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 items-center justify-items-center opacity-60">
-            <div className="text-2xl font-bold text-foreground/70">CreativaLab</div>
-            <div className="text-2xl font-bold text-foreground/70">PaqarinaWasi</div>
-            <div className="text-2xl font-bold text-foreground/70">ProInnóvate</div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 items-center justify-items-center">
+            {[
+              { src: "/logos/creativalab.png", alt: "CreativaLab logo" },
+              { src: "/logos/paqarinawasi.png", alt: "PaqarinaWasi logo" },
+              { src: "/logos/proinnovate.png", alt: "ProInnóvate logo" },
+            ].map((logo) => (
+              <div key={logo.alt} className="w-full flex justify-center">
+                <div className="p-6 bg-card rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center w-56 sm:w-64 md:w-72 lg:w-80 h-28 sm:h-32 md:h-36 lg:h-40 transform hover:scale-105 overflow-hidden border border-gray-200/20">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      sizes="(max-width: 640px) 120px, (max-width: 768px) 180px, 220px"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* Cómo funciona */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30">

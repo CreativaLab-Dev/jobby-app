@@ -193,9 +193,11 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button variant="outline" className="w-full">
-                Solicitar información
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
 
             {/* Medium */}
@@ -236,9 +238,11 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button className="w-full shadow-glow">
-                Solicitar información
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
 
             {/* Large */}
@@ -273,9 +277,11 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button variant="outline" className="w-full">
-                Contactar ventas
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
           </div>
         </div>

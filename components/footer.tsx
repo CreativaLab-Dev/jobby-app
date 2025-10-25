@@ -5,10 +5,12 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-gradient">Jobby</h3>
+            <h3 className="text-xl font-bold text-gradient">
+              Jobby
+            </h3>
             <p className="text-sm text-muted-foreground">
               Tu talento merece ser visible
             </p>
@@ -80,18 +82,25 @@ const Footer = () => {
         </div>
 
         {/* Línea divisoria */}
-        <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p className="flex items-center justify-center gap-6">
-            <span>© 2025 Talently - Todos los derechos reservados.</span>
-            <span className="inline-flex items-center gap-4">
-              <a href="#" className="underline hover:text-primary transition-colors">
+        <div className="mt-12 pt-8 border-t border-border text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row items-center md:justify-between gap-4">
+            <div className="text-center md:text-left">© 2025 Talently - Todos los derechos reservados.</div>
+
+            <div className="flex flex-col md:flex-row items-center gap-3">
+              <a
+                href="/terminos-y-condiciones"
+                className="underline hover:text-primary transition-colors text-center md:text-left"
+              >
                 Términos y condiciones
               </a>
-              <a href="#" className="underline hover:text-primary transition-colors">
+              <a
+                href="/politica-de-privacidad"
+                className="underline hover:text-primary transition-colors text-center md:text-left"
+              >
                 Política de privacidad y Cookies
               </a>
-            </span>
-          </p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

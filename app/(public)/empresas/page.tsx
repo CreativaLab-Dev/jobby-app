@@ -98,7 +98,7 @@ const Empresas = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-2 justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-4xl mx-auto">
             {/* Starter
             <Card className="p-8 bg-card shadow-card">
               <div className="mb-6">
@@ -128,7 +128,7 @@ const Empresas = () => {
             </Card> */}
 
             {/* Enterprise */}
-            <Card className="p-8 bg-card shadow-card relative max-w-md mx-auto">
+            <Card className="p-10 bg-card shadow-card relative max-w-md mx-auto">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
                 {/* <div className="text-4xl font-bold text-primary mb-2">Custom</div> */}
@@ -158,9 +158,11 @@ const Empresas = () => {
                 </li>
               </ul>
 
-              <Button variant="outline" className="w-full">
-                Contactar ventas
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                Contactar
               </Button>
+              </a>
             </Card>
 
             {/* Professional */}
@@ -200,10 +202,12 @@ const Empresas = () => {
                 </li>
               </ul>
 
-              <Button className="w-full shadow-glow">
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button className="w-full shadow-glow">
                 Comenzar
                 <Zap className="ml-2 h-4 w-4" />
               </Button>
+              </a>
             </Card>
           </div>
         </div>

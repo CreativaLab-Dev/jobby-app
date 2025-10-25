@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileLoginOpen, setMobileLoginOpen] = useState(false);
+  const [mobileRegisterOpen, setMobileRegisterOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
 
@@ -49,16 +51,61 @@ const Header = () => {
             </Link> */}
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons with per-button hover dropdown (desktop) */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                Iniciar sesión
-              </Button>
-            </Link>
-            <Link href="/register">
-              <Button size="sm">Regístrate</Button>
-            </Link>
+            {/* Login - dropdown on hover */}
+            <div className="relative">
+              <div className="group inline-block">
+                <Button variant="ghost" size="sm">
+                  <span className="inline-flex items-center">Iniciar sesión <ChevronDown className="ml-2 h-4 w-4" /></span>
+                </Button>
+
+                <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                  <Link href="/login">
+                    <Button variant="ghost" size="sm" className="w-full justify-start mt-1">
+                      Para Talento
+                    </Button>
+                  </Link>
+                  <Link href="/login?role=empresa">
+                    <Button variant="ghost" size="sm" className="w-full justify-start mt-1">
+                      Para Empresa
+                    </Button>
+                  </Link>
+                  <Link href="/login?role=empresa">
+                    <Button variant="ghost" size="sm" className="w-full justify-start mt-1">
+                      Para Institución
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Register - dropdown on hover */}
+            <div className="relative">
+              <div className="group inline-block">
+                <Link href="/register">
+                  <Button size="sm">Regístrate <ChevronDown className="ml-2 h-4 w-4 inline-block" /></Button>
+                </Link>
+
+                <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                  <Link href="/register?role=talento">
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      Regístrate como Talento
+                    </Button>
+                  </Link>
+                  <Link href="/register?role=empresa">
+                    <Button variant="ghost" size="sm" className="w-full justify-start mt-1">
+                      Regístrate como Empresa
+                    </Button>
+                  </Link>
+                  <Link href="/register?role=institucion">
+                    <Button variant="ghost" size="sm" className="w-full justify-start mt-1">
+                      Regístrate como Institución
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -72,7 +119,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-4">
+          <div className="text-center md:hidden py-4 space-y-4">
             <Link
               href="/empresas"
               className="block text-sm font-medium text-foreground/80 hover:text-primary"
@@ -87,24 +134,91 @@ const Header = () => {
             >
               Para instituciones
             </Link>
-            <Link
+            {/* <Link
               href="/expertos"
               className="block text-sm font-medium text-foreground/80 hover:text-primary"
               onClick={() => setMobileMenuOpen(false)}
             >
               Expertos
-            </Link>
+            </Link> */}
             <div className="flex flex-col space-y-2 pt-4">
-              <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full">
-                  Iniciar sesión
-                </Button>
-              </Link>
-              <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
-                <Button size="sm" className="w-full">
-                  Regístrate
-                </Button>
-              </Link>
+              <div>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="w-full text-left cursor-pointer"
+                  onClick={() => setMobileLoginOpen((s) => !s)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setMobileLoginOpen((s) => !s);
+                    }
+                  }}
+                >
+                  <Button variant="ghost" size="sm" className="w-full justify-between">
+                    Iniciar sesión
+                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileLoginOpen ? "rotate-180" : ""}`} />
+                  </Button>
+                </div>
+                {mobileLoginOpen && (
+                  <div className="mt-2 space-y-1">
+                    <Link href="/login?role=talento" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Para Talento
+                      </Button>
+                    </Link>
+                    <Link href="/login?role=empresa" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Para Empresa
+                      </Button>
+                    </Link>
+                    <Link href="/login?role=institucion" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Para Institución
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="w-full text-left cursor-pointer"
+                  onClick={() => setMobileRegisterOpen((s) => !s)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setMobileRegisterOpen((s) => !s);
+                    }
+                  }}
+                >
+                  <Button size="sm" className="w-full justify-between">
+                    Regístrate
+                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileRegisterOpen ? "rotate-180" : ""}`} />
+                  </Button>
+                </div>
+                {mobileRegisterOpen && (
+                  <div className="mt-2 space-y-1">
+                    <Link href="/register?role=talento" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Regístrate como Talento
+                      </Button>
+                    </Link>
+                    <Link href="/register?role=empresa" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Regístrate como Empresa
+                      </Button>
+                    </Link>
+                    <Link href="/register?role=institucion" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start">
+                        Regístrate como Institución
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}

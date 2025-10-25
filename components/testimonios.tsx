@@ -52,20 +52,26 @@ export default function TestimoniosCarousel() {
 
         <Swiper
           modules={[Autoplay]}
-          slidesPerView="auto"
-          spaceBetween={30}
           loop={true}
-          freeMode={true}
-          allowTouchMove={false}
-          speed={20000}
+          centeredSlides={false}
+          allowTouchMove={true}
           autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
+            delay: 3500,
+            disableOnInteraction: true,
+          }}
+          speed={700}
+          breakpoints={{
+            320: { slidesPerView: 1.05, spaceBetween: 12 },
+            480: { slidesPerView: 1.3, spaceBetween: 14 },
+            640: { slidesPerView: 1.6, spaceBetween: 16 },
+            768: { slidesPerView: 1.8, spaceBetween: 20 },
+            1024: { slidesPerView: 2.2, spaceBetween: 24 },
+            1280: { slidesPerView: 3, spaceBetween: 30 },
           }}
           className="flex items-center"
         >
-          {[...testimonios, ...testimonios, ...testimonios, ...testimonios, ...testimonios].map((t, i) => (
-            <SwiperSlide key={i} className="!w-[340px]">
+          {testimonios.map((t, i) => (
+            <SwiperSlide key={i} className="w-full sm:w-[420px] md:w-[440px] lg:w-[480px] flex-shrink-0">
               <Card className="p-6 bg-card shadow-card flex flex-col justify-between min-h-[260px] hover:shadow-glow transition-all">
                 <div>
                   <div className="flex gap-1 mb-4">
