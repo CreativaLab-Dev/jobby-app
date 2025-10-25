@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-gradient">Jobby</h3>
@@ -13,14 +13,21 @@ const Footer = () => {
               Tu talento merece ser visible
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-foreground/60 hover:text-primary transition-colors">
+              <a
+                href="https://www.instagram.com/creativalab.pe/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-foreground/60 hover:text-primary transition-colors"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-foreground/60 hover:text-primary transition-colors">
+              <a
+                href="https://www.linkedin.com/company/creativalab-tech"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-foreground/60 hover:text-primary transition-colors"
+              >
                 <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -30,18 +37,19 @@ const Footer = () => {
             <h4 className="font-semibold text-foreground">Producto</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Crear CV
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Oportunidades
-                </Link>
-              </li>
-              <li>
-                <Link href="/expertos" className="text-muted-foreground hover:text-primary transition-colors">
-                  Expertos
                 </Link>
               </li>
             </ul>
@@ -52,39 +60,37 @@ const Footer = () => {
             <h4 className="font-semibold text-foreground">Para</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/empresas" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/empresas"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Empresas
                 </Link>
               </li>
               <li>
-                <Link href="/instituciones" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link
+                  href="/instituciones"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Instituciones
                 </Link>
               </li>
             </ul>
           </div>
-
-          {/* Legal */}
-          <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Privacidad
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Términos
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Jobby. Todos los derechos reservados.
+        {/* Línea divisoria */}
+        <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+          <p className="flex items-center justify-center gap-6">
+            <span>© 2025 Talently - Todos los derechos reservados.</span>
+            <span className="inline-flex items-center gap-4">
+              <a href="#" className="underline hover:text-primary transition-colors">
+                Términos y condiciones
+              </a>
+              <a href="#" className="underline hover:text-primary transition-colors">
+                Política de privacidad y Cookies
+              </a>
+            </span>
           </p>
         </div>
       </div>

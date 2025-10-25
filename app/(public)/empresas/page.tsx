@@ -31,12 +31,16 @@ const Empresas = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="xl" className="shadow-glow">
-                Solicitar demo
-              </Button>
-              <Button variant="outline" size="xl">
-                Conocer planes
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button size="xl" className="shadow-glow">
+                  Solicitar demo
+                </Button>
+              </a>
+              <a href="#planes">
+                <Button variant="outline" size="xl">
+                  Conocer planes
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -54,7 +58,7 @@ const Empresas = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8 bg-card shadow-card hover:shadow-glow transition-all">
               <Users className="h-12 w-12 text-primary mb-6" />
-              <h3 className="text-xl font-bold mb-3">Base de talento creativo</h3>
+              <h3 className="text-xl font-bold mb-3">Base de talentos</h3>
               <p className="text-muted-foreground">
                 Accede a miles de perfiles de jóvenes profesionales en diseño, 
                 marketing, desarrollo y más áreas creativas.
@@ -86,16 +90,16 @@ const Empresas = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-4">
-              Nuestros <span className="text-gradient">paquetes</span>
+            <h2 id="planes" className="text-3xl sm:text-5xl font-bold mb-4 scroll-mt-32">
+              Nuestros <span className="text-gradient">planes</span>
             </h2>
             <p className="text-lg text-muted-foreground">
               Soluciones diseñadas para empresas de todos los tamaños
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Starter */}
+          <div className="grid md:grid-cols-2 gap-2 justify-center">
+            {/* Starter
             <Card className="p-8 bg-card shadow-card">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Starter</h3>
@@ -121,10 +125,46 @@ const Empresas = () => {
               <Button variant="outline" className="w-full">
                 Comenzar
               </Button>
+            </Card> */}
+
+            {/* Enterprise */}
+            <Card className="p-8 bg-card shadow-card relative max-w-md mx-auto">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
+                {/* <div className="text-4xl font-bold text-primary mb-2">Custom</div> */}
+                <p className="text-muted-foreground">contactar ventas</p>
+              </div>
+              
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm">Todo del plan Professional</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm">Patrocinio ilimitado</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm">API personalizada</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm">Account manager dedicado</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span className="text-sm">Integración con tu ATS</span>
+                </li>
+              </ul>
+
+              <Button variant="outline" className="w-full">
+                Contactar ventas
+              </Button>
             </Card>
 
             {/* Professional */}
-            <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative">
+            <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative max-w-md mx-auto">
               <div className="absolute top-4 right-4">
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-xs font-bold">
                   POPULAR
@@ -133,7 +173,7 @@ const Empresas = () => {
               
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Professional</h3>
-                <div className="text-4xl font-bold text-primary mb-2">$299</div>
+              {/* <div className="text-4xl font-bold text-primary mb-2">$299</div> */}
                 <p className="text-muted-foreground">por mes</p>
               </div>
               
@@ -165,42 +205,6 @@ const Empresas = () => {
                 <Zap className="ml-2 h-4 w-4" />
               </Button>
             </Card>
-
-            {/* Enterprise */}
-            <Card className="p-8 bg-card shadow-card">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-                <div className="text-4xl font-bold text-primary mb-2">Custom</div>
-                <p className="text-muted-foreground">contactar ventas</p>
-              </div>
-              
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span className="text-sm">Todo del plan Professional</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span className="text-sm">Patrocinio ilimitado</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span className="text-sm">API personalizada</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span className="text-sm">Account manager dedicado</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span className="text-sm">Integración con tu ATS</span>
-                </li>
-              </ul>
-
-              <Button variant="outline" className="w-full">
-                Contactar ventas
-              </Button>
-            </Card>
           </div>
         </div>
       </section>
@@ -215,9 +219,11 @@ const Empresas = () => {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Únete a las empresas que ya están descubriendo talento creativo con Jobby
           </p>
-          <Button size="xl" className="shadow-glow">
-            Solicitar demo ahora
-          </Button>
+          <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+            <Button size="xl" className="shadow-glow">
+              Solicitar demo ahora
+            </Button>
+          </a>
         </div>
       </section>
 

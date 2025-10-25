@@ -39,14 +39,14 @@ const Header = () => {
             >
               Para instituciones
             </Link>
-            <Link
+            {/* <Link
               href="/expertos"
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 isActive("/expertos") ? "text-primary" : "text-foreground/80"
               }`}
             >
               Expertos
-            </Link>
+            </Link> */}
           </div>
 
           {/* CTA Buttons */}
