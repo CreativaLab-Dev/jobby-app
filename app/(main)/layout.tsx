@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Navbar } from "@/components/navbar";
 import { getUser } from "@/lib/shared/get-user";
 import { getCurrentSubscription } from "@/lib/shared/get-count-availables-attempts";
 import { TermsModal } from "@/components/terms-modal";
 import '../globals.css';
+import { NavbarWrapper } from '@/components/navbar-wrapper';
 
 export const metadata: Metadata = {
     title: 'Jobby - Tu talento merece ser visible',
@@ -59,7 +59,7 @@ export default async function RootLayout({
         <>
             <div className="flex min-h-screen relative w-full">
                 <div className="flex-1 flex flex-col">
-                    <Navbar hasSubscription={!!currentSubscription} userLimit={userLimits} user={user} />
+                    <NavbarWrapper hasSubscription={!!currentSubscription} userLimit={userLimits} user={user} />
                     <main className="flex-1 transition-all duration-300">{children}</main>
                     <TermsModal isOpen={!isTermsAccepted} userId={user?.id} />
                 </div>

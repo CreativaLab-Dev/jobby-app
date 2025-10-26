@@ -70,7 +70,7 @@ export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: Previe
                   <CVPreviewFull data={cvData} type={opportunityType} />
                 </CardContent>
               </Card>
-            </div>  
+            </div>
 
             {/* Actions Sidebar */}
             <div className="space-y-6">
