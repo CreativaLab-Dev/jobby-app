@@ -56,9 +56,11 @@ const Header = () => {
             {/* Login - dropdown on hover */}
             <div className="relative">
               <div className="group inline-block">
-                <Button variant="ghost" size="sm">
-                  <span className="inline-flex items-center">Iniciar sesión <ChevronDown className="ml-2 h-4 w-4" /></span>
-                </Button>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm">
+                    Iniciar sesión <ChevronDown className="ml-2 h-4 w-4 inline-block" />
+                  </Button>
+                </Link>
 
                 <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                   <Link href="/login">
