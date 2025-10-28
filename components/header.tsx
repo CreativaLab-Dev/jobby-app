@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, ChevronDown } from "lucide-react";
+import { ChevronDown, Star } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
@@ -25,6 +25,38 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
+            <Link href="/pro" aria-label="Ir a PRO">
+              <Button
+              className="relative group inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 bg-gradient-to-r from-primary via-primary/90 to-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl hover:shadow-primary/50 transform transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary overflow-hidden border border-primary/20"
+              >
+              {/* Animated background shine */}
+              <span className="absolute inset-0 pointer-events-none">
+                <span className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
+              </span>
+
+              {/* Pulsing glow effect */}
+              <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="absolute inset-0 rounded-full bg-primary/30 blur-md animate-pulse"></span>
+              </span>
+
+              {/* Star icon with rotation animation */}
+              <span className="relative z-10 flex items-center justify-center w-7 h-7 rounded-full bg-background/10 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                <Star className="h-4 w-4 fill-current text-primary-foreground animate-pulse" />
+              </span>
+
+              {/* Text content */}
+              <span className="relative z-10 flex items-center gap-2">
+                <span className="uppercase tracking-widest text-sm font-extrabold">PRO</span>
+                <span className="inline-flex items-center text-xs font-bold px-2 py-0.5 rounded-full bg-background/20 border border-background/30 backdrop-blur-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
+                Nuevo
+                </span>
+              </span>
+
+              {/* Sparkle effect on hover */}
+              <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping"></span>
+              <span className="absolute bottom-1 left-1 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping animation-delay-150"></span>
+              </Button>
+            </Link>
             <Link
               href="/empresas"
               className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -110,13 +142,55 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          {/* PRO Button (visible solo en móvil) */}
+          <div className="flex items-center space-x-2 md:hidden">
+            <Link href="/pro" aria-label="Ir a PRO">
+              <Button
+                className="relative group inline-flex items-center gap-2 rounded-full px-4 py-2 bg-gradient-to-r from-primary via-primary/90 to-primary text-primary-foreground font-bold shadow-md hover:shadow-lg transform transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary overflow-hidden border border-primary/20"
+              >
+                {/* Shine */}
+                <span className="absolute inset-0 pointer-events-none">
+                  <span className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
+                </span>
+
+                {/* Star icon */}
+                <span className="relative z-10 flex items-center justify-center w-6 h-6 rounded-full bg-background/10 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                  <Star className="h-3.5 w-3.5 fill-current text-primary-foreground animate-pulse" />
+                </span>
+
+                <span className="relative z-10 uppercase tracking-widest text-xs font-extrabold">PRO</span>
+              </Button>
+            </Link>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="relative w-10 h-10 flex flex-col justify-center items-center group"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Abrir menú"
+            >
+              {/* Linea superior */}
+              <span
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
+                  mobileMenuOpen ? "rotate-45 translate-y-1.5" : "-translate-y-1.5"
+                }`}
+              ></span>
+
+              {/* Linea del medio */}
+              <span
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
+                  mobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              ></span>
+
+              {/* Linea inferior */}
+              <span
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
+                  mobileMenuOpen ? "-rotate-45 -translate-y-1.5" : "translate-y-1.5"
+                }`}
+              ></span>
+            </button>
+          </div>
+
         </div>
 
         {/* Mobile Menu */}

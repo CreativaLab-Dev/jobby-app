@@ -11,7 +11,6 @@ import {
   Target,
   Upload,
   Zap,
-  Star,
   TrendingUp,
   Award,
 } from "lucide-react";
@@ -155,7 +154,7 @@ const Index = () => {
 
 
       {/* Cómo funciona */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 overflow-hidden">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-5xl font-bold mb-4">
@@ -204,7 +203,7 @@ const Index = () => {
       </section>
 
       {/* Planes y Precios */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-5xl font-bold mb-4">
@@ -215,9 +214,9 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"> */}
             {/* Plan Gratis */}
-            <Card className="p-8 bg-card shadow-card hover:shadow-lg transition-all">
+            {/* <Card className="p-8 bg-card shadow-card hover:shadow-lg transition-all">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-2">Gratis</h3>
                 <div className="text-4xl font-bold mb-2">S/0</div>
@@ -252,10 +251,10 @@ const Index = () => {
                   Comenzar gratis
                 </Button>
               </Link>
-            </Card>
+            </Card> */}
 
             {/* Plan Pro */}
-            <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative overflow-hidden">
+            {/* <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative overflow-hidden">
               <div className="absolute top-4 right-4">
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-xs font-bold">
                   POPULAR
@@ -300,7 +299,7 @@ const Index = () => {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonios */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30">
