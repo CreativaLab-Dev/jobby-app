@@ -14,6 +14,7 @@ interface CVExperienceProps {
 }
 
 export function CVExperience({ experience }: CVExperienceProps) {
+  console.log('CVExperience experience:', experience);
   if (!experience?.items || experience.items.length === 0) return null
 
   return (
@@ -21,8 +22,8 @@ export function CVExperience({ experience }: CVExperienceProps) {
       <h2 className="text-[16px] font-bold text-black mb-3 uppercase border-b border-black">
         EXPERIENCIA LABORAL
       </h2>
-      {experience.items.map((exp) => (
-        <div key={exp.id} className="mb-3">
+      {experience.items.map((exp, index) => (
+        <div key={`${index}`} className="mb-3">
           <div className="flex justify-between items-start">
             <h3 className="text-[15px] font-bold text-black">{exp.company}</h3>
             <span className="text-[15px] text-black whitespace-nowrap ml-2 font-bold">{exp.location}</span>

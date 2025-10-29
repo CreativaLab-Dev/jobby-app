@@ -1,42 +1,33 @@
-import { getCandidate } from "@/features/share/actions/get-candidate";
 import { getCurrentUser } from "@/features/share/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
 import { Cv, CvSection } from "@prisma/client";
 
-export type CvWithSections = Cv & {
-  sections: CvSection[]
-}
+export type CVWithSections = Cv & {
+  sections: CvSection[];
+};
 
-export const getCvById = async (cvId: string): Promise<CvWithSections | null> => {
+export const getCvById = async (cvId: string): Promise<CVWithSections | null> => {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) {
-      console.error("[ERROR_GET_CV] No current user");
+    if (!currentUser) return null;
+
+    const cv = await prisma.cv.findFirst({
+      where: { id: cvId, userId: currentUser.id },
+      include: {
+        sections: {
+          orderBy: { order: "asc" },
+        },
+      },
+    });
+
+    if (!cv) {
+      console.warn("[NOT_FOUND_GET_CV]", `No CV found with id: ${cvId}`);
       return null;
     }
 
-    const cv = await prisma.cv.findFirst({
-      where: {
-        id: cvId
-      },
-      include: {
-        sections: {
-          orderBy: {
-            order: 'asc',
-          }
-        }
-      }
-
-    })
-
-    if (!cv) {
-      console.error("[ERROR_GET_CV] CV not found");
-      return null
-    }
-
-    return cv
+    return cv;
   } catch (error) {
     console.error("[ERROR_GET_CV]", error);
     return null;
   }
-}
+};

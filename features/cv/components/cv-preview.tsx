@@ -2,10 +2,11 @@
 
 import { Eye } from "lucide-react"
 import { CVData } from "@/types/cv"
+import { OpportunityType } from "@prisma/client"
 
 interface CVPreviewProps {
   data: CVData
-  type: string
+  type: OpportunityType
 }
 
 export function CVPreview({ data, type }: CVPreviewProps) {
@@ -21,7 +22,7 @@ export function CVPreview({ data, type }: CVPreviewProps) {
       {/* Contact */}
       {data.personal && (data.personal.address || data.personal.linkedin || data.personal.phone || data.personal.email) && (
         <div className="mb-2">
-          <p className="text-[15px] text-black text-center leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis">
+          <p className="text-xs text-black text-center leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis">
             {data.personal.address && <span>{data.personal.address}</span>}
             {data.personal.address && (data.personal.linkedin || data.personal.phone || data.personal.email) && <span> • </span>}
             {data.personal.linkedin && (
@@ -50,94 +51,24 @@ export function CVPreview({ data, type }: CVPreviewProps) {
         </div>
       )}
 
-      {/* Proyectos académicos o experiencia laboral */}
-      {type === "becas" || type === "practicas" || type === "intercambios"
-        ? data.projects?.items?.length > 0 && (
-          <div className="mb-2">
-            <h2 className="text-left text-sm font-bold text-black mb-3 uppercase border-b border-black">PROYECTOS ACADÉMICOS</h2>
-            {data.projects.items.map((project, index) => (
-              <div key={project.id || index} className="mb-3">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xs font-bold text-black">{project.title}</h3>
-                  <span className="text-xs text-black whitespace-nowrap ml-2">{project.duration}</span>
-                </div>
-                <p className="text-xs text-black leading-relaxed text-justify mb-1">{project.description}</p>
-                {project.technologies && (
-                  <p className="text-xs text-black">
-                    <strong>Tecnologías:</strong> {project.technologies}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        )
-        : data.experience?.items?.length > 0 && (
-          <div className="mb-2">
-            <h2 className="text-left text-[16px] font-bold text-black mb-3 uppercase border-b border-black">EXPERIENCIA LABORAL</h2>
-            {data.experience.items.map((exp, index) => (
-              <div key={exp.id || index} className="mb-3">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-[15px] font-bold text-black">{exp.company}</h3>
-                  <span className="text-xs text-black whitespace-nowrap ml-2 font-bold">{exp.location}</span>
-                </div>
-                <div className="flex justify-between items-start mb-1">
-                  <p className="text-[15px] text-black">{exp.position}</p>
-                  <span className="text-[15px] text-black whitespace-nowrap ml-2 italic">{exp.duration}</span>
-                </div>
-                <ul className="text-[15px] text-black leading-relaxed text-justify">
-                  {exp.responsibilities?.split("\n").map((line, idx) => (
-                    <li key={idx} className="text-[15px] list-disc ml-6">
-                      {line.replace(/^[-–•]\s*/, "")}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-
-      {/* Educación */}
-      {data.education?.items?.length > 0 && (
-        <div className="mb-2">
-          <h2 className="text-left text-[16px] font-bold text-black mb-2 uppercase border-b border-black">EDUCACIÓN</h2>
-          {data.education.items.map((edu, index) => (
-            <div key={edu.id || index} className="mb-3">
-              <div className="flex justify-between items-start">
-                <h3 className="text-[15px] font-bold text-black">{edu.institution}</h3>
-                <span className="text-[15px] text-black whitespace-nowrap ml-2">{edu.location}</span>
-              </div>
-              <div className="flex justify-between items-start">
-                <p className="text-[15px] text-black">{edu.title}</p>
-                <span className="text-[15px] text-black whitespace-nowrap ml-2 italic">{edu.year}</span>
-              </div>
-              {edu.honors && (
-                <ul className="text-left text-[15px] text-black">
-                  <li>Honores: {edu.honors}</li>
-                </ul>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
       {/* Logros o Certificaciones */}
-      {type === "becas" || type === "practicas" || type === "intercambios"
+      {type === "SCHOLARSHIP" || type === "EXCHANGE_PROGRAM" || type === "INTERNSHIP"
         ? data.achievements?.items?.length > 0 && (
           <div className="mb-2">
-            <h2 className="text-[16px] font-bold text-black mb-3 uppercase border-b border-black">LOGROS Y RECONOCIMIENTOS</h2>
-            <ul className="text-[15px] text-black leading-relaxed text-justify list-disc ml-6">
+            <h2 className="text-sm font-bold text-black mb-3 uppercase border-b border-black text-left">LOGROS Y RECONOCIMIENTOS</h2>
+            <div className="text-xs text-black leading-relaxed text-justify list-disc">
               {data.achievements.items.map((achievement, index) => (
-                <li key={achievement.title || index}>
+                <div key={achievement.title || index}>
                   <strong>{achievement.title}:</strong> {achievement.description}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         )
         : data.certifications?.items?.length > 0 && (
           <div className="mb-2">
-            <h2 className="text-left text-[16px] font-bold text-black mb-2 uppercase border-b border-black">LICENCIAS Y CERTIFICACIONES</h2>
-            <div className="text-[15px] text-black leading-relaxed text-justify">
+            <h2 className="text-left text-sm font-bold text-black mb-2 uppercase border-b border-black">LICENCIAS Y CERTIFICACIONES</h2>
+            <div className="text-xs text-black leading-relaxed text-justify">
               {data.certifications.items.map((cert, index) => (
                 <div key={cert.id || index} className="line-clamp-1">
                   {cert.name} by {cert.issuer} ({new Date(cert.date).toLocaleDateString("en-US", { year: "numeric" })})
@@ -147,29 +78,98 @@ export function CVPreview({ data, type }: CVPreviewProps) {
           </div>
         )}
 
+      {/* Educación */}
+      {data.education?.items?.length > 0 && (
+        <div className="mb-2">
+          <h2 className="text-left text-sm font-bold text-black mb-2 uppercase border-b border-black">EDUCACIÓN</h2>
+          {data.education.items.map((edu, index) => (
+            <div key={edu.id || index} className="mb-3">
+              <div className="flex justify-between items-start">
+                <h3 className="text-xs font-bold text-black">{edu.institution}</h3>
+                <span className="text-xs text-black whitespace-nowrap ml-2">{edu.location}</span>
+              </div>
+              <div className="flex justify-between items-start">
+                <p className="text-xs text-black">{edu.title}</p>
+                <span className="text-xs text-black whitespace-nowrap ml-2 italic">{edu.year}</span>
+              </div>
+              {edu.honors && (
+                <ul className="text-left text-xs text-black">
+                  <li>Honores: {edu.honors}</li>
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {data.projects?.items?.length > 0 && (
+        <div className="mb-2">
+          <h2 className="text-left text-sm font-bold text-black mb-3 uppercase border-b border-black">PROYECTOS ACADÉMICOS</h2>
+          {data.projects.items.map((project, index) => (
+            <div key={project.id || index} className="mb-3">
+              <div className="flex justify-between items-start">
+                <h3 className="text-xs font-bold text-black">{project.title}</h3>
+                <span className="text-xs text-black whitespace-nowrap ml-2">{project.duration}</span>
+              </div>
+              <p className="text-xs text-black leading-relaxed text-justify mb-1">{project.description}</p>
+              {project.technologies && (
+                <p className="text-xs text-black text-start">
+                  <strong>Tecnologías:</strong> {project.technologies}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {data.experience?.items?.length > 0 && (
+        <div className="mb-2">
+          <h2 className="text-left text-sm font-bold text-black mb-3 uppercase border-b border-black">EXPERIENCIA LABORAL</h2>
+          {data.experience.items.map((exp, index) => (
+            <div key={exp.id || index} className="mb-3">
+              <div className="flex justify-between items-start">
+                <h3 className="text-xs] font-bold text-black">{exp.company}</h3>
+                <span className="text-xs text-black whitespace-nowrap ml-2 font-bold">{exp.location}</span>
+              </div>
+              <div className="flex justify-between items-start mb-1">
+                <p className="text-xs] text-black">{exp.position}</p>
+                <span className="text-xs] text-black whitespace-nowrap ml-2 italic">{exp.duration}</span>
+              </div>
+              <ul className="text-xs] text-black leading-relaxed text-justify">
+                {exp.responsibilities?.split("\n").map((line, idx) => (
+                  <li key={idx} className="text-xs list-disc ml-6">
+                    {line.replace(/^[-–•]\s*/, "")}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Habilidades */}
       {data.skills && (
-        data.skills?.technical?.length > 0 ||
-        data.skills?.soft?.length > 0 ||
-        data.skills?.languages?.length > 0
+        data.skills.technical.length > 0 ||
+        data.skills.soft.length > 0 ||
+        data.skills.languages.length > 0
       ) && (
           <div className="mb-2">
-            <h2 className="text-left text-[16px] font-bold text-black mb-2 uppercase border-b border-black">
+            <h2 className="text-left text-sm font-bold text-black mb-2 uppercase border-b border-black">
               HABILIDADES PROFESIONALES Y PERSONALES
             </h2>
-            <div className="text-[15px] text-black leading-relaxed">
+            <div className="text-xs text-black leading-relaxed">
               {data.skills.languages?.length > 0 && (
                 <p className="text-left">
                   <strong>Idiomas:</strong> {data.skills.languages.join(", ")}
                 </p>
               )}
               {data.skills.technical?.length > 0 && (
-                <p className="text-[15px] text-left">
+                <p className="text-xs text-left">
                   <strong>Habilidades Técnicas:</strong> {data.skills.technical.join(", ")}
                 </p>
               )}
               {data.skills.soft?.length > 0 && (
-                <p className="text-[15px] text-left">
+                <p className="text-xs text-left">
                   <strong>Habilidades Blandas:</strong> {data.skills.soft.join(", ")}
                 </p>
               )}

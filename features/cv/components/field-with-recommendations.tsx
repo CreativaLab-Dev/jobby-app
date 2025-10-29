@@ -148,7 +148,7 @@ export function FieldWithRecommendations({
       ) : field.type === "tags" ? (
         <TagsInput
           value={fieldValue}
-          onChange={onTagsChange || (() => {})}
+          onChange={onTagsChange || (() => { })}
           placeholder={`Agrega ${field.label.toLowerCase()}`}
         />
       ) : field.type === "select" ? (

@@ -21,12 +21,11 @@ export default async function PreviewCVPage({ params }: PreviewCVPageProps) {
   }
 
   const cvData: CVData = transformCVToDTO(cv);
-  const opportunityType = cv.opportunityType;
   return (
     <PreviewCVComponent
       cv={cvData}
+      opportunityType={cv.opportunityType}
       cvId={cv.id}
-      opportunityType={opportunityType}
     />
   )
 }

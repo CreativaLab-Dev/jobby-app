@@ -2,9 +2,7 @@ import { Recommendation, ScoreCategory } from "@/types/analysis";
 import type { CvEvaluation, EvaluationScore, Recommendation as PrismaRecommendation } from "@prisma/client"
 
 export function mapEvaluationToAnalysis(cvEvaluation: CvEvaluation & { scores: EvaluationScore[], recommendations: PrismaRecommendation[] }) {
-  // 1️⃣ Mapeamos los puntajes (scores)
   const scoreBreakdown: ScoreCategory[] = cvEvaluation.scores.map((score) => {
-    // definimos estilo según la sección
     const colorMap: Record<string, { color: string; bg: string; icon: string }> = {
       EXPERIENCE: { color: "#16a34a", bg: "#dcfce7", icon: "Briefcase" },
       EDUCATION: { color: "#2563eb", bg: "#dbeafe", icon: "GraduationCap" },

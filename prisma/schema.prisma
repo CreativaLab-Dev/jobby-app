@@ -42,6 +42,9 @@ enum CvSectionType {
   CERTIFICATIONS
   LANGUAGES
   CONTACT
+  COMPLEMENTS
+  ACHIEVEMENTS
+  INTERESTS
 }
 
 enum JobStatus {
