@@ -152,6 +152,13 @@ function buildSections(cvData: CVData) {
     });
   }
 
+  if (cvData.achievements?.items?.length) {
+    sections.push({
+      sectionType: CvSectionType.ACHIEVEMENTS,
+      title: "Achievements",
+      contentJson: cvData.achievements.items,
+    });
+  }
 
   if (cvData.personal) {
     sections.push({

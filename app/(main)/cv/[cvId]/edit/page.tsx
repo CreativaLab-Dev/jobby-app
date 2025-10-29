@@ -25,6 +25,7 @@ export default async function EditCVPage({ params }: EditCVPageProps) {
     <CreateCVPage
       cv={cvData}
       id={cv.id}
+      opportunityType={cv.opportunityType}
     />
   )
 }

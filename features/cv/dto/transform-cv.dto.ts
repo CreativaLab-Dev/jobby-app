@@ -13,6 +13,7 @@ export function transformCVToDTO(cv: CVWithSections): CVData {
   const experience = parseJsonArray(getSection(CvSectionType.EXPERIENCE)?.contentJson);
   const projects = parseJsonArray(getSection(CvSectionType.PROJECTS)?.contentJson);
   const certifications = parseJsonArray(getSection(CvSectionType.CERTIFICATIONS)?.contentJson);
+  const achievements = parseJsonArray(getSection(CvSectionType.ACHIEVEMENTS)?.contentJson);
 
   const summary = getSection(CvSectionType.SUMMARY)?.contentJson as
     | { text?: string }
@@ -90,6 +91,14 @@ export function transformCVToDTO(cv: CVWithSections): CVData {
       technical: skills?.technical ?? [],
       soft: skills?.soft ?? [],
       languages: skills?.languages ?? [],
+    },
+    achievements: {
+      items: achievements.map((item: any) => ({
+        id: item.id,
+        title: item.title ?? "",
+        description: item.description ?? "",
+        date: item.date ?? "",
+      })),
     },
   };
 }

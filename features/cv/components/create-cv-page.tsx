@@ -11,14 +11,15 @@ import { CVSectionForm } from "@/features/cv/components/cv-section-form"
 import { CVPreview } from "@/features/cv/components/cv-preview"
 import { CVData } from "@/types/cv";
 import { updateCvAndSections } from "@/features/cv/actions/update-cv-and-sections";
+import { OpportunityType } from "@prisma/client"
 
 interface CreateCVPageProps {
   cv: CVData
   id: string
+  opportunityType: OpportunityType
 }
 
-export default function CreateCVPage({ cv, id }: CreateCVPageProps) {
-  const [opportunityType,] = useState<string>()
+export default function CreateCVPage({ cv, id, opportunityType }: CreateCVPageProps) {
   const [cvData, setCvData] = useState<CVData>(cv)
   const [activeSection, setActiveSection] = useState(0)
   const [showPreview, setShowPreview] = useState(true)

@@ -7,12 +7,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ActionsSidebar } from "@/features/cv-preview/components/actions-sidebar"
 import { TipCard } from "@/features/cv-preview/components/tip-card"
 import { CVData } from "@/types/cv"
-import { PdfPreviewWrapper } from "@/app/(main)/test/components/pdf-preview-wrapper"
+import { PdfPreviewWrapper } from "@/components/pdf-preview/pdf-preview-wrapper"
+import { OpportunityType } from "@prisma/client"
 
 interface PreviewCVComponentProps {
   cv: CVData
   cvId?: string
-  opportunityType: string
+  opportunityType: OpportunityType
 }
 
 export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: PreviewCVComponentProps) {
@@ -28,7 +29,7 @@ export function PreviewCVComponent({ cv: cvData, cvId, opportunityType }: Previe
             <div className="lg:col-span-3">
               <Card className="shadow-xl border-0 bg-white">
                 <CardContent className="p-0">
-                  <PdfPreviewWrapper cvData={cvData} />
+                  <PdfPreviewWrapper cvData={cvData} opportunityType={opportunityType} />
                 </CardContent>
               </Card>
             </div>

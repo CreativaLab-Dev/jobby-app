@@ -24,7 +24,7 @@ export default async function PreviewCVPage({ params }: PreviewCVPageProps) {
   return (
     <PreviewCVComponent
       cv={cvData}
-      opportunityType={cv.opportunityType || 'general'}
+      opportunityType={cv.opportunityType}
       cvId={cv.id}
     />
   )

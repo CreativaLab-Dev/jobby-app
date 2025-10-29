@@ -2,12 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Download, FileText, ArrowLeft, Home } from "lucide-react"
-import { useDownloadHandlers } from "@/hooks/use-download-handlers"
-import { PDFDownloadLink } from "@react-pdf/renderer"
-import { CvDocument } from "@/app/(main)/test/components/cv-document"
+import { ArrowLeft, Home } from "lucide-react"
 import { CVData } from "@/types/cv"
-
 
 interface ActionsSidebarProps {
   cvData: CVData
@@ -16,7 +12,7 @@ interface ActionsSidebarProps {
   isDisabled: boolean
 }
 
-export function ActionsSidebar({ cvData, onEditCV, onHome, isDisabled }: ActionsSidebarProps) {
+export function ActionsSidebar({ onEditCV, onHome, isDisabled }: ActionsSidebarProps) {
 
   return (
     <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
@@ -29,21 +25,6 @@ export function ActionsSidebar({ cvData, onEditCV, onHome, isDisabled }: Actions
           <Home className="w-4 h-4 mr-2" />
           Home
         </Button>
-        <PDFDownloadLink
-          document={<CvDocument data={cvData} />}
-          fileName={`${cvData.personal?.fullName ?? "cv"}.pdf`}
-        >
-          {({ loading }) => (
-
-            <Button
-              disabled={isDisabled || loading}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 cursor-pointer mb-2"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              {loading ? "Generando PDF..." : "Descargar PDF"}
-            </Button>
-          )}
-        </PDFDownloadLink>
 
         <Button
           disabled={isDisabled}
