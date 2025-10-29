@@ -23,7 +23,7 @@ const testimonios = [
   {
     name: "Jhon Quispe",
     role: "Estudiante de Ingeniería Informática",
-    text: "Jobby, me ayudó a conseguir más ofertas de trabajo al optimizar mi CV según las descripciones de las vacantes.",
+    text: "Jobby me ayudó a conseguir más ofertas de trabajo al optimizar mi CV según las descripciones de las vacantes.",
     img: "/testimonios/Jhon.png",
   },
   {
