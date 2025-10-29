@@ -279,10 +279,7 @@ export function Navbar({ userLimit, user, hasSubscription }: NavbarProps) {
             <div className="flex items-center space-x-2">
               <Zap className="w-4 h-4 text-blue-500" />
               <span className="text-sm text-blue-700">
-                Jobby esta en una version alpha, si tienes alguna sugerencia o problema no dudes en contactarnos a{" "}
-                <a href="mailto:soporte@jobby.com" className="text-blue-500 underline">
-                  soporte@jobby.com
-                </a>
+                La primera version de Jobby CV Score es gratuita. Próximamente agregaremos más funcionalidades premium.
               </span>
             </div>
           </div>
