@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
 import { Lock, Mail, User, Loader2 } from "lucide-react";
-import { newUserConfiguration } from "@/lib/shared/new-user-configuration";
 
 const errorMapper: Record<string, string> = {
     "Email already exists": "El correo electrónico ya está en uso",
@@ -32,7 +31,6 @@ export function RegisterForm() {
     const [success, setSuccess] = useState(false);
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const router = useRouter();
-    const [isPending, startTransition] = useTransition();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -213,11 +211,11 @@ export function RegisterForm() {
                                 />
                                 <label htmlFor="terms" className="text-sm text-muted-foreground">
                                     Acepto los{" "}
-                                    <a href="/terms" target="_blank" className="text-primary hover:underline">
+                                    <a href="/terminos-y-condiciones" target="_blank" className="text-primary hover:underline">
                                         términos y condiciones
                                     </a>{" "}
                                     y la{" "}
-                                    <a href="/privacy-policy" target="_blank" className="text-primary hover:underline">
+                                    <a href="/politica-de-privacidad" target="_blank" className="text-primary hover:underline">
                                         política de privacidad
                                     </a>
                                 </label>
