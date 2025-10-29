@@ -8,7 +8,7 @@ export default async function CVPage() {
     <>
       <CVListPage
         cvs={cvForCurrentUser.manuals.cvs}
-        disabledButton={!cvForCurrentUser.manuals.activeSubscription}
+        disabledButton={false}
       />
       <ScoresListPage
         cvs={cvForCurrentUser.uploads.cvs}
