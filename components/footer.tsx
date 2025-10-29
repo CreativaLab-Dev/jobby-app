@@ -88,13 +88,13 @@ const Footer = () => {
 
             <div className="flex flex-col md:flex-row items-center gap-3">
               <a
-                href="/terminos-y-condiciones" target="_blank"
+                href="/terminos-y-condiciones" target="_blank" rel="noopener noreferrer"
                 className="underline hover:text-primary transition-colors text-center md:text-left"
               >
                 Términos y condiciones
               </a>
               <a
-                href="/politica-de-privacidad" target="_blank"
+                href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer"
                 className="underline hover:text-primary transition-colors text-center md:text-left"
               >
                 Política de privacidad y Cookies
