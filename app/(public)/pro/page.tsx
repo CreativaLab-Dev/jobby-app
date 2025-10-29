@@ -64,13 +64,13 @@ const Pro = () => {
                 </h3>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="text-5xl sm:text-6xl font-bold">S/9.90</span>
-                  <span className="text-lg font-medium text-muted-foreground">
+                  {/* <span className="text-lg font-medium text-muted-foreground">
                     / mes
-                  </span>
+                  </span> */}
                 </div>
-                <p className="text-sm text-muted-foreground mt-2">
+                {/* <p className="text-sm text-muted-foreground mt-2">
                   Sin permanencia, cancela cuando quieras
-                </p>
+                </p> */}
               </div>
 
               <div className="space-y-4 relative">
@@ -80,13 +80,13 @@ const Pro = () => {
                     className="w-full shadow-glow hover:shadow-xl transition-all duration-300 text-base font-semibold"
                     aria-label="Comenzar ahora"
                   >
-                    Comenzar ahora
+                    Pagar ahora
                     <Star className="ml-2 h-5 w-5 fill-current" />
                   </Button>
                 </Link>
-                <p className="text-xs text-center text-muted-foreground">
+                {/* <p className="text-xs text-center text-muted-foreground">
                   ✓ Acceso inmediato
-                </p>
+                </p> */}
               </div>
             </Card>
           </div>
@@ -191,7 +191,7 @@ const Pro = () => {
       </section>
 
       {/* Comparación de planes */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-5xl font-bold mb-4">
@@ -201,11 +201,11 @@ const Pro = () => {
             <p className="text-lg text-muted-foreground">
               Elige el plan que mejor se adapte a tus necesidades
             </p>
-          </div>
+          </div> */}
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"> */}
             {/* Plan Gratis */}
-            <Card className="p-8 bg-card shadow-lg hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group">
+            {/* <Card className="p-8 bg-card shadow-lg hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-3">Gratis</h3>
                 <div className="flex items-baseline justify-center gap-1 mb-2">
@@ -248,12 +248,12 @@ const Pro = () => {
                   Comenzar gratis
                 </Button>
               </Link>
-            </Card>
+            </Card> */}
 
             {/* Plan Pro */}
-            <Card className="p-8 bg-gradient-to-br from-secondary/20 via-primary/10 to-primary/20 shadow-2xl border-2 border-primary/60 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300 group">
+            {/* <Card className="p-8 bg-gradient-to-br from-secondary/20 via-primary/10 to-primary/20 shadow-2xl border-2 border-primary/60 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300 group"> */}
               {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
               <div className="absolute top-4 right-4 z-10">
                 <span className="px-3 py-1.5 bg-primary text-primary-foreground rounded-full text-xs font-bold shadow-lg animate-pulse">
@@ -323,7 +323,7 @@ const Pro = () => {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonios */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30">
