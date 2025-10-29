@@ -9,7 +9,7 @@ import { Star } from "lucide-react";
 
 const testimonios = [
   {
-    name: "Mónica Diaz",
+    name: "Mónica Díaz",
     role: "Estudiante de Administración",
     text: "Jobby me ayudó a estructurar mi CV de manera efectiva y a resaltar mis habilidades.",
     img: "/testimonios/Monica.png",
