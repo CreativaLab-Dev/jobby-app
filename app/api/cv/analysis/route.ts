@@ -1,7 +1,7 @@
 import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
-import { getCandidate } from "@/features/share/actions/get-candidate";
 import { CVData } from "@/types/cv";
+import {getCurrentUser} from "@/features/share/actions/get-current-user";
 
 interface CvBody {
   cvId: string;
@@ -13,17 +13,17 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { cvId, cvData }: CvBody = body;
 
-    const candidate = await getCandidate();
-    if (!candidate) {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
       return NextResponse.json(
-        { success: false, message: "Candidate not found." },
+        { success: false, message: "User not found." },
         { status: 404 }
       );
     }
 
     await inngest.send({
       name: "cv.analyze",
-      data: { cvId, cvData, candidateId: candidate.id }
+      data: { cvId, cvData, userId: currentUser.id }
     });
 
     return NextResponse.json(

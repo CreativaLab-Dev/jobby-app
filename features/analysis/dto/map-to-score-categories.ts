@@ -1,6 +1,5 @@
 import type { ScoreCategory, ScoreItem } from "@/types/analysis"
 
-// Iconos por categoría
 const iconMap = {
   personalInformation: "User",
   education: "GraduationCap",
@@ -10,7 +9,6 @@ const iconMap = {
 }
 
 
-// Colores por categoría (puedes personalizar según el diseño)
 const colorMap: Record<string, { color: string; bgColor: string }> = {
   "personalInformation": { color: "text-green-600", bgColor: "bg-green-100" },
   "education": { color: "text-blue-600", bgColor: "bg-blue-100" },
@@ -19,7 +17,6 @@ const colorMap: Record<string, { color: string; bgColor: string }> = {
   "formatAndPresentation": { color: "text-indigo-600", bgColor: "bg-indigo-100" },
 }
 
-// Para traducir los nombres de secciones y campos
 const sectionNameMap: Record<string, string> = {
   personalInformation: "Información Personal",
   education: "Educación",

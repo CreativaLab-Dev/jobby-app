@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/dialog"
 import { motion } from "framer-motion"
 import {Plus} from "lucide-react";
-import {registerUserWithCv} from "@/lib/register-user";
 
 interface RegisterModalProps {
   children: React.ReactNode
@@ -51,20 +50,20 @@ export function RegisterModal({ children, isOpen, onOpenChange, file }: Register
     
     startTransition(async () => {
       try {
-        const response = await registerUserWithCv(
-          {
-            name: name.trim(),
-            email: email.trim().toLowerCase(),
-            password: password,
-            confirmPassword: confirmPassword,
-            file,
-          }
-        )
-        if (response.success) {
-          router.push("/cv/upload")
-        } else {
-          setError(response.message || "Error al registrar. Intenta de nuevo.")
-        }
+        // const response = await registerUserWithCv(
+        //   {
+        //     name: name.trim(),
+        //     email: email.trim().toLowerCase(),
+        //     password: password,
+        //     confirmPassword: confirmPassword,
+        //     file,
+        //   }
+        // )
+        // if (response.success) {
+        //   router.push("/cv/upload")
+        // } else {
+        //   setError(response.message || "Error al registrar. Intenta de nuevo.")
+        // }
       } catch (err: any) {
         console.error(err)
         setError("Error al registrar. Intenta de nuevo.")

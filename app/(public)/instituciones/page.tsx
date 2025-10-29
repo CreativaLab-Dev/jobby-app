@@ -31,12 +31,14 @@ const Instituciones = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="xl" variant="secondary" className="shadow-glow">
-                Agendar presentación
-              </Button>
-              <Button variant="outline" size="xl">
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button size="xl" variant="secondary" className="shadow-glow">
+                  Agendar presentación
+                </Button>
+              </a>
+              {/* <Button variant="outline" size="xl">
                 Ver casos de éxito
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -167,8 +169,8 @@ const Instituciones = () => {
             <Card className="p-8 bg-card shadow-card">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Small</h3>
-                <div className="text-4xl font-bold text-primary mb-2">$499</div>
-                <p className="text-muted-foreground">por mes</p>
+                {/* <div className="text-4xl font-bold text-primary mb-2">$499</div>
+                <p className="text-muted-foreground">por mes</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Hasta 500 estudiantes</p>
               </div>
               
@@ -191,9 +193,11 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button variant="outline" className="w-full">
-                Solicitar información
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
 
             {/* Medium */}
@@ -206,8 +210,8 @@ const Instituciones = () => {
               
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Medium</h3>
-                <div className="text-4xl font-bold text-primary mb-2">$999</div>
-                <p className="text-muted-foreground">por mes</p>
+                {/* <div className="text-4xl font-bold text-primary mb-2">$999</div>
+                <p className="text-muted-foreground">por mes</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Hasta 2,000 estudiantes</p>
               </div>
               
@@ -234,17 +238,19 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button className="w-full shadow-glow">
-                Solicitar información
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
 
             {/* Large */}
             <Card className="p-8 bg-card shadow-card">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Large</h3>
-                <div className="text-4xl font-bold text-primary mb-2">Custom</div>
-                <p className="text-muted-foreground">contactar ventas</p>
+                {/* <div className="text-4xl font-bold text-primary mb-2">Custom</div>
+                <p className="text-muted-foreground">contactar ventas</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Más de 2,000 estudiantes</p>
               </div>
               
@@ -271,9 +277,11 @@ const Instituciones = () => {
                 </li>
               </ul>
 
-              <Button variant="outline" className="w-full">
-                Contactar ventas
-              </Button>
+              <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  Solicitar información
+                </Button>
+              </a>
             </Card>
           </div>
         </div>
@@ -290,9 +298,11 @@ const Instituciones = () => {
             Únete a las instituciones educativas que están transformando la 
             empleabilidad de sus egresados
           </p>
-          <Button size="xl" variant="secondary" className="shadow-glow">
-            Agendar presentación
-          </Button>
+          <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
+            <Button size="xl" variant="secondary" className="shadow-glow">
+              Agendar presentación
+            </Button>
+          </a>
         </div>
       </section>
 
