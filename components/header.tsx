@@ -91,7 +91,7 @@ const Header = () => {
                   </Button>
                 </Link>
 
-                <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                {/* <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                   <Link href="/login">
                     <Button
                       variant="ghost"
@@ -119,7 +119,7 @@ const Header = () => {
                       Para Institución
                     </Button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -133,7 +133,7 @@ const Header = () => {
                   </Button>
                 </Link>
 
-                <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                {/* <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                   <Link href="/register?role=talento">
                     <Button
                       variant="ghost"
@@ -161,7 +161,7 @@ const Header = () => {
                       Regístrate como Institución
                     </Button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -271,7 +271,7 @@ const Header = () => {
                     />
                   </Button>
                 </div>
-                {mobileLoginOpen && (
+                {/* {mobileLoginOpen && (
                   <div className="mt-2 space-y-1">
                     <Link
                       href="/login?role=talento"
@@ -310,7 +310,7 @@ const Header = () => {
                       </Button>
                     </Link>
                   </div>
-                )}
+                )} */}
               </div>
 
               <div>
@@ -335,7 +335,7 @@ const Header = () => {
                     />
                   </Button>
                 </div>
-                {mobileRegisterOpen && (
+                {/* {mobileRegisterOpen && (
                   <div className="mt-2 space-y-1">
                     <Link
                       href="/register?role=talento"
@@ -374,7 +374,7 @@ const Header = () => {
                       </Button>
                     </Link>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>
