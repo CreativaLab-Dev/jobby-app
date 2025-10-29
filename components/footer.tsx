@@ -87,18 +87,18 @@ const Footer = () => {
             <div className="text-center md:text-left">© 2025 Jobby - Todos los derechos reservados.</div>
 
             <div className="flex flex-col md:flex-row items-center gap-3">
-              <a
-                href="/terminos-y-condiciones" target="_blank" rel="noopener noreferrer"
+              <Link
+                href="/terminos-y-condiciones"
                 className="underline hover:text-primary transition-colors text-center md:text-left"
               >
                 Términos y condiciones
-              </a>
-              <a
-                href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer"
+              </Link>
+              <Link
+                href="/politica-de-privacidad"
                 className="underline hover:text-primary transition-colors text-center md:text-left"
               >
                 Política de privacidad y Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>
