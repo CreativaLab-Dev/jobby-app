@@ -8,8 +8,6 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  console.log('PublicLayout session:', session);
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header authenticated={session?.success} />

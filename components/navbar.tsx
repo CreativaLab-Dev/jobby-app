@@ -75,7 +75,9 @@ export function Navbar({ userLimit, user, hasSubscription }: NavbarProps) {
       const response = await createPreference();
       if (response.success && response.redirect) {
         window.location.href = response.redirect;
+        return;
       }
+      console.error("MercadoPago Preference Creation Response:", response);
     })
   }
 
