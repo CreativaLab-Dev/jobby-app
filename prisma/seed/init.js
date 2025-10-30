@@ -10,7 +10,7 @@ async function main() {
       slug: "premium",
       name: "Premium Plan",
       description: "Access to all premium features",
-      priceCents: 4.90,
+      priceCents: 9.90,
       currency: "SOLES",
       features: {
         caracteristics: [

@@ -127,7 +127,7 @@ model SubscriptionPlan {
   slug          String   @unique // e.g. "free", "pro", "enterprise"
   name          String
   description   String?
-  priceCents    Int // price in cents (0 = free)
+  priceCents    Decimal  @default(0) @db.Decimal(10, 2) // price in cents
   currency      String   @default("USD")
   features      Json? // JSON list of features/pricing tiers
   createdAt     DateTime @default(now())
