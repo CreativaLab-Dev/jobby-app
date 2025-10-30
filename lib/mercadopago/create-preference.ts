@@ -51,9 +51,10 @@ export const createPreference = async () => {
         items: [
           {
             id: basicSubscriptionPlan.id,
-            unit_price: basicSubscriptionPlan.priceCents || 0,
+            unit_price: 9.90,
             quantity: 1,
             title: basicSubscriptionPlan.name || 'sin-titulo',
+            currency_id: 'PEN',
           },
         ],
         metadata: {

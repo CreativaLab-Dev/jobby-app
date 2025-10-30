@@ -33,7 +33,7 @@ export const cvTypes = [
 ]
 
 export const opportunityTypes = [
-  { key: OpportunityType.INTERNSHIP, value: "Pasantía" },
+  { key: OpportunityType.INTERNSHIP, value: "Prácticas" },
   { key: OpportunityType.SCHOLARSHIP, value: "Beca" },
   { key: OpportunityType.EXCHANGE_PROGRAM, value: "Programa de Intercambio" },
   // { key: OpportunityType.RESEARCH_FELLOWSHIP, value: "Investigación o Fellowship" },

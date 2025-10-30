@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Card} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Loader2, Mail, Lock } from "lucide-react";
-import {useRouter} from "next/navigation";
-import {authClient} from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 import Header from "@/components/header";
 import Link from "next/link";
 
@@ -52,8 +52,6 @@ export function LoginForm() {
 
     return (
         <div className="min-h-screen">
-            <Header />
-
             <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-md">
                     <div className="text-center mb-8 px-8">
@@ -156,9 +154,9 @@ export function LoginForm() {
                                         <span className="w-full border-t border-border" />
                                     </div>
                                     <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">
-                    O continúa con
-                  </span>
+                                        <span className="bg-card px-2 text-muted-foreground">
+                                            O continúa con
+                                        </span>
                                     </div>
                                 </div>
 

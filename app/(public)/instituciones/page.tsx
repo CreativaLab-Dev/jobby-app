@@ -7,7 +7,6 @@ import { GraduationCap, BarChart3, Shield, CheckCircle2, BookOpen } from "lucide
 const Instituciones = () => {
   return (
     <div className="min-h-screen">
-      <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -18,7 +17,7 @@ const Instituciones = () => {
                 🎓 Para Instituciones
               </span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
               Potencia la{" "}
               <span className="text-gradient">empleabilidad</span>
@@ -26,7 +25,7 @@ const Instituciones = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ofrece a tus estudiantes acceso a herramientas de IA para crear CVs 
+              Ofrece a tus estudiantes acceso a herramientas de IA para crear CVs
               profesionales y métricas de empleabilidad para tu institución.
             </p>
 
@@ -58,7 +57,7 @@ const Instituciones = () => {
               <GraduationCap className="h-12 w-12 text-primary mb-6" />
               <h3 className="text-xl font-bold mb-3">Licencias estudiantiles</h3>
               <p className="text-muted-foreground">
-                Proporciona acceso premium a todos tus estudiantes para crear CVs 
+                Proporciona acceso premium a todos tus estudiantes para crear CVs
                 profesionales optimizados con IA.
               </p>
             </Card>
@@ -67,7 +66,7 @@ const Instituciones = () => {
               <BarChart3 className="h-12 w-12 text-secondary mb-6" />
               <h3 className="text-xl font-bold mb-3">Reportes de empleabilidad</h3>
               <p className="text-muted-foreground">
-                Accede a métricas y reportes sobre la empleabilidad de tus egresados 
+                Accede a métricas y reportes sobre la empleabilidad de tus egresados
                 y estudiantes activos.
               </p>
             </Card>
@@ -76,7 +75,7 @@ const Instituciones = () => {
               <BookOpen className="h-12 w-12 text-accent mb-6" />
               <h3 className="text-xl font-bold mb-3">Formación incluida</h3>
               <p className="text-muted-foreground">
-                Capacitación para docentes y talleres para estudiantes sobre cómo 
+                Capacitación para docentes y talleres para estudiantes sobre cómo
                 aprovechar al máximo la plataforma.
               </p>
             </Card>
@@ -93,7 +92,7 @@ const Instituciones = () => {
                 Dashboard <span className="text-gradient">institucional</span>
               </h2>
               <p className="text-lg text-muted-foreground">
-                Monitorea en tiempo real el progreso de tus estudiantes y obtén 
+                Monitorea en tiempo real el progreso de tus estudiantes y obtén
                 insights valiosos sobre su preparación laboral.
               </p>
               <ul className="space-y-4">
@@ -173,7 +172,7 @@ const Instituciones = () => {
                 <p className="text-muted-foreground">por mes</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Hasta 500 estudiantes</p>
               </div>
-              
+
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -207,14 +206,14 @@ const Instituciones = () => {
                   POPULAR
                 </span>
               </div>
-              
+
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Medium</h3>
                 {/* <div className="text-4xl font-bold text-primary mb-2">$999</div>
                 <p className="text-muted-foreground">por mes</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Hasta 2,000 estudiantes</p>
               </div>
-              
+
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -253,7 +252,7 @@ const Instituciones = () => {
                 <p className="text-muted-foreground">contactar ventas</p> */}
                 <p className="text-sm text-muted-foreground mt-2">Más de 2,000 estudiantes</p>
               </div>
-              
+
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -295,7 +294,7 @@ const Instituciones = () => {
             Invierte en el futuro de <span className="text-gradient">tus estudiantes</span>
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Únete a las instituciones educativas que están transformando la 
+            Únete a las instituciones educativas que están transformando la
             empleabilidad de sus egresados
           </p>
           <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
@@ -305,8 +304,6 @@ const Instituciones = () => {
           </a>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
