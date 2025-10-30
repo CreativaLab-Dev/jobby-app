@@ -7,7 +7,6 @@ import { Users, Target, TrendingUp, Award, CheckCircle2, Zap } from "lucide-reac
 const Empresas = () => {
   return (
     <div className="min-h-screen">
-      <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -18,7 +17,7 @@ const Empresas = () => {
                 🚀 Para Empresas
               </span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
               Encuentra el{" "}
               <span className="text-gradient">talento creativo</span>
@@ -26,7 +25,7 @@ const Empresas = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Accede a una base de datos de jóvenes profesionales creativos con 
+              Accede a una base de datos de jóvenes profesionales creativos con
               CVs optimizados por IA. Conecta con el talento del futuro.
             </p>
 
@@ -60,7 +59,7 @@ const Empresas = () => {
               <Users className="h-12 w-12 text-primary mb-6" />
               <h3 className="text-xl font-bold mb-3">Base de talentos</h3>
               <p className="text-muted-foreground">
-                Accede a miles de perfiles de jóvenes profesionales en diseño, 
+                Accede a miles de perfiles de jóvenes profesionales en diseño,
                 marketing, desarrollo y más áreas creativas.
               </p>
             </Card>
@@ -69,7 +68,7 @@ const Empresas = () => {
               <Target className="h-12 w-12 text-secondary mb-6" />
               <h3 className="text-xl font-bold mb-3">CVs optimizados con IA</h3>
               <p className="text-muted-foreground">
-                Todos los CVs están optimizados y compatibles con ATS, facilitando 
+                Todos los CVs están optimizados y compatibles con ATS, facilitando
                 tu proceso de selección.
               </p>
             </Card>
@@ -78,7 +77,7 @@ const Empresas = () => {
               <TrendingUp className="h-12 w-12 text-accent mb-6" />
               <h3 className="text-xl font-bold mb-3">Patrocinio de CVs</h3>
               <p className="text-muted-foreground">
-                Patrocina CVs de candidatos que coincidan con tu perfil ideal y 
+                Patrocina CVs de candidatos que coincidan con tu perfil ideal y
                 destaca tus oportunidades.
               </p>
             </Card>
@@ -134,7 +133,7 @@ const Empresas = () => {
                 {/* <div className="text-4xl font-bold text-primary mb-2">Custom</div> */}
                 <p className="text-muted-foreground">contactar ventas</p>
               </div>
-              
+
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -160,8 +159,8 @@ const Empresas = () => {
 
               <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="w-full">
-                Contactar
-              </Button>
+                  Contactar
+                </Button>
               </a>
             </Card>
 
@@ -172,13 +171,13 @@ const Empresas = () => {
                   POPULAR
                 </span>
               </div>
-              
+
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Professional</h3>
-              {/* <div className="text-4xl font-bold text-primary mb-2">$299</div> */}
+                {/* <div className="text-4xl font-bold text-primary mb-2">$299</div> */}
                 <p className="text-muted-foreground">por mes</p>
               </div>
-              
+
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -204,9 +203,9 @@ const Empresas = () => {
 
               <a href="https://calendly.com/mariluzdara/asesoria" target="_blank" rel="noopener noreferrer">
                 <Button className="w-full shadow-glow">
-                Comenzar
-                <Zap className="ml-2 h-4 w-4" />
-              </Button>
+                  Comenzar
+                  <Zap className="ml-2 h-4 w-4" />
+                </Button>
               </a>
             </Card>
           </div>
@@ -230,8 +229,6 @@ const Empresas = () => {
           </a>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

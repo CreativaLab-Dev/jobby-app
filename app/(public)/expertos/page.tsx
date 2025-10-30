@@ -64,7 +64,6 @@ const expertos = [
 const Expertos = () => {
   return (
     <div className="min-h-screen">
-      <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -75,7 +74,7 @@ const Expertos = () => {
                 💡 Expertos
               </span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
               Conecta con{" "}
               <span className="text-gradient">expertos</span>
@@ -83,7 +82,7 @@ const Expertos = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Agenda sesiones personalizadas con profesionales que han recorrido el 
+              Agenda sesiones personalizadas con profesionales que han recorrido el
               camino que tú estás comenzando. Recibe mentoría, feedback y consejos prácticos.
             </p>
           </div>
@@ -204,7 +203,7 @@ const Expertos = () => {
             ¿Quieres ser <span className="text-gradient">experto</span>?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Si eres un profesional con experiencia y quieres ayudar a la próxima 
+            Si eres un profesional con experiencia y quieres ayudar a la próxima
             generación de creativos, únete a nuestro programa de expertos.
           </p>
           <Button size="xl" variant="secondary" className="shadow-glow">
@@ -212,8 +211,6 @@ const Expertos = () => {
           </Button>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

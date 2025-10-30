@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Star } from "lucide-react";
+import { ChevronDown, HomeIcon, Star, User } from "lucide-react";
 import { useState } from "react";
 
-const Header = () => {
+interface HeaderProps {
+  authenticated: boolean
+}
+
+const Header = ({ authenticated }: HeaderProps) => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileLoginOpen, setMobileLoginOpen] = useState(false);
@@ -53,19 +57,17 @@ const Header = () => {
             </Link>
             <Link
               href="/empresas"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive("/empresas") ? "text-primary" : "text-foreground/80"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${isActive("/empresas") ? "text-primary" : "text-foreground/80"
+                }`}
             >
               Para empresas
             </Link>
             <Link
               href="/instituciones"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive("/instituciones")
-                  ? "text-primary"
-                  : "text-foreground/80"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${isActive("/instituciones")
+                ? "text-primary"
+                : "text-foreground/80"
+                }`}
             >
               Para instituciones
             </Link>
@@ -84,12 +86,22 @@ const Header = () => {
             {/* Login - dropdown on hover */}
             <div className="relative">
               <div className="group inline-block">
-                <Link href="/login">
-                  <Button variant="ghost" size="sm">
-                    Iniciar sesión{" "}
-                    <ChevronDown className="ml-2 h-4 w-4 inline-block" />
-                  </Button>
-                </Link>
+                {
+                  authenticated ? (
+                    <Link href="/cv">
+                      <Button variant="outline" size="md" className="cursor-pointer">
+                        <User className="mr-2 h-4 w-4 inline-block" />
+                        Ver mis CV's
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/login">
+                      <Button variant="ghost" size="sm">
+                        Iniciar sesión{" "}
+                        <ChevronDown className="ml-2 h-4 w-4 inline-block" />
+                      </Button>
+                    </Link>
+                  )}
 
                 {/* <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                   <Link href="/login">
@@ -124,16 +136,18 @@ const Header = () => {
             </div>
 
             {/* Register - dropdown on hover */}
-            {/* <div className="relative">
-              <div className="group inline-block">
-                <Link href="/register">
-                  <Button size="sm">
-                    Regístrate{" "}
-                    <ChevronDown className="ml-2 h-4 w-4 inline-block" />
-                  </Button>
-                </Link>
+            {
+              !authenticated && (
+                <div className="relative">
+                  <div className="group inline-block">
+                    <Link href="/register">
+                      <Button size="sm">
+                        Regístrate{" "}
+                        <ChevronDown className="ml-2 h-4 w-4 inline-block" />
+                      </Button>
+                    </Link>
 
-                <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                    {/* <div className="absolute left-0 top-full mt-2 w-56 bg-background border border-border rounded-lg shadow-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                   <Link href="/register?role=talento">
                     <Button
                       variant="ghost"
@@ -161,9 +175,11 @@ const Header = () => {
                       Regístrate como Institución
                     </Button>
                   </Link>
+                </div> */}
+                  </div>
                 </div>
-              </div>
-            </div> */}
+              )
+            }
           </div>
 
           {/* PRO Button (visible solo en móvil) */}
@@ -194,27 +210,24 @@ const Header = () => {
             >
               {/* Linea superior */}
               <span
-                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
-                  mobileMenuOpen
-                    ? "rotate-45 translate-y-1.5"
-                    : "-translate-y-1.5"
-                }`}
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${mobileMenuOpen
+                  ? "rotate-45 translate-y-1.5"
+                  : "-translate-y-1.5"
+                  }`}
               ></span>
 
               {/* Linea del medio */}
               <span
-                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
-                  mobileMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${mobileMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
               ></span>
 
               {/* Linea inferior */}
               <span
-                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${
-                  mobileMenuOpen
-                    ? "-rotate-45 -translate-y-1.5"
-                    : "translate-y-1.5"
-                }`}
+                className={`block w-6 h-0.5 bg-foreground rounded-sm transition-all duration-300 ease-in-out ${mobileMenuOpen
+                  ? "-rotate-45 -translate-y-1.5"
+                  : "translate-y-1.5"
+                  }`}
               ></span>
             </button>
           </div>
@@ -258,18 +271,32 @@ const Header = () => {
                     }
                   }}
                 >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-between"
-                  >
-                    Iniciar sesión
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${
-                        mobileLoginOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </Button>
+                  {
+                    !authenticated ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-between"
+                      >
+                        Iniciar sesión
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${mobileLoginOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-between"
+                      >
+                        Iniciar sesión
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${mobileLoginOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                      </Button>
+                    )}
                 </div>
                 {/* {mobileLoginOpen && (
                   <div className="mt-2 space-y-1">
@@ -329,9 +356,8 @@ const Header = () => {
                   <Button size="sm" className="w-full justify-between">
                     Regístrate
                     <ChevronDown
-                      className={`h-4 w-4 transition-transform ${
-                        mobileRegisterOpen ? "rotate-180" : ""
-                      }`}
+                      className={`h-4 w-4 transition-transform ${mobileRegisterOpen ? "rotate-180" : ""
+                        }`}
                     />
                   </Button>
                 </div>
