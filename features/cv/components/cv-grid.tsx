@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { Cv } from "@prisma/client"
 import { CVCard } from "./cv-card"
 import { CvWithRelations } from "../actions/get-cv-for-current-user"
 

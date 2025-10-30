@@ -16,14 +16,8 @@ export default async function EditCVPage({ params }: EditCVPageProps) {
     return redirect('/cv')
   }
   const cv = await getCvById(cvId);
-  console.log("cv", cv);
   if (!cv) {
-    return <div>No CV data found</div>;
-  }
-
-  const opportunityType = cv.opportunityType
-  if (!opportunityType) {
-    return <div>No opportunity type selected</div>;
+    return redirect('/404');
   }
 
   const cvData: CVData = transformCVToDTO(cv);
@@ -31,7 +25,7 @@ export default async function EditCVPage({ params }: EditCVPageProps) {
     <CreateCVPage
       cv={cvData}
       id={cv.id}
-      opportunity={opportunityType}
+      opportunityType={cv.opportunityType}
     />
   )
 }

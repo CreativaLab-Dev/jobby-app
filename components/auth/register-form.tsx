@@ -86,8 +86,6 @@ export function RegisterForm() {
 
     return (
         <div className="min-h-screen">
-            <Header />
-
             <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
                 <div className="container mx-auto max-w-md">
                     <div className="text-center mb-8">

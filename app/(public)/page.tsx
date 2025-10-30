@@ -18,8 +18,6 @@ import {
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
-
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
@@ -29,15 +27,15 @@ const Index = () => {
                 ✨ Powered by CreativaLab
               </span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
               Transforma tu talento en un{" "}
               <span className="text-gradient">CV inteligente</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Optimiza tu perfil, recibe recomendaciones personalizadas y conecta con 
-              oportunidades locales, nacionales e internacionales desde prácticas, 
+              Optimiza tu perfil, recibe recomendaciones personalizadas y conecta con
+              oportunidades locales, nacionales e internacionales desde prácticas,
               internships y becas alrededor del mundo.
             </p>
 
@@ -89,7 +87,7 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Compatible con ATS</h3>
               <p className="text-muted-foreground">
-                Diseñado para superar sistemas de seguimiento de candidatos y 
+                Diseñado para superar sistemas de seguimiento de candidatos y
                 llegar directamente a reclutadores.
               </p>
             </Card>
@@ -100,7 +98,7 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Optimizado con IA</h3>
               <p className="text-muted-foreground">
-                Nuestra IA analiza tu perfil y sugiere mejoras basadas en 
+                Nuestra IA analiza tu perfil y sugiere mejoras basadas en
                 tendencias del mercado laboral.
               </p>
             </Card>
@@ -111,7 +109,7 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Enfocado en creativos</h3>
               <p className="text-muted-foreground">
-                Especializado en perfiles creativos y juniors: diseño, marketing, 
+                Especializado en perfiles creativos y juniors: diseño, marketing,
                 desarrollo, contenido y más.
               </p>
             </Card>
@@ -215,8 +213,8 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"> */}
-            {/* Plan Gratis */}
-            {/* <Card className="p-8 bg-card shadow-card hover:shadow-lg transition-all">
+      {/* Plan Gratis */}
+      {/* <Card className="p-8 bg-card shadow-card hover:shadow-lg transition-all">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-2">Gratis</h3>
                 <div className="text-4xl font-bold mb-2">S/0</div>
@@ -253,8 +251,8 @@ const Index = () => {
               </Link>
             </Card> */}
 
-            {/* Plan Pro */}
-            {/* <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative overflow-hidden">
+      {/* Plan Pro */}
+      {/* <Card className="p-8 bg-linear-to-br from-secondary/20 to-primary/20 shadow-glow border-2 border-primary/50 relative overflow-hidden">
               <div className="absolute top-4 right-4">
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-xs font-bold">
                   POPULAR
@@ -316,7 +314,7 @@ const Index = () => {
               Tu talento merece ser visible.{" "}
               <span className="text-gradient">Empieza hoy.</span>
             </h2>
-            
+
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Únete a estudiantes y jóvenes profesionales que ya están transformando sus oportunidades laborales y perfil profesional.
             </p>
@@ -324,7 +322,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Link href="/register">
                 <Button size="lg" className="w-full sm:w-auto shadow-glow">
-                  Crear mi CV 
+                  Crear mi CV
                   <Sparkles className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -332,7 +330,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };

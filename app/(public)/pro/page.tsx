@@ -20,8 +20,6 @@ import AutoPlayVideo from "@/components/AutoPlayVideo";
 const Pro = () => {
   return (
     <div className="min-h-screen">
-      <Header />
-
       {/* Sección principal */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background gradient effect */}
@@ -203,9 +201,9 @@ const Pro = () => {
             </p>
           </div> */}
 
-          {/* <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"> */}
-            {/* Plan Gratis */}
-            {/* <Card className="p-8 bg-card shadow-lg hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group">
+      {/* <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"> */}
+      {/* Plan Gratis */}
+      {/* <Card className="p-8 bg-card shadow-lg hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-3">Gratis</h3>
                 <div className="flex items-baseline justify-center gap-1 mb-2">
@@ -250,10 +248,10 @@ const Pro = () => {
               </Link>
             </Card> */}
 
-            {/* Plan Pro */}
-            {/* <Card className="p-8 bg-gradient-to-br from-secondary/20 via-primary/10 to-primary/20 shadow-2xl border-2 border-primary/60 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300 group"> */}
-              {/* Animated background */}
-              {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+      {/* Plan Pro */}
+      {/* <Card className="p-8 bg-gradient-to-br from-secondary/20 via-primary/10 to-primary/20 shadow-2xl border-2 border-primary/60 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300 group"> */}
+      {/* Animated background */}
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
               <div className="absolute top-4 right-4 z-10">
                 <span className="px-3 py-1.5 bg-primary text-primary-foreground rounded-full text-xs font-bold shadow-lg animate-pulse">
@@ -478,8 +476,6 @@ const Pro = () => {
           <FAQsSection />
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

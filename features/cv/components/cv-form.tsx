@@ -23,24 +23,24 @@ interface CVFormProps {
   onFormDataChange: (data: CVFormData) => void
 }
 
-const cvTypes = [
-  CvType.TECHNOLOGY,
-  CvType.DESIGN,
-  CvType.MARKETING,
-  CvType.SALES,
-  CvType.SOCIAL_MEDIA,
-  CvType.FINANCE,
+export const cvTypes = [
+  { key: CvType.TECHNOLOGY, value: "Tecnología e Ingeniería" },
+  { key: CvType.DESIGN, value: "Diseño y Creatividad" },
+  { key: CvType.MARKETING, value: "Marketing y Comunicación" },
+  { key: CvType.SALES, value: "Ventas y Negocios" },
+  { key: CvType.SOCIAL_MEDIA, value: "Redes Sociales y Medios Digitales" },
+  { key: CvType.FINANCE, value: "Finanzas y Administración" },
 ]
 
-export const opportunityTypes: OpportunityType[] = [
-  OpportunityType.INTERNSHIP,
-  OpportunityType.SCHOLARSHIP,
-  OpportunityType.EXCHANGE_PROGRAM,
-  OpportunityType.RESEARCH_FELLOWSHIP,
-  OpportunityType.GRADUATE_PROGRAM,
-  OpportunityType.FREELANCE,
-  OpportunityType.FULL_TIME,
-  OpportunityType.PART_TIME,
+export const opportunityTypes = [
+  { key: OpportunityType.INTERNSHIP, value: "Prácticas" },
+  { key: OpportunityType.SCHOLARSHIP, value: "Beca" },
+  { key: OpportunityType.EXCHANGE_PROGRAM, value: "Programa de Intercambio" },
+  // { key: OpportunityType.RESEARCH_FELLOWSHIP, value: "Investigación o Fellowship" },
+  // { key: OpportunityType.GRADUATE_PROGRAM, value: "Programa de Posgrado" },
+  // { key: OpportunityType.FREELANCE, value: "Freelance / Independiente" },
+  // { key: OpportunityType.FULL_TIME, value: "Trabajo a Tiempo Completo" },
+  // { key: OpportunityType.PART_TIME, value: "Trabajo a Medio Tiempo" },
 ]
 
 
@@ -70,17 +70,19 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
         </Label>
         <Select
           value={formData.opportunityType}
-          onValueChange={(value) =>
-            updateFormData({ opportunityType: value as OpportunityType })
-          }
+          onValueChange={(value) => updateFormData({ opportunityType: value as OpportunityType })}
         >
           <SelectTrigger className="bg-white text-black w-full border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
             <SelectValue placeholder="Selecciona el tipo de oportunidad" />
           </SelectTrigger>
           <SelectContent className="bg-white text-black border-gray-200">
-            {opportunityTypes.map((type) => (
-              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type} value={type}>
-                {type}
+            {opportunityTypes.map((item) => (
+              <SelectItem
+                className="focus:bg-gray-100 focus:text-black"
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
               </SelectItem>
             ))}
           </SelectContent>
@@ -93,19 +95,19 @@ export function CVForm({ formData, onFormDataChange }: CVFormProps) {
         </Label>
         <Select
           value={formData.cvType}
-          onValueChange={(value) =>
-            updateFormData({
-              cvType: value as CvType
-            })
-          }
+          onValueChange={(value) => updateFormData({ cvType: value as CvType })}
         >
           <SelectTrigger className="bg-white text-black w-full border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
             <SelectValue placeholder="Selecciona el tipo de CV" />
           </SelectTrigger>
           <SelectContent className="bg-white text-black border-gray-200">
-            {cvTypes.map((type) => (
-              <SelectItem className="focus:bg-gray-100 focus:text-black" key={type} value={type}>
-                {type}
+            {cvTypes.map((item) => (
+              <SelectItem
+                className="focus:bg-gray-100 focus:text-black"
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
               </SelectItem>
             ))}
           </SelectContent>

@@ -75,6 +75,6 @@ export interface CVData {
     technical?: string[]
     soft?: string[]
     languages?: string[]
-    
+
   }
 }

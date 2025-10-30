@@ -1,7 +1,8 @@
 import { User, Briefcase, GraduationCap, Award, Code, Languages } from "lucide-react"
 import type { CVSection } from "@/types/cv"
+import { OpportunityType } from "@prisma/client"
 
-export function getSections(opportunityType: string): CVSection[] {
+export function getSections(opportunityType: OpportunityType): CVSection[] {
   const baseSections: CVSection[] = [
     {
       id: "personal",
@@ -60,12 +61,12 @@ export function getSections(opportunityType: string): CVSection[] {
       ],
     },
   ]
-  
-  if (opportunityType === "becas" || opportunityType === "practicas" || opportunityType === "intercambios") {
+
+  if (opportunityType === "INTERNSHIP" || opportunityType === "SCHOLARSHIP" || opportunityType === "EXCHANGE_PROGRAM") {
     baseSections.push(
       {
         id: "projects",
-        title: "Proyectos Académicos",
+        title: "Proyectos y Voluntariados",
         icon: Code,
         multiple: true,
         fields: [
@@ -104,9 +105,6 @@ export function getSections(opportunityType: string): CVSection[] {
           },
         ],
       },
-    )
-  } else {
-    baseSections.push(
       {
         id: "experience",
         title: "Experiencia Profesional",
@@ -158,74 +156,74 @@ export function getSections(opportunityType: string): CVSection[] {
       },
     )
   }
-  
+
   baseSections.push({
     id: "education",
     title: "Educación",
     icon: GraduationCap,
     multiple: true,
     fields: [
-        {
-          name: "level",
-          label: "Nivel Educativo",
-          type: "select",
-          required: true,
-          options: [
-            "SECUNDARIA",
-            "BACHILLER",
-            "TECNICO",
-            "LICENCIADO",
-            "MAESTRIA",
-            "DOCTORADO",
-            "OTRO",
-          ],
-          tip: "Selecciona el nivel más alto que estés cursando o hayas completado",
-        },
-        {
-          name: "title",
-          label: "Título/Carrera/Especialidad",
-          type: "text",
-          required: true,
-          tip: "Usa el nombre oficial completo de tu carrera o programa",
-          example: "Ingeniería Informática y de Sistemas",
-        },
-        {
-          name: "institution",
-          label: "Institución",
-          type: "text",
-          required: true,
-          tip: "Nombre completo de la institución educativa",
-          example: "Universidad Nacional de San Antonio Abad del Cusco",
-        },
-        {
-          name: "location",
-          label: "Ubicación",
-          type: "text",
-          required: true,
-          tip: "Ciudad y país donde se encuentra la institución",
-          example: "Cusco, Perú",
-        },
-        {
-          name: "year",
-          label: "Año de Graduación/Finalización",
-          type: "text",
-          required: true,
-          tip: "Si estás estudiando, usa 'Esperado Mes 2025' o el año y mes que planeas graduarte",
-          example: "Jul 2024",
-        },
-        {
-          name: "honors",
-          label: "Honores (opcional)",
-          type: "text",
-          required: false,
-          tip: "Incluye menciones como 'Tercio Superior', 'Magna Cum Laude', concursos, becas, etc.",
-          example: "Tercio Superior de la promoción",
-        },
-      ],
-    },
+      {
+        name: "level",
+        label: "Nivel Educativo",
+        type: "select",
+        required: true,
+        options: [
+          "SECUNDARIA",
+          "BACHILLER",
+          "TECNICO",
+          "LICENCIADO",
+          "MAESTRIA",
+          "DOCTORADO",
+          "OTRO",
+        ],
+        tip: "Selecciona el nivel más alto que estés cursando o hayas completado",
+      },
+      {
+        name: "title",
+        label: "Título/Carrera/Especialidad",
+        type: "text",
+        required: true,
+        tip: "Usa el nombre oficial completo de tu carrera o programa",
+        example: "Ingeniería Informática y de Sistemas",
+      },
+      {
+        name: "institution",
+        label: "Institución",
+        type: "text",
+        required: true,
+        tip: "Nombre completo de la institución educativa",
+        example: "Universidad Nacional de San Antonio Abad del Cusco",
+      },
+      {
+        name: "location",
+        label: "Ubicación",
+        type: "text",
+        required: true,
+        tip: "Ciudad y país donde se encuentra la institución",
+        example: "Cusco, Perú",
+      },
+      {
+        name: "year",
+        label: "Año de Graduación/Finalización",
+        type: "text",
+        required: true,
+        tip: "Si estás estudiando, usa 'Esperado Mes 2025' o el año y mes que planeas graduarte",
+        example: "Jul 2024",
+      },
+      {
+        name: "honors",
+        label: "Honores (opcional)",
+        type: "text",
+        required: false,
+        tip: "Incluye menciones como 'Tercio Superior', 'Magna Cum Laude', concursos, becas, etc.",
+        example: "Tercio Superior de la promoción",
+      },
+    ],
+  },
   )
-  
-  if (opportunityType === "becas" || opportunityType === "practicas" || opportunityType === "intercambios") {
+
+  if (opportunityType === "INTERNSHIP" || opportunityType === "SCHOLARSHIP" || opportunityType === "EXCHANGE_PROGRAM") {
     baseSections.push({
       id: "achievements",
       title: "Logros y Reconocimientos",
@@ -293,7 +291,7 @@ export function getSections(opportunityType: string): CVSection[] {
       ],
     })
   }
-  
+
   baseSections.push({
     id: "skills",
     title: "Habilidades",
@@ -325,6 +323,6 @@ export function getSections(opportunityType: string): CVSection[] {
       },
     ],
   })
-  
+
   return baseSections
 }
