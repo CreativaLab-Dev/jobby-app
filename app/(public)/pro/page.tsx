@@ -233,7 +233,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-muted-foreground/60 shrink-0" />
                   </div>
                   <span>
-                    Asesorías tradicionales: S/200 - S/300 por una sola revisión
+                    Asesorías tradicionales: S/200 - S/300 por una sola revisión.
                     de CV.
                   </span>
                 </li>
@@ -242,7 +242,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-muted-foreground/60 shrink-0" />
                   </div>
                   <span>
-                    Suscripciones mensuales en plataformas
+                    Suscripciones mensuales en plataformas.
                   </span>
                 </li>
                 <li className="flex items-start gap-3 text-muted-foreground">
@@ -296,7 +296,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
+                    <span className="text-foreground">
                       Hasta 5 CV optimizados con IA en segundos.
                     </span>
                   </span>
@@ -306,7 +306,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
+                    <span className="text-foreground">
                       Recomendaciones de oportunidades ajustadas a tu perfil según tus habilidades.
                     </span>
                   </span>
@@ -316,7 +316,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
+                    <span className="text-foreground">
                       Accesible para cualquier estudiante o recién egresado.
                     </span>
                   </span>
@@ -326,8 +326,8 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
-                      Score de match
+                    <span className="text-foreground">
+                      Score de match.
                     </span>
                   </span>
                 </li>
@@ -336,7 +336,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
+                    <span className="text-foreground">
                       Habilidades a reforzar con micro-cursos sugeridos.
                     </span>
                   </span>
@@ -346,7 +346,7 @@ const Pro = () => {
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   </div>
                   <span className="text-base">
-                    <span className="font-bold text-foreground">
+                    <span className="text-foreground">
                       Exportación: PDF y Word.
                     </span>
                   </span>
